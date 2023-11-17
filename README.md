@@ -23,6 +23,12 @@ $ cd ReleaseButler
 $ make install
 ```
 
+---
+
+The releasebutler here doesn't have any compilation options turned on, not even O2, so it's best to compile it yourself locally
+
+---
+
 ## Usage
 
 ### Installation:
