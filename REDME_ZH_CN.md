@@ -23,6 +23,12 @@ $ cd ReleaseButler
 $ make install
 ```
 
+---
+
+这里的releasebutler没有开启任何编译选项，甚至O2也没开，所以最好还是自己本地编译一下
+
+---
+
 ## 使用方法
 
 ### 安装软件:
