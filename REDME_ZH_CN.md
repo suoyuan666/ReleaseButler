@@ -12,8 +12,8 @@ ReleaseButler旨在简化Linux系统上的Github上的软件安装过程🤗。 
 ## 安装
 
 ```bash
-$ git clone https://github.com/your-usernameautoinstaller.git
-$ cd autoinstaller
+$ git clone https://github.com/suoyuan666/ReleaseButler.git
+$ cd ReleaseButler
 $ make install
 ```
 
@@ -54,8 +54,8 @@ note: ReleaseButler现在还不支持指定软件包的单独更新。🙃
 
 ```bash
 $ sudo apt install libcurl4-openssl-dev
-$ git clone https://github.com/your-usernameautoinstaller.git
-$ cd autoinstaller
+$ git clone https://github.com/suoyuan666/ReleaseButler.git
+$ cd ReleaseButler
 $ make relesebutler
 ```
 

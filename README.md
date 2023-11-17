@@ -16,8 +16,8 @@ ReleaseButler is a powerful and flexible tool designed to simplify the software 
 ## Getting Started
 
 ```bash
-$ git clone https://github.com/your-usernameautoinstaller.git
-$ cd autoinstaller
+$ git clone https://github.com/suoyuan666/ReleaseButler.git
+$ cd ReleaseButler
 $ make install
 ```
 
@@ -58,8 +58,8 @@ If you are in Debian:
 
 ```bash
 $ sudo apt install libcurl4-openssl-dev
-$ git clone https://github.com/your-usernameautoinstaller.git
-$ cd autoinstaller
+$ git clone https://github.com/suoyuan666/ReleaseButler.git
+$ cd ReleaseButler
 $ make relesebutler
 ```
 
