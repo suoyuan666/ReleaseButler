@@ -4,7 +4,9 @@
 ReleaseButler is a powerful and flexible tool designed to simplify the software where in GitHub installation process on Linux systems🤗. It intelligently detects the underlying Linux distribution, fetches the appropriate software package from the designated GitHub project homepage, and facilitates seamless installations and updates.
 
 ---
+
 ⚠️: You must have the **sudo** instead of **open-doas** or others, or you can modify the source code yourself so that it no longer depends on sudo😀.
+
 ---
 
 ## Feature:
