@@ -26,7 +26,7 @@ $ make install
 ### Installation:
 
 ```bash
-$ relesebutler --install <package> --form <url>
+$ relesebutler --install <package> --from <url>
 ```
 
 ### Update

@@ -22,7 +22,7 @@ $ make install
 ### 安装软件:
 
 ```bash
-$ relesebutler --install <package> --form <url>
+$ relesebutler --install <package> --from <url>
 ```
 
 ### 更新
