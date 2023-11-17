@@ -1,7 +1,7 @@
 # ReleaseButler
 [简体中文](./REDME_ZH_CN.md)
 
-ReleaseButler is a powerful and flexible tool designed to simplify the software where in GitHub installation process on Linux systems. It intelligently detects the underlying Linux distribution, fetches the appropriate software package from the designated GitHub project homepage, and facilitates seamless installations and updates.
+ReleaseButler is a powerful and flexible tool designed to simplify the software where in GitHub installation process on Linux systems🤗. It intelligently detects the underlying Linux distribution, fetches the appropriate software package from the designated GitHub project homepage, and facilitates seamless installations and updates.
 
 ---
 ⚠️: You must have the **sudo** instead of **open-doas** or others, or you can modify the source code yourself so that it no longer depends on sudo😀.
@@ -37,7 +37,7 @@ $ relesebutler --update
 
 ---
 
-note: ReleaseButler currently does not support the update of the specified software package.
+note: ReleaseButler currently does not support the update of the specified software package.🙃
 
 ---
 
@@ -48,7 +48,7 @@ note: ReleaseButler currently does not support the update of the specified softw
 
 ---
 
-Some distributions (such as Arch Linux) have their own user software repositories, and I think for the most part they won't need this software. Therefore, ReleaseButler currently only supports Debian and Fedora (I use Debian myself, and Fedora is a support I added conveniently, and I have not tested it myself).
+Some distributions (such as Arch Linux) have their own user software repositories🥲, and I think for the most part they won't need this software. Therefore, ReleaseButler currently only supports Debian and Fedora (I use Debian myself, and Fedora is a support I added conveniently, and I have not tested it myself).
 
 ---
 
@@ -63,4 +63,4 @@ $ cd autoinstaller
 $ make relesebutler
 ```
 
-If it is compiled under other platforms, forgive me for being lazy, and go find the libcurl4-openssl-dev package and sign up for the software corresponding to other versions.
+If it is compiled under other platforms, forgive me for being lazy, and go find the libcurl4-openssl-dev package and sign up for the software corresponding to other versions.😛

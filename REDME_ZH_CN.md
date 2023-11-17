@@ -1,7 +1,7 @@
 # ReleaseButler
 [简体中文](./REDME_ZH_CN.md)
 
-ReleaseButler旨在简化Linux系统上的Github上的软件安装过程。 它可以自动检测底层Linux发行版，从指定的GitHub项目主页获取对应的软件包并安装，同时也支持更新操作。
+ReleaseButler旨在简化Linux系统上的Github上的软件安装过程🤗。 它可以自动检测底层Linux发行版，从指定的GitHub项目主页获取对应的软件包并安装，同时也支持更新操作。
 
 ## Feature:
 
@@ -33,7 +33,7 @@ $ relesebutler --update
 
 ---
 
-note: ReleaseButler现在还不支持指定软件包的单独更新。
+note: ReleaseButler现在还不支持指定软件包的单独更新。🙃
 
 ---
 
@@ -44,7 +44,7 @@ note: ReleaseButler现在还不支持指定软件包的单独更新。
 
 ---
 
-一些发行版（比如Arch Linux）有自己的用户软件仓库，很大程度上不会需要这个软件（我认为）。所以ReleaseButler目前只会支持Debian和Fedora（我自己用的是Debian，Fedora是我顺手加的支持，我自己没有测试过）。
+一些发行版（比如Arch Linux）有自己的用户软件仓库，很大程度上不会需要这个软件（我认为）🥲。所以ReleaseButler目前只会支持Debian和Fedora（我自己用的是Debian，Fedora是我顺手加的支持，我自己没有测试过）。
 
 ---
 
@@ -59,4 +59,4 @@ $ cd autoinstaller
 $ make relesebutler
 ```
 
-如果是在其他平台下编译，原谅我懒了，自己去寻找libcurl4-openssl-dev这个包对应其他发型版的软件报名吧。
+如果是在其他平台下编译，原谅我懒了，自己去寻找libcurl4-openssl-dev这个包对应其他发型版的软件包名吧。😛
