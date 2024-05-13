@@ -196,13 +196,13 @@ int install(char *url, confOJ* conf, char* cur_version){
     }else{
         CURL_INIT_FAILED
     }
- 
+
     CHECK_CURL_RES
 
     if(!webrs.size){
         WEBRS_NOT_READ
     }
-        
+
     curl_easy_cleanup(curl);
 
     if((os_check = OS_detect()) == OS_NOT_FOUND){
@@ -251,7 +251,7 @@ int install(char *url, confOJ* conf, char* cur_version){
         FORK_ERROR
     }
 
-    wait(0);    
+    wait(0);
     switch (OS_package[os_check].pack_install_name[0]){
         case 'd':
             pid = fork();

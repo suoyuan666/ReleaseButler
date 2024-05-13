@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.11)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON) # For clang-tidy.
-set(CMAKE_CXX_STANDARD 20) # Compile as C++17.
+set(CMAKE_CXX_STANDARD 20) # Compile as C++20.
 set(CMAKE_CXX_STANDARD_REQUIRED ON) # Require C++17 support.
 
 project(ReleaseButler
@@ -19,9 +19,6 @@ if(EMSCRIPTEN)
         add_link_options(-fexceptions)
 endif()
 
-# People keep running CMake in the wrong folder, completely nuking their project or creating weird bugs.
-# This checks if you're running CMake from a folder that already has CMakeLists.txt.
-# Importantly, this catches the common case of running it from the root directory.
 file(TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" PATH_TO_CMAKELISTS_TXT)
 
 if(EXISTS "${PATH_TO_CMAKELISTS_TXT}")
@@ -40,4 +37,26 @@ message(STATUS "CMAKE_CXX_FLAGS_DEBUG: ${CMAKE_CXX_FLAGS_DEBUG}")
 message(STATUS "CMAKE_EXE_LINKER_FLAGS: ${CMAKE_EXE_LINKER_FLAGS}")
 message(STATUS "CMAKE_SHARED_LINKER_FLAGS: ${CMAKE_SHARED_LINKER_FLAGS}")
 
+enable_testing()
+
 add_executable(ReleaseButler "src/main.cpp")
+set(
+    RB_SRC_INCLUDE_DIR
+    ${PROJECT_SOURCE_DIR}/src/include
+)
+include_directories(${RB_SRC_INCLUDE_DIR})
+
+add_library(
+    cppcurl
+    ${PROJECT_SOURCE_DIR}/src/cppcurl.cpp
+)
+
+set(ReleaseButler_LIBS
+    cppcurl
+)
+
+find_package(CURL REQUIRED)
+target_link_libraries(ReleaseButler CURL::libcurl ${ReleaseButler_LIBS})
+
+add_subdirectory(third_party)
+add_subdirectory(test)

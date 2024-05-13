@@ -1,8 +1,4 @@
-#include <array>
-#include <cstdint>
 #include <optional>
-#include <string>
-#include <string_view>
 
 namespace os_detect {
 constexpr int PACK_NAME_MAX = 12;
@@ -23,12 +19,3 @@ constexpr packinfo OS_PACKAGE[OS_KIND] = {
 
 auto OsDetect() -> std::optional<int>;
 }  // namespace os_detect
-
-// class OSinfo {
-//   private:
-//     std::string pack_name_;
-//     std::string pack_install_name_;
-//     std::string os_kind_;
-//   public:
-
-// };
