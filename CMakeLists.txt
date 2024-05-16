@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.11)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON) # For clang-tidy.
 set(CMAKE_CXX_STANDARD 20) # Compile as C++20.
-set(CMAKE_CXX_STANDARD_REQUIRED ON) # Require C++17 support.
+# set(CMAKE_CXX_STANDARD_REQUIRED ON) # Require C++17 support.
 
 project(ReleaseButler
         VERSION 2024.5
@@ -39,24 +39,21 @@ message(STATUS "CMAKE_SHARED_LINKER_FLAGS: ${CMAKE_SHARED_LINKER_FLAGS}")
 
 enable_testing()
 
+add_subdirectory(src)
+add_subdirectory(third_party)
+add_subdirectory(test)
+
 add_executable(ReleaseButler "src/main.cpp")
+
 set(
     RB_SRC_INCLUDE_DIR
     ${PROJECT_SOURCE_DIR}/src/include
 )
+
 include_directories(${RB_SRC_INCLUDE_DIR})
 
-add_library(
-    cppcurl
-    ${PROJECT_SOURCE_DIR}/src/cppcurl.cpp
-)
-
 set(ReleaseButler_LIBS
-    cppcurl
+    pack_core
 )
 
-find_package(CURL REQUIRED)
-target_link_libraries(ReleaseButler CURL::libcurl ${ReleaseButler_LIBS})
-
-add_subdirectory(third_party)
-add_subdirectory(test)
+target_link_libraries(ReleaseButler ${ReleaseButler_LIBS})

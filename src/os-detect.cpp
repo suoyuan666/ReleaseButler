@@ -2,10 +2,9 @@
 #include <utility>
 
 #include "include/os-detect.h"
-#include "include/errmsg.h"
 
 namespace os_detect {
-auto OsDetect() -> std::optional<int> {
+auto OsDetect() -> std::optional<enum OS_KIND> {
   std::string os_name;
   {
     std::string buf;
@@ -34,7 +33,13 @@ auto OsDetect() -> std::optional<int> {
 
   for(int i = 0; i < OS_KIND; ++i){
     if(os_name == OS_PACKAGE[i].os_kind_){
-      return i;
+      switch (i) {
+        case 0 : return OS_KIND::debian;
+        case 1 : return OS_KIND::ubuntu;
+        case 2 : return OS_KIND::fedora;
+        case 3 : return OS_KIND::deepin;
+        default: return {};
+      }
     }
   }
 

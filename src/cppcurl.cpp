@@ -1,9 +1,24 @@
 #include "include/cppcurl.h"
+#include <curl/curl.h>
+#include <curl/easy.h>
+#include <cstdint>
+#include <iostream>
+#include <memory>
 #include <string>
+#include <fstream>
+#include <string_view>
+// #include <utility>
+// #include <string>
 // #include <string_view>
 // #include <vector>
 
 namespace cppcurl {
+
+auto WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) -> size_t {
+  auto ofs = static_cast<std::ofstream*>(userp);
+  ofs->write(static_cast<char*>(contents), size * nmemb);
+  return size * nmemb;
+}
 
 CPPCURL::CPPCURL() { curl_ = curl_easy_init(); }
 CPPCURL::CPPCURL(CURL *curl) : curl_(curl) {}
@@ -13,8 +28,10 @@ auto CPPCURL::reset() -> void { curl_easy_reset(curl_); }
 auto CPPCURL::getinfo(CURLINFO flag, int64_t* val) -> void {
   code_ = curl_easy_getinfo(curl_, flag, val);
 }
-auto CPPCURL::getinfo_from_str(CURLINFO flag, char** val) -> void{
-  code_ = curl_easy_getinfo(curl_, flag, val);
+auto CPPCURL::getinfo_from_str(CURLINFO flag, std::string& val) -> void{
+  std::shared_ptr<char *> tmp = std::make_shared<char *>();
+  code_ = curl_easy_getinfo(curl_, flag, tmp.get());
+  val = *tmp;
 }
 
 auto CPPCURL::setopt(CURLoption option, int64_t val) -> void{
@@ -38,6 +55,45 @@ auto CPPCURL::errorMsg() -> std::string_view{
 
 auto CPPCURL::empty() -> bool{
   return curl_ == nullptr;
+}
+
+[[nodiscard]] auto CPPCURL::store_ass2file(std::string_view url, std::string_view file_name) -> bool{
+
+  std::ofstream ofs{file_name.data(), std::ios::binary};
+  if(curl_ != nullptr){
+    curl_easy_reset(curl_);
+  }
+  if (curl_ == nullptr) {
+    std::cerr << "cannot reinit curl" << std::endl;
+    return false;
+  }
+
+  curl_easy_setopt(curl_, CURLOPT_URL, url.data());
+  code_ = curl_easy_perform(curl_);
+  int64_t res;
+  curl_easy_getinfo(curl_, CURLINFO_RESPONSE_CODE, &res);
+  std::cout << "res: " << res << "\n";
+
+  std::string location;
+  {
+    std::shared_ptr<char *> tmp = std::make_shared<char *>();
+    curl_easy_getinfo(curl_, CURLINFO_REDIRECT_URL, tmp.get());
+    std::cout << *tmp << "\n";
+    location = *tmp;
+  }
+  curl_easy_reset(curl_);
+
+  curl_easy_setopt(curl_, CURLOPT_URL, location.c_str());
+  curl_easy_setopt(curl_, CURLOPT_WRITEFUNCTION, WriteCallback);
+  curl_easy_setopt(curl_, CURLOPT_WRITEDATA, &ofs);
+  code_ = curl_easy_perform(curl_);
+
+  if(code_ != CURLE_OK){
+    std::cerr << "connect to link(s) for get information failed, error message:"
+                << curl_easy_strerror(code_) << std::endl;
+    return false;
+  }
+  return true;
 }
 
 }  // namespace cppcurl
