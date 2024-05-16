@@ -59,7 +59,10 @@ auto CPPCURL::empty() -> bool{
 
 [[nodiscard]] auto CPPCURL::store_ass2file(std::string_view url, std::string_view file_name) -> bool{
 
-  std::ofstream ofs{file_name.data(), std::ios::binary};
+  std::string path = "/tmp/";
+  path.append(file_name);
+
+  std::ofstream ofs{path.data(), std::ios::binary};
   if(curl_ != nullptr){
     curl_easy_reset(curl_);
   }

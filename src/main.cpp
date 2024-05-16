@@ -15,14 +15,15 @@ auto main(int argc, char *argv[]) -> int {
     ("p, packname", "Specify the name of the package to download", cxxopts::value<std::string>())
     ("v,version", "Printing software version")("h,help", "Print usage");
   auto result = options.parse(argc, argv);
+
   if (result.count("help") != 0U) {
     std::cout << options.help() << '\n';
     exit(0);
   }
-  std::string bar;
   if (result.count("version") != 0U) {
     std::cout << "0.1\n";
   }
+
   std::string install_argu;
   if (result.count("install") != 0U) {
     install_argu = result["install"].as<std::string>();
@@ -31,11 +32,12 @@ auto main(int argc, char *argv[]) -> int {
     std::cerr << "install!!!!!\n";
     return 1;
   }
+
   std::string pack_name;
   if (result.count("packname") != 0U) {
-    install_argu = result["packname"].as<std::string>();
+    pack_name = result["packname"].as<std::string>();
   }
-  if (install_argu.empty()) {
+  if (pack_name.empty()) {
     std::cerr << "packname!!!!!\n";
     return 1;
   }

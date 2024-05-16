@@ -1,4 +1,5 @@
 #include "include/pack_core.h"
+#include <sys/wait.h>
 #include <unistd.h>
 #include <iostream>
 #include <ranges>
@@ -77,26 +78,30 @@
     if(!curl.store_ass2file(url, pack_name)){
       return false;
     }
+  }
 
-    auto tmp = os_detect::OsDetect();
+  auto tmp = os_detect::OsDetect();
     if(!tmp.has_value()){
       std::cerr << "not support your operating system\n";
       return false;
     }
 
-    pid_t pid = fork();
-    if(pid == 0){
-      switch (tmp.value()) {
-        case os_detect::OS_KIND::debian:
-        case os_detect::OS_KIND::ubuntu:
-        case os_detect::OS_KIND::deepin:
-          execl("/usr/bin/sudo", "dpkg", "-i", pack_name, NULL);
-          break;
-        case os_detect::OS_KIND::fedora:
-          break;
-      }
+  pid_t pid = fork();
+  if(pid == 0){
+    std::string path = "/tmp/";
+    switch (tmp.value()) {
+      case os_detect::OS_KIND::debian:
+      case os_detect::OS_KIND::ubuntu:
+      case os_detect::OS_KIND::deepin:
+        std::cout << "star install !!!!\n";
+        path.append(pack_name);
+        execl("/usr/bin/sudo", "sudo","dpkg", "-i", path.c_str(), NULL);
+        break;
+      case os_detect::OS_KIND::fedora:
+        break;
     }
-    
   }
+  wait(nullptr);
+
   return true;
 }

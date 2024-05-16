@@ -21,7 +21,7 @@ auto OsDetect() -> std::optional<enum OS_KIND> {
       while(std::getline(file, buf)){
         if (buf[0] == 'I' && buf[1] == 'D')
         {
-          os_name = std::move(buf);
+          os_name = buf.substr(3);
         }
       }
     }
