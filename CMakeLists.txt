@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.11)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON) # For clang-tidy.
-set(CMAKE_CXX_STANDARD 20) # Compile as C++20.
-# set(CMAKE_CXX_STANDARD_REQUIRED ON) # Require C++17 support.
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_C_COMPILER clang)
+set(CMAKE_CXX_COMPILER clang++)
 
 project(ReleaseButler
         VERSION 2024.5
@@ -10,13 +11,24 @@ project(ReleaseButler
 )
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-        message(STATUS "Setting build type to `Debug` as none was specified.")
-        set(CMAKE_BUILD_TYPE "Debug")
+    message(STATUS "Setting build type to `Debug` as none was specified.")
+    set(CMAKE_BUILD_TYPE "Debug")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Werror")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb -fno-omit-frame-pointer -fno-optimize-sibling-calls")
+endif()
+
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    message(STATUS "Configuring Release build")
+    # something come form https://airbus-seclab.github.io/c-compiler-security/clang_compilation.html
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -pipe -fPIE -Wall -Wextra -Wpedantic -Werror -Wthread-safety")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fstack-clash-protection -fstack-protector-all -fcf-protection=full -fvisibility=hidden -fsanitize=cfi")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -flto -fvisibility=hidden -fsanitize=cfi")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fsanitize=integer -fsanitize-minimal-runtime -fno-sanitize-recover")
 endif()
 
 if(EMSCRIPTEN)
-        add_compile_options(-fexceptions)
-        add_link_options(-fexceptions)
+    add_compile_options(-fexceptions)
+    add_link_options(-fexceptions)
 endif()
 
 file(TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" PATH_TO_CMAKELISTS_TXT)
@@ -27,9 +39,6 @@ if(EXISTS "${PATH_TO_CMAKELISTS_TXT}")
 endif()
 
 # Compiler flags.
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Werror")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unused-parameter -Wno-attributes") # TODO: remove
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb -fsanitize=${BUSTUB_SANITIZER} -fno-omit-frame-pointer -fno-optimize-sibling-calls")
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 message(STATUS "CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
