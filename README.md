@@ -16,6 +16,7 @@ Todo:
 - [ ] I want to realize that if the name of the software package is not provided, it will clone the repository directly by default and prepare to start compiling it, but I have not yet done any detection in this regard.
 - [ ] Want to create a repository on GitHub to store the json file for software package installation, so that users can directly import and install it. In other words, it's like nix (but I'm just too lazy to learn nix syntax, so I insisted on writing one myself)
 - [ ] Currently, it's using sudo to install the software. It has not checked whether the user rights of the current software are non-root users, and it has  not checked sudo (I'm planning to implement it to detect whether there are doas if there is no sudo).
+- [ ] I want to realize that it supports many software (source code) distribution platforms, but it is only processed with GitHub.
 
 ---
 
@@ -79,7 +80,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     message(STATUS "Configuring Release build")
     # something come form https://airbus-seclab.github.io/c-compiler-security/clang_compilation.html
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -pipe -fPIE -Wall -Wextra -Wpedantic -Werror -Wthread-safety")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fstack-clash-protection -fstack-protector-all -fcf-protection=full -fvisibility=hidden -fsanitize=cfi")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fstack-clash-protection -fstack-protector-all -fcf-protection=full")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -flto -fvisibility=hidden -fsanitize=cfi")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fsanitize=integer -fsanitize-minimal-runtime -fno-sanitize-recover")
 endif()

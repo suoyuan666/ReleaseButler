@@ -93,11 +93,14 @@
       case os_detect::OS_KIND::debian:
       case os_detect::OS_KIND::ubuntu:
       case os_detect::OS_KIND::deepin:
-        std::cout << "star install !!!!\n";
+        std::cout << "start install !!!!\n";
         path.append(pack_name);
         execl("/usr/bin/sudo", "sudo","dpkg", "-i", path.c_str(), NULL);
         break;
       case os_detect::OS_KIND::fedora:
+        std::cout << "start install !!!!\n";
+        path.append(pack_name);
+        execl("/usr/bin/sudo", "sudo","dnf", "install", path.c_str(), NULL);
         break;
     }
   }

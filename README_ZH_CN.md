@@ -10,12 +10,13 @@
 
 Todo:
 
-- [ ] 使用JSON格式存储软件包的信息，(仍然在考虑使用什么格式存储信息)
+- [ ] 使用JSON格式存储软件包的信息，(仍然在考虑使用什么格式存储信息)。
 - [ ] 使用`build`字段存储一些在install之后执行的工作。
 - [ ] 使用`ready`字段存储一些install之前的准备工作。
 - [ ] 我想要实现成如果不提供软件包的名字的话就默认直接clone仓库，准备开始编译它，但目前还没做这方面的检测。
-- [ ] 想要在GitHub创建一个仓库存储软件包安装的json文件，这样用户可以直接import之后安装。话说这样就好像nix(但我就是因为懒得学习nix语法，我才执着自己写一个)
+- [ ] 想要在GitHub创建一个仓库存储软件包安装的json文件，这样用户可以直接import之后安装。话说这样就好像nix(但我就是因为懒得学习nix语法，我才执着自己写一个)。
 - [ ] 目前使用的是sudo安装软件，没做对当前软件的用户权限是否是非root用户，并且也没做对sudo的检测(准备实现成如果没有sudo就检测是否存在doas)。
+- [ ] 我想实现成支持很多软件(源码)分发平台，但目前就只是做了对GitHub的处理。
 
 ---
 
@@ -79,7 +80,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     message(STATUS "Configuring Release build")
     # something come form https://airbus-seclab.github.io/c-compiler-security/clang_compilation.html
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -pipe -fPIE -Wall -Wextra -Wpedantic -Werror -Wthread-safety")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fstack-clash-protection -fstack-protector-all -fcf-protection=full -fvisibility=hidden -fsanitize=cfi")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fstack-clash-protection -fstack-protector-all -fcf-protection=full")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -flto -fvisibility=hidden -fsanitize=cfi")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fsanitize=integer -fsanitize-minimal-runtime -fno-sanitize-recover")
 endif()
