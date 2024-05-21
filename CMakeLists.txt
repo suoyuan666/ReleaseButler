@@ -10,11 +10,16 @@ project(ReleaseButler
     LANGUAGES CXX
 )
 
+add_subdirectory(src)
+add_subdirectory(third_party)
+
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     message(STATUS "Setting build type to `Debug` as none was specified.")
     set(CMAKE_BUILD_TYPE "Debug")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Werror")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb -fno-omit-frame-pointer -fno-optimize-sibling-calls")
+    enable_testing()
+    add_subdirectory(test)
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
@@ -46,12 +51,6 @@ message(STATUS "CMAKE_CXX_FLAGS_DEBUG: ${CMAKE_CXX_FLAGS_DEBUG}")
 message(STATUS "CMAKE_EXE_LINKER_FLAGS: ${CMAKE_EXE_LINKER_FLAGS}")
 message(STATUS "CMAKE_SHARED_LINKER_FLAGS: ${CMAKE_SHARED_LINKER_FLAGS}")
 
-enable_testing()
-
-add_subdirectory(src)
-add_subdirectory(third_party)
-add_subdirectory(test)
-
 add_executable(ReleaseButler "src/main.cpp")
 
 set(
@@ -65,4 +64,7 @@ set(ReleaseButler_LIBS
     pack_core
 )
 
-target_link_libraries(ReleaseButler ${ReleaseButler_LIBS})
+find_package(Boost  REQUIRED)
+# include_directories(${Boost_INCLUDE_DIR})
+
+target_link_libraries(ReleaseButler ${Boost_LIBRARY} ${ReleaseButler_LIBS})

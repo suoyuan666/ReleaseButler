@@ -57,10 +57,14 @@ auto CPPCURL::empty() -> bool{
   return curl_ == nullptr;
 }
 
-[[nodiscard]] auto CPPCURL::store_ass2file(std::string_view url, std::string_view file_name) -> bool{
+[[nodiscard]] auto CPPCURL::store_ass2file(std::string_view url, std::string_view file_name, const bool vmode) -> bool{
 
   std::string path = "/tmp/";
   path.append(file_name);
+
+  if(vmode){
+    std::cout << "store it to " << path << std::endl;
+  }
 
   std::ofstream ofs{path.data(), std::ios::binary};
   if(curl_ != nullptr){
@@ -73,15 +77,19 @@ auto CPPCURL::empty() -> bool{
 
   curl_easy_setopt(curl_, CURLOPT_URL, url.data());
   code_ = curl_easy_perform(curl_);
-  int64_t res;
-  curl_easy_getinfo(curl_, CURLINFO_RESPONSE_CODE, &res);
-  std::cout << "res: " << res << "\n";
+  int64_t response_code;
+  curl_easy_getinfo(curl_, CURLINFO_RESPONSE_CODE, &response_code);
+  if(vmode){
+    std::cout << "response_code: " << response_code << "\n";
+  }
 
   std::string location;
   {
     std::shared_ptr<char *> tmp = std::make_shared<char *>();
     curl_easy_getinfo(curl_, CURLINFO_REDIRECT_URL, tmp.get());
-    std::cout << *tmp << "\n";
+    if(vmode){
+      std::cout << *tmp << "\n";
+    }
     location = *tmp;
   }
   curl_easy_reset(curl_);

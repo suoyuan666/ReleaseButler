@@ -1,17 +1,23 @@
-#include "include/pack_core.h"
 #include <sys/wait.h>
 #include <unistd.h>
 #include <iostream>
 #include <ranges>
+#include <fstream>
+#include <string_view>
 
+#include "include/pack_core.h"
 #include "include/cppcurl.h"
 #include "include/os-detect.h"
 
-[[nodiscard]] auto Install(std::string url, std::string_view pack_name) -> bool {
+#include "json.hpp"
+
+[[nodiscard]] auto Install(std::string url, std::string_view pack_name, const bool vmode) -> bool {
   std::cout << "install it! url: " << url << "\n";
   auto url_token = url.substr(0, 19);
   if (url_token == "https://github.com/") {
-    std::cout << "find it! GitHub\n";
+    if(vmode){
+      std::cout << "find it! GitHub\n";
+    }
 
     cppcurl::CPPCURL curl;
     if (curl.empty()) {
@@ -47,13 +53,15 @@
       return false;
     }
 
-    // location = https://github.com/starship/starship/releases/tag/v1.18.2
     if (location.empty()) {
       std::cerr << "something went wrong with *location" << location
                 << std::endl;
       return false;
     }
-    std::cout << location << "\n";
+    if(vmode){
+      std::cout << "location to :" << location << "\n";
+    }
+
     std::string version;
     {
       std::string tmp;
@@ -67,15 +75,20 @@
         version += tmp.at(i);
       }
     }
-    std::cout << "version: " << version << "\n";
+    if(vmode){
+      std::cout << "version: " << version << "\n";
+    }
 
     url.replace(url.rfind("latest"), url.length() + 9, "download/");
     url.append(version);
     url.append("/");
     url.append(pack_name);
 
-    std::cout << "url: " << url << "\n";
-    if(!curl.store_ass2file(url, pack_name)){
+    if(vmode){
+      std::cout << "download it from the url: " << url << "\n";
+    }
+
+    if(!curl.store_ass2file(url, pack_name, vmode)){
       return false;
     }
   }
@@ -107,4 +120,16 @@
   wait(nullptr);
 
   return true;
+}
+
+auto record(std::string_view url, std::string_view name, std::string_view version) -> bool{
+  std::ifstream istrm{"example.json", std::ios::binary};
+
+  nlohmann::json wdata{
+    {"package", name},
+    {"version", version},
+    {"url", url},
+  };
+
+  return false;
 }
