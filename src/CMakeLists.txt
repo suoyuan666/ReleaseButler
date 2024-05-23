@@ -17,4 +17,4 @@ find_package(CURL REQUIRED)
 
 add_library(pack_core OBJECT ${LIB_SOURCE_FILES})
 
-target_link_libraries(pack_core CURL::libcurl nlohmann_json::nlohmann_json)
+target_link_libraries(pack_core CURL::libcurl)

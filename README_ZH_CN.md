@@ -8,7 +8,7 @@
 
 目前我是想要实现一个类似BSD系“类ports系统”那样的东西，就像Arch Linux的[ABS](https://wiki.archlinux.org/title/Arch_build_system)，或者像是Gentoo Linux的[protage](https://wiki.gentoo.org/wiki/Portage)。目前想要的甚至还没ABS那么复杂，Gentoo Linux那样标记USE变量更是想都没想了。
 
-Todo:
+TODO:
 
 - [ ] 使用JSON格式存储软件包的信息，(仍然在考虑使用什么格式存储信息)。
 - [ ] 使用`build`字段存储一些在install之后执行的工作。

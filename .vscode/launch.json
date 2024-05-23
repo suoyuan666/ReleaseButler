@@ -8,8 +8,8 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug",
-            "program": "${workspaceFolder}/build/ReleaseButler",
-            "args": [ "--install", "https://github.com/fastfetch-cli/fastfetch", " --packname", "fastfetch-linux-amd64.deb" ],
+            "program": "${workspaceFolder}/build/test/main_test",
+            "args": [ ],
             "cwd": "${workspaceFolder}"
         }
     ]

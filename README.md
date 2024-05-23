@@ -8,7 +8,7 @@
 
 At present, I want to implement something similar to the BSD-based "ports-like system", like Arch Linux's [ABS](https://wiki.archlinux.org/title/Arch_build_system), or like Gentoo Linux's [ protage](https://wiki.gentoo.org/wiki/Portage). What I want now is not even as complicated as ABS, and I haven't even thought about the USE variable like Gentoo Linux.
 
-Todo:
+TODO:
 
 - [ ] Use JSON format to store package information, (still considering what format to use to store information)
 - [ ] Use the `build` field to store some work performed after installation.
@@ -28,9 +28,9 @@ Todo:
 
 **Automatic release detection:** ReleaseButler determines the Linux distribution of the running environment to ensure compatibility with various systems.
 
-**INSTALL & UPDATE**: Easily install packages using a single command. ReleaseButler supports updates to keep your installed software up to date. (Todo)
+**INSTALL & UPDATE**: Easily install packages using a single command. ReleaseButler supports updates to keep your installed software up to date. (TODO)
 
-**Try to adapt to various situations**: Try to introduce various fields to adapt to the installation steps of various repositories. (Todo)
+**Try to adapt to various situations**: Try to introduce various fields to adapt to the installation steps of various repositories. (TODO)
 
 ## Instructions
 

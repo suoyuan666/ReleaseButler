@@ -65,13 +65,13 @@ auto main(int argc, char *argv[]) -> int {
     std::cout << "yeah";
     return 0;
   }
-  
+
   if(!(install_argu.empty() && pack_name.empty())){
     auto vmode = false;
     if(result.count("verbose") != 0U){
       vmode = true;
     }
-    if (!Install(install_argu, pack_name, vmode)) {
+    if (!install(install_argu, pack_name, vmode, true)) {
       return 1;
     }
   }
