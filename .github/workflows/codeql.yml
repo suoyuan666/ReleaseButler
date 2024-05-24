@@ -22,7 +22,7 @@ on:
 jobs:
   analyze:
     name: "CodeQL Analyze"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     
     steps:
     - name: Checkout repository
@@ -35,9 +35,9 @@ jobs:
       with:
         languages: cpp
     - name: Install dependencies
-      run: sudo apt-get install -y libcurl4-openssl-dev libboost-all-dev clang
+      run: sudo apt-get install -y libcurl4-openssl-dev libboost-all-dev clang-18
     - name: Configure build
-      run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=clang-18 -DCMAKE_CXX_COMPILER=clang++-18
     - name: Perform build
       run: cmake --build build -j $(nproc)
 
