@@ -22,7 +22,7 @@ jobs:
       with:
         languages: cpp
     - name: Install dependencies
-      run: sudo apt-get install -y libcurl4-openssl-dev libboost-all-dev clang-17 llvm-17-linker-tools
+      run: sudo apt-get update && sudo apt-get install -y libcurl4-openssl-dev libboost-all-dev clang-17 llvm-17-linker-tools
     - name: Configure build
       run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=clang-17 -DCMAKE_CXX_COMPILER=clang++-17
     - name: Perform build
