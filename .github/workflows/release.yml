@@ -1,0 +1,68 @@
+name: "Build and Release"
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Initialize submodules
+      run: git submodule update --init --recursive
+
+    - name: Set up CMake
+      uses: jwlawson/actions-setup-cmake@v1
+
+    - name: Install dependencies
+      run: sudo apt-get install -y libcurl4-openssl-dev libboost-all-dev clang-17 llvm-17-linker-tools
+    - name: Configure build
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=clang-17 -DCMAKE_CXX_COMPILER=clang++-17
+
+    - name: Build project
+      run: cmake --build build -j $(nproc)
+
+    - name: Archive build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: myproject-build
+        path: build/
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Download build artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: myproject-build
+        path: build/
+
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.sha }}
+        release_name: "Release ${{ github.sha }}"
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: build/releasebutler
+        asset_name: releasebutler
+        asset_content_type: application/octet-stream
