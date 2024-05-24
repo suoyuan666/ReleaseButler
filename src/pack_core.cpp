@@ -21,7 +21,6 @@ namespace fs = std::filesystem;
   auto url_token = url.substr(0, 19);
   std::string version;
 
-  // std::string url_bak{url};
   auto url_len = url.length();
 
   if (url_token == "https://github.com/") {
@@ -88,6 +87,46 @@ namespace fs = std::filesystem;
       std::cout << "version: " << version << "\n";
     }
 
+    auto env = boost::this_process::environment();
+    if (env.count("HOME") == 0) {
+      std::cerr << "can not read $HOME variable\n";
+      return false;
+    }
+    auto config_dir = env.at("HOME").to_string();
+    config_dir.append("/.config/ReleaseButler/");
+
+    if (!fs::exists(config_dir)) {
+      if (!fs::create_directories(config_dir)) {
+        std::cerr << "failed to create directory: " << config_dir << std::endl;
+        return false;
+      }
+    }
+
+    config_dir.append("package.json");
+    if (fs::exists(config_dir.data()) && (!fs::is_empty(config_dir.data()))) {
+      nlohmann::json rdata;
+      {
+        std::ifstream istrm{config_dir.data(), std::ios::binary};
+        if (istrm.is_open()) {
+          rdata = nlohmann::json::parse(istrm);
+        } else {
+          std::cout << "error";
+          return false;
+        }
+        if(rdata.count(name) != 0U){
+          if(rdata.count(name) != 0U){
+            std::string curr_version = rdata.at(name);
+            if(curr_version >= version){
+              return true;
+            }
+          }else {
+            std::cerr << "missing field\n";
+            return false;
+          }
+        }
+      }
+    }
+
     url.replace(url.rfind("latest"), url.length() + 9, "download/");
     url.append(version);
     url.append("/");
@@ -143,6 +182,39 @@ namespace fs = std::filesystem;
   return true;
 }
 
+[[nodiscard]] auto conf_modify(nlohmann::json &json, std::string_view filename,
+                const bool vmode) -> bool {
+  if (fs::exists(filename.data()) && (!fs::is_empty(filename.data()))) {
+    nlohmann::json rdata;
+    {
+      std::ifstream istrm{filename.data(), std::ios::binary};
+      if (istrm.is_open()) {
+        rdata = nlohmann::json::parse(istrm);
+      } else {
+        std::cout << "error";
+        return false;
+      }
+    }
+    std::ofstream ostrm_conf{filename.data(), std::ios::binary};
+    if (!rdata.empty()) {
+      auto [key, val] = json.items().begin();
+      rdata[key] = val;
+
+      if (vmode) {
+        std::cout << "json_2:\n" << std::setw(3) << json << '\n';
+      }
+
+      ostrm_conf << std::setw(3) << rdata;
+    } else {
+      ostrm_conf << std::setw(3) << json;
+    }
+  } else {
+    std::ofstream ostrm{filename.data(), std::ios::binary};
+    ostrm << std::setw(3) << json;
+  }
+  return true;
+}
+
 [[nodiscard]] auto record2confile(std::string_view url, std::string_view name,
                                   std::string_view pack_name,
                                   std::string_view version, const bool vmode)
@@ -158,6 +230,10 @@ namespace fs = std::filesystem;
   }
   auto config_file = env.at("HOME").to_string();
   config_file.append("/.config/ReleaseButler/config.json");
+  auto pak_fil = config_file.substr(0, config_file.length() - 11);
+  pak_fil.append("package.json");
+
+  std::cout << "pak_fil: " << pak_fil << '\n';
 
   nlohmann::json wdata {
   {
@@ -169,40 +245,20 @@ namespace fs = std::filesystem;
     }
   };
 
+  nlohmann::json pakdata{
+    {name, version},
+  };
+
   if (vmode) {
     std::cout << "wdata_1:\n" << std::setw(3) << wdata << '\n';
+    std::cout << "pakdata_1:\n" << std::setw(3) << pakdata << '\n';
   }
 
-  {
-    if (fs::exists(config_file.data()) &&
-        (!fs::is_empty(config_file.data()))) {
-      nlohmann::json rdata;
-      {
-        std::ifstream istrm{config_file.data(), std::ios::binary };
-        if (istrm.is_open()) {
-          rdata = nlohmann::json::parse(istrm);
-        } else {
-          std::cout << "error";
-          return false;
-        }
-      }
-      std::ofstream ostrm{config_file.data(), std::ios::binary};
-      if(!rdata.empty()){
-        auto [key, val] = wdata.items().begin();
-        rdata[key] = val;
-
-        if(vmode){
-          std::cout << "wdata_2:\n" <<  std::setw(3) << wdata << '\n';
-        }
-
-        ostrm << std::setw(3) << rdata;
-      }else{
-        ostrm << std::setw(3) << wdata;
-      }
-    } else {
-      std::ofstream ostrm{config_file.data(), std::ios::binary};
-      ostrm << std::setw(3) << wdata;
-    }
+  if(!conf_modify(wdata, config_file, vmode)){
+    return false;
+  }
+  if(!conf_modify(pakdata, pak_fil, vmode)){
+    return false;
   }
 
   return true;
@@ -250,8 +306,8 @@ auto parse_confile(std::string_view filename, const bool vmode) -> bool {
     bool flag_clone{false};
     bool install_flag{true};
 
-    auto ck4flag = [](const nlohmann::json& j, std::string_view val) -> bool{
-      bool flag = j.at(val);
+    auto ck4flag = [](const nlohmann::json& json, std::string_view val) -> bool{
+      bool flag = json.at(val);
       return flag;
     };
 
