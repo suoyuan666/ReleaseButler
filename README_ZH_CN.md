@@ -10,7 +10,7 @@
 
 TODO:
 
-- [x] 使用JSON格式存储软件包的信息，(仍然在考虑使用什么格式存储信息)。
+- [x] 使用JSON格式存储软件包的信息。
 - [x] 使用`build`字段存储一些在install之后执行的工作。
 - [x] 使用`install`字段存储一些install之前的准备工作。
 - [x] 我想要实现成如果不提供软件包的名字的话就默认直接clone仓库，准备开始编译它。
@@ -40,6 +40,8 @@ TODO:
 $ releasebutler --install <package name> --from <url> [--verbose]
 ```
 
+从命令行安装尚未支持所有字段(如`install`，`build`等)。
+
 ### 更新
 
 ```bash
@@ -57,6 +59,10 @@ note: 这个文件需要在 **~/.config/ReleaseButler/** 目录中
 ---
 
 note: ReleaseButler 现在还不支持指定软件包的单独更新。🙃
+
+使用命令行安装的软件是记录在 **~/.config/ReleaseButler/info.json**，但是在更新的时候实际上会遍历 **~/.config/ReleaseButler/** 目录下的所有json文件。
+
+我尝试通过这种方式支持引入其他地方来的json文件。但文件名不能叫 **package.json**，这个文件用来记录已安装软件包的版本，遍历到了这个json文件也会跳过。
 
 ---
 
@@ -82,9 +88,9 @@ note: ReleaseButler 现在还不支持指定软件包的单独更新。🙃
 ```
 
 - `name` 是 Release 页面的软件包名称。
-- `build` 这个 json 数组用于存储执行一些软件下载前的操作。
-- `install` 这个 json 数组用于存储执行一些软件安装后的操作。
-- `clone` 表示在下载的时候是否直接 clone 这个仓库。
+- `build` 用于存储一些软件下载前的要执行操作。
+- `install` 用于存储一些软件安装后要执行的操作。
+- `clone` 表示是否直接 clone 这个仓库。
 - `download` 表示是否只是单纯在从Release下载了软件包，而不是下载了之后调用系统软件包管理器安装它。
 
 ## 支持的Linux发行版

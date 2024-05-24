@@ -4,15 +4,15 @@
 
 ~~The current project is still in the development stage, so the software will output a lot of unnecessary information.~~(The option verbose is now added.)
 
-~~ReleaseButler is designed to simplify the software installation process on Github on Linux systems🤗. It can automatically detect the underlying Linux distribution, obtain and install the corresponding software package from the designated GitHub project homepage, and also supports update operations. ~~
+~~ReleaseButler is designed to simplify the software installation process on Github on Linux systems🤗. It can automatically detect the underlying Linux distribution, obtain and install the corresponding software package from the designated GitHub project homepage, and also supports update operations.~~
 
 At present, I want to implement something similar to the BSD-based "ports-like system", like Arch Linux's [ABS](https://wiki.archlinux.org/title/Arch_build_system), or like Gentoo Linux's [ protage](https://wiki.gentoo.org/wiki/Portage). What I want now is not even as complicated as ABS, and I haven't even thought about the USE variable like Gentoo Linux.
 
 TODO:
 
-- [ ] Use JSON format to store package information, (still considering what format to use to store information)
-- [ ] Use the `build` field to store some work performed after installation.
-- [ ] Use the `ready` field to store some preparation work before installation.
+- [x] Use JSON format to store package information.
+- [x] Use the `build` field to store some work performed after installation.
+- [x] Use the `install` field to store some preparation work before installation.
 - [ ] I want to realize that if the name of the software package is not provided, it will clone the repository directly by default and prepare to start compiling it, but I have not yet done any detection in this regard.
 - [ ] Want to create a repository on GitHub to store the json file for software package installation, so that users can directly import and install it. In other words, it's like nix (but I'm just too lazy to learn nix syntax, so I insisted on writing one myself)
 - [ ] Currently, it's using sudo to install the software. It has not checked whether the user rights of the current software are non-root users, and it has  not checked sudo (I'm planning to implement it to detect whether there are doas if there is no sudo).
@@ -37,8 +37,10 @@ TODO:
 ### install software:
 
 ```bash
-$ releasebutler --install <homepage> --packname <name>
+$ releasebutler --install <package name> --from <url> [--verbose]
 ```
+
+Installing from the command line does not yet support all fields (like `install`, `build`, etc.).
 
 ### Update (Todo)
 
@@ -46,16 +48,55 @@ $ releasebutler --install <homepage> --packname <name>
 $ releasebutler --update
 ```
 
+### Parse externally imported json files
+
+```bash
+$ releasebutler --parse <file name>
+```
+
+note: This file needs to be in the **~/.config/ReleaseButler/** directory
+
 ---
 
 note: ReleaseButler does not currently support individual updates of specified packages. 🙃
 
+Software installed using the command line is recorded in **~/.config/ReleaseButler/info.json**, but when updating, all json files in the **~/.config/ReleaseButler/** directory will actually be traversed.
+
+I try to support importing json files from other places in this way. But the file name cannot be called **package.json**. This file is used to record the version of the installed software package. This json file will also be skipped if it is traversed.
+
 ---
+
+## Field definitions of software package information files:
+
+```json
+{
+    "fastfetch": {
+       "name": "fastfetch-linux-amd64.deb",
+       "url": "https://github.com/fastfetch-cli/fastfetch",
+       "version": "2.13.2",
+       "build" : [
+          "touch something",
+          "touch haaa"
+       ],
+       "install" : [
+          "echo something > something"
+       ],
+       "clone": false,
+       "download" : false
+    }
+}
+```
+
+- `name` is the package name of the Release page.
+- `build` used to store some operations to be performed before downloading the software.
+- `install` used to store some operations to be performed after the software is installed.
+- `clone` indicates whether to directly clone the repository.
+- `download` indicates whether to just download the package from Release instead of calling the system package manager to install it after downloading.
 
 ## Supported Linux distributions
 
-- Debian/Ubuntu
--Fedora
+- Debian/Ubuntu/Deepin
+- Fedora
 
 ---
 

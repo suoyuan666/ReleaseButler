@@ -229,8 +229,8 @@ namespace fs = std::filesystem;
     return false;
   }
   auto config_file = env.at("HOME").to_string();
-  config_file.append("/.config/ReleaseButler/config.json");
-  auto pak_fil = config_file.substr(0, config_file.length() - 11);
+  config_file.append("/.config/ReleaseButler/info.json");
+  auto pak_fil = config_file.substr(0, config_file.length() - 9);
   pak_fil.append("package.json");
 
   std::cout << "pak_fil: " << pak_fil << '\n';
@@ -290,6 +290,9 @@ auto parse_confile(std::string_view filename, const bool vmode) -> bool {
 
   for (const auto &entry : fs::directory_iterator(config_dir)) {
     if (entry.is_regular_file() && entry.path().extension() == ".json") {
+      if(entry.path().filename() == "package.json"){
+        continue;
+      }
       if (!parse_confile_core(entry.path().string(), vmode)) {
         return false;
       }
