@@ -108,8 +108,15 @@ If you compile this project under Debian OS:
 $ sudo apt install libcurl4-openssl-dev libboost-all-dev clang
 $ git clone https://github.com/suoyuan666/ReleaseButler.git
 $ cd ReleaseButler
+$ git submodule update --init --recursive
 $ cmake -B build -DCMAKE_BUILD_TYPE=Release
 $ cmake --build build -j `nproc`
+```
+
+I tried to compile this project in OpenSUSE Tumbleweed. I installed the required software using the following code.
+
+```bash
+$ sudo zypper install libboost_program_options-devel boost-devel libcurl-devel clang18 llvm18-gold cmake
 ```
 
 If it is compiled under other platforms, forgive me for being lazy and look for the package name of the libcurl4-openssl-dev package corresponding to other versions. 😛

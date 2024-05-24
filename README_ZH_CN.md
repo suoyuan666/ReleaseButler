@@ -105,11 +105,18 @@ note: ReleaseButler 现在还不支持指定软件包的单独更新。🙃
 如果你在 Debian 发行版下编译该项目:
 
 ```bash
-$ sudo apt install libcurl4-openssl-dev libboost-all-dev clang
+$ sudo apt install libcurl4-openssl-dev libboost-all-dev clang cmake
 $ git clone https://github.com/suoyuan666/ReleaseButler.git
 $ cd ReleaseButler
+$ git submodule update --init --recursive
 $ cmake -B build -DCMAKE_BUILD_TYPE=Release
 $ cmake --build build -j `nproc`
+```
+
+我尝试在 OpenSUSE Tumbleweed 中编译这个项目，我是用了下边的语句安装了所需的软件
+
+```bash
+$ sudo zypper install libboost_program_options-devel boost-devel libcurl-devel clang18 llvm18-gold cmake
 ```
 
 如果是在其他平台下编译，原谅我懒了，自己去寻找 libcurl4-openssl-dev 这个包对应其他发型版的软件包名吧。😛
