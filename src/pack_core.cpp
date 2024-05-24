@@ -6,6 +6,7 @@
 #include <ranges>
 #include <fstream>
 #include <string_view>
+#include <boost/process.hpp>
 
 #include "include/pack_core.h"
 #include "include/cppcurl.h"
@@ -13,11 +14,16 @@
 
 #include "json.hpp"
 
-constexpr std::string_view config_file{"example.json"};
+namespace fs = std::filesystem;
 
-[[nodiscard]] auto install(std::string url, std::string_view pack_name, const bool vmode, const bool install) -> bool {
+[[nodiscard]] auto install(std::string url, std::string_view name, std::string_view pack_name, const bool vmode, const bool install) -> bool {
   std::cout << "install it! url: " << url << "\n";
   auto url_token = url.substr(0, 19);
+  std::string version;
+
+  // std::string url_bak{url};
+  auto url_len = url.length();
+
   if (url_token == "https://github.com/") {
     if(vmode){
       std::cout << "find it! GitHub\n";
@@ -66,7 +72,6 @@ constexpr std::string_view config_file{"example.json"};
       std::cout << "location to :" << location << "\n";
     }
 
-    std::string version;
     {
       std::string tmp;
       for (auto c : std::ranges::reverse_view{location}) {
@@ -97,11 +102,15 @@ constexpr std::string_view config_file{"example.json"};
     }
   }
 
-  if(install){
-    return install_core(pack_name, vmode);
+  if(install && (!install_core(pack_name, vmode))){
+      return false;
   }
 
-  return true;
+  if(vmode){
+    std::cout << "url_bak_1: " << url.substr(0, url_len) << '\n';
+  }
+
+  return record2confile(url.substr(0, url_len), name, pack_name, version, vmode);
 }
 
 [[nodiscard]] auto install_core(std::string_view pack_name, const bool vmode) -> bool{
@@ -134,14 +143,26 @@ constexpr std::string_view config_file{"example.json"};
   return true;
 }
 
-[[nodiscard]] auto record2confile(std::string_view url, std::string_view name, std::string_view version, const bool vmode) -> bool{
-  if(vmode){
+[[nodiscard]] auto record2confile(std::string_view url, std::string_view name,
+                                  std::string_view pack_name,
+                                  std::string_view version, const bool vmode)
+    -> bool {
+  if (vmode) {
     std::cout << "url: " << url << "\nname: " << name << "\nversion: " << version << "\n";
   }
+
+  auto env = boost::this_process::environment();
+  if(env.count("HOME") == 0){
+    std::cerr << "can not read $HOME variable\n";
+    return false;
+  }
+  auto config_file = env.at("HOME").to_string();
+  config_file.append("/.config/ReleaseButler/config.json");
 
   nlohmann::json wdata {
   {
       name , {
+        {"name", pack_name},
         {"version", version},
         {"url", url},
         }
@@ -149,12 +170,12 @@ constexpr std::string_view config_file{"example.json"};
   };
 
   if (vmode) {
-    std::cout << "wdata:\n" << std::setw(3) << wdata << '\n';
+    std::cout << "wdata_1:\n" << std::setw(3) << wdata << '\n';
   }
 
   {
-    if (std::filesystem::exists(config_file.data()) &&
-        (!std::filesystem::is_empty(config_file.data()))) {
+    if (fs::exists(config_file.data()) &&
+        (!fs::is_empty(config_file.data()))) {
       nlohmann::json rdata;
       {
         std::ifstream istrm{config_file.data(), std::ios::binary };
@@ -169,9 +190,11 @@ constexpr std::string_view config_file{"example.json"};
       if(!rdata.empty()){
         auto [key, val] = wdata.items().begin();
         rdata[key] = val;
+
         if(vmode){
-          std::cout << "wdata:\n" <<  std::setw(3) << wdata << '\n';
+          std::cout << "wdata_2:\n" <<  std::setw(3) << wdata << '\n';
         }
+
         ostrm << std::setw(3) << rdata;
       }else{
         ostrm << std::setw(3) << wdata;
@@ -185,45 +208,60 @@ constexpr std::string_view config_file{"example.json"};
   return true;
 }
 
-[[nodiscard]] auto parse_confile(const bool vmode) -> bool{
-  std::ifstream istrm{config_file.data(), std::ios::binary};
+auto parse_confile(std::string_view filename, const bool vmode) -> bool {
+  auto env = boost::this_process::environment();
+  if (env.count("HOME") == 0) {
+    std::cerr << "can not read $HOME variable\n";
+    return false;
+  }
+  auto config_dir = env.at("HOME").to_string();
+  config_dir.append("/.config/ReleaseButler/");
+
+  if (!fs::exists(config_dir)) {
+    if (!fs::create_directories(config_dir)) {
+      std::cerr << "failed to create directory: " << config_dir << std::endl;
+      return false;
+    }
+  }
+
+  if (!filename.empty()) {
+    config_dir.append(filename);
+    if(vmode){
+      std::cout << "file name to parse: " << filename << '\n';
+    }
+    return parse_confile_core(config_dir, vmode);
+  }
+
+  for (const auto &entry : fs::directory_iterator(config_dir)) {
+    if (entry.is_regular_file() && entry.path().extension() == ".json") {
+      if (!parse_confile_core(entry.path().string(), vmode)) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+[[nodiscard]] auto parse_confile_core(std::string_view filename ,const bool vmode) -> bool{
+  std::ifstream istrm{filename.data(), std::ios::binary};
   nlohmann::json rdata = nlohmann::json::parse(istrm);
 
   for (const auto& [key, val] : rdata.items()) {
     bool flag_clone{false};
-    auto ck4clone = [](const nlohmann::json& j) -> bool{
-      bool flag = j.at("clone");
+    bool install_flag{true};
+
+    auto ck4flag = [](const nlohmann::json& j, std::string_view val) -> bool{
+      bool flag = j.at(val);
       return flag;
     };
 
-    if ((val.count("clone") != 0U) && ck4clone(val)) {
+    if ((val.count("clone") != 0U) && ck4flag(val, "clone")) {
       flag_clone = true;
     }
-
-    if (val.count("url") != 0U) {
-      std::string url = val.at("url");
-      if (flag_clone) {
-        // TODO(debian): git clone it.
-        std::string command = "git clone ";
-        std::string path = " /tmp/";
-        path.append(key);
-        command.append(url);
-        command.append(path);
-        std::system(command.c_str());
-      } else {
-        if(vmode){
-          std::cout << "url: " << url << "\n";
-          std::cout << "package name: " << key << "\n";
-        }
-
-        if (!install(url, key, vmode, false)) {
-          return false;
-        }
-      }
-    } else {
-      std::cout << "need url !!!\n";
-      return false;
+    if ((val.count("download") != 0U) && ck4flag(val, "download")) {
+      install_flag = false;
     }
+
     if (val.count("build") != 0U) {
       for (const auto &ele : val.at("build")) {
         std::string tmp = ele.dump();
@@ -231,6 +269,35 @@ constexpr std::string_view config_file{"example.json"};
         std::system(str.c_str());
       }
     }
+
+    if (val.count("url") != 0U) {
+      std::string url = val.at("url");
+      if (flag_clone) {
+        std::string command = "git clone ";
+        std::string path = " /tmp/";
+        path.append(key);
+        command.append(url);
+        command.append(path);
+        std::system(command.c_str());
+      } else {
+        if(val.count("name") != 0U){
+          std::string pack_name = val.at("name");
+          if(vmode){
+            std::cout << "url: " << url << "\n";
+            std::cout << "name: " << key << "\n";
+            std::cout << "pack_name: " << pack_name << "\n";
+          }
+
+          if (!install(url, key, pack_name, vmode, install_flag)) {
+            return false;
+          }
+        }
+      }
+    } else {
+      std::cout << "need url !!!\n";
+      return false;
+    }
+
     if (val.count("install") != 0U) {
       for (const auto &ele : val.at("install")) {
         std::string tmp = ele.dump();

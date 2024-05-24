@@ -2,7 +2,7 @@
 
 [English](./README.md) [简体中文](./README_ZH_CN.md)
 
-**The current project is still in the development stage, so the software will output a lot of unnecessary information.**
+~~The current project is still in the development stage, so the software will output a lot of unnecessary information.~~(The option verbose is now added.)
 
 ~~ReleaseButler is designed to simplify the software installation process on Github on Linux systems🤗. It can automatically detect the underlying Linux distribution, obtain and install the corresponding software package from the designated GitHub project homepage, and also supports update operations. ~~
 

@@ -14,7 +14,9 @@ set(
 include_directories(${SRC_INCLUDE_DIR})
 
 find_package(CURL REQUIRED)
+find_package(Boost REQUIRED)
+include_directories(${Boost_INCLUDE_DIR})
 
 add_library(pack_core OBJECT ${LIB_SOURCE_FILES})
 
-target_link_libraries(pack_core CURL::libcurl)
+target_link_libraries(pack_core ${Boost_LIBRARIES} CURL::libcurl)

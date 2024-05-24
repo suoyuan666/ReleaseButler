@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.11)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(PROGRAM_NAME releasebutler)
+
 project(ReleaseButler
     VERSION 2024.5
     DESCRIPTION "package manager on GitHub"
@@ -52,7 +54,7 @@ message(STATUS "CMAKE_CXX_FLAGS_DEBUG: ${CMAKE_CXX_FLAGS_DEBUG}")
 message(STATUS "CMAKE_EXE_LINKER_FLAGS: ${CMAKE_EXE_LINKER_FLAGS}")
 message(STATUS "CMAKE_SHARED_LINKER_FLAGS: ${CMAKE_SHARED_LINKER_FLAGS}")
 
-add_executable(ReleaseButler "src/main.cpp")
+add_executable(${PROGRAM_NAME} "src/main.cpp")
 
 set(
     RB_SRC_INCLUDE_DIR
@@ -65,7 +67,8 @@ set(ReleaseButler_LIBS
     pack_core
 )
 
-find_package(Boost  REQUIRED)
+find_package(Boost REQUIRED)
+find_package(Boost COMPONENTS program_options REQUIRED)
 # include_directories(${Boost_INCLUDE_DIR})
 
-target_link_libraries(ReleaseButler ${Boost_LIBRARY} ${ReleaseButler_LIBS})
+target_link_libraries(${PROGRAM_NAME} Boost::program_options ${ReleaseButler_LIBS})
