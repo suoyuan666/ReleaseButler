@@ -28,7 +28,7 @@ TODO:
 
 **Automatic release detection:** ReleaseButler determines the Linux distribution of the running environment to ensure compatibility with various systems.
 
-**INSTALL & UPDATE**: Easily install packages using a single command. ReleaseButler supports updates to keep your installed software up to date. (TODO)
+**INSTALL & UPDATE**: Easily install packages using a single command. ReleaseButler supports updates to keep your installed software up to date.
 
 **Try to adapt to various situations**: Try to introduce various fields to adapt to the installation steps of various repositories. (TODO)
 
