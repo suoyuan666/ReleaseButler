@@ -30,7 +30,7 @@ TODO:
 
 **INSTALL & UPDATE**: Easily install packages using a single command. ReleaseButler supports updates to keep your installed software up to date.
 
-**Try to adapt to various situations**: Try to introduce various fields to adapt to the installation steps of various repositories. (TODO)
+**Try to adapt to various situations**: Try to introduce various fields to adapt to the installation steps of various repositories.
 
 ## Instructions
 
