@@ -69,7 +69,8 @@ set(ReleaseButler_LIBS
     pack_core
 )
 
-find_package(Boost REQUIRED)
+# find_package(Boost REQUIRED)
+find_package(Boost COMPONENTS program_options REQUIRED)
 # include_directories(${Boost_INCLUDE_DIR})
 
-target_link_libraries(${PROGRAM_NAME} ${Boost_LIBRARIES} ${ReleaseButler_LIBS})
+target_link_libraries(${PROGRAM_NAME} Boost::program_options ${ReleaseButler_LIBS})
