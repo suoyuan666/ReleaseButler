@@ -105,7 +105,7 @@ I try to support importing json files from other places in this way. But the fil
 If you compile this project under Debian OS:
 
 ```bash
-$ sudo apt install libcurl4-openssl-dev clang
+$ sudo apt install libcurl4-openssl-dev libboost-all-dev clang
 $ git clone https://github.com/suoyuan666/ReleaseButler.git
 $ cd ReleaseButler
 $ cmake -B build -DCMAKE_BUILD_TYPE=Release

@@ -105,7 +105,7 @@ note: ReleaseButler 现在还不支持指定软件包的单独更新。🙃
 如果你在 Debian 发行版下编译该项目:
 
 ```bash
-$ sudo apt install libcurl4-openssl-dev clang
+$ sudo apt install libcurl4-openssl-dev libboost-all-dev clang
 $ git clone https://github.com/suoyuan666/ReleaseButler.git
 $ cd ReleaseButler
 $ cmake -B build -DCMAKE_BUILD_TYPE=Release
