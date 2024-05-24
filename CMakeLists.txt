@@ -69,7 +69,7 @@ set(ReleaseButler_LIBS
     pack_core
 )
 
-find_package(Boost REQUIRED)
+# find_package(Boost REQUIRED)
 find_package(Boost COMPONENTS program_options REQUIRED)
 # include_directories(${Boost_INCLUDE_DIR})
 
