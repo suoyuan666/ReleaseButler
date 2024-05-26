@@ -1,0 +1,109 @@
+.TH "os_detect" 3 "Version 1.0" "ReleaseButler" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+os_detect
+.SH SYNOPSIS
+.br
+.PP
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "using \fBpackinfo\fP"
+.br
+.RI "Linux distribution related information\&. "
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBOS_KIND\fP { \fBdebian\fP, \fBubuntu\fP, \fBfedora\fP, \fBdeepin\fP }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "auto \fBOsDetect\fP () \-> std::optional< enum \fBOS_KIND\fP >"
+.br
+.RI "Used to detect the current Linux distributions\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "constexpr int \fBOS_KIND\fP = 4"
+.br
+.RI "The types of Linux distributions that the current software can detect\&. "
+.ti -1c
+.RI "constexpr \fBpackinfo\fP \fBOS_PACKAGE\fP [\fBOS_KIND\fP]"
+.br
+.RI "Information about currently supported Linux distributions\&. "
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "using \fBos_detect::packinfo\fP"
+\fBInitial value:\fP
+.nf
+ struct Packinfo {
+  std::string_view pack_name_;
+  std::string_view pack_install_name_;
+  std::string_view os_kind_;
+}
+.PP
+.fi
+
+.PP
+Linux distribution related information\&. 
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBos_detect::OS_KIND\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIdebian \fP\fP
+.TP
+\fB\fIubuntu \fP\fP
+.TP
+\fB\fIfedora \fP\fP
+.TP
+\fB\fIdeepin \fP\fP
+.SH "Function Documentation"
+.PP 
+.SS "auto os_detect::OsDetect () \-> std::optional<enum \fBOS_KIND\fP>"
+
+.PP
+Used to detect the current Linux distributions\&. 
+.PP
+\fBReturns\fP
+.RS 4
+A \fRstd::optional<>\fP class is used to indicate the current system environment\&. 
+.RE
+.PP
+
+.SH "Variable Documentation"
+.PP 
+.SS "int \fBos_detect::OS_KIND\fP = 4\fR [constexpr]\fP"
+
+.PP
+The types of Linux distributions that the current software can detect\&. 
+.SS "\fBpackinfo\fP os_detect::OS_PACKAGE[\fBOS_KIND\fP]\fR [constexpr]\fP"
+\fBInitial value:\fP
+.nf
+= {
+    {"deb", "dpkg", "debian"},
+    {"deb", "dpkg", "ubuntu"},
+    {"rpm", "dnf", "fedora"},
+    {"deb", "dpkg", "deepin"},
+}
+.PP
+.fi
+
+.PP
+Information about currently supported Linux distributions\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ReleaseButler from the source code\&.

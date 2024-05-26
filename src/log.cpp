@@ -1,11 +1,14 @@
 #include "include/log.h"
 
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 
 #include "include/env.h"
 #include "include/pack_core.h"
 #include "json.hpp"
+
+namespace fs = std::filesystem;
 
 [[nodiscard]] auto conf_modify(nlohmann::json &json, std::string_view filename,
                                const bool vmode) -> bool {

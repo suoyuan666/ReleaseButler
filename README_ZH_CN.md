@@ -10,10 +10,10 @@
 
 TODO:
 
-- [x] 使用JSON格式存储软件包的信息。
-- [x] 使用`build`字段存储一些在install之后执行的工作。
-- [x] 使用`install`字段存储一些install之前的准备工作。
-- [x] 我想要实现成如果不提供软件包的名字的话就默认直接clone仓库，准备开始编译它。
+- [x] ~~ 使用JSON格式存储软件包的信息。~~
+- [x] ~~ 使用`build`字段存储一些在install之后执行的工作。~~
+- [x] ~~ 使用`install`字段存储一些install之前的准备工作。~~
+- [x] ~~ 我想要实现成如果不提供软件包的名字的话就默认直接clone仓库，准备开始编译它。~~
 - [ ] 想要在GitHub创建一个仓库存储软件包安装的json文件，这样用户可以直接import之后安装。话说这样就好像nix(但我就是因为懒得学习nix语法，我才执着自己写一个)。
 - [ ] 目前使用的是sudo安装软件，没做对当前软件的用户权限是否是非root用户，并且也没做对sudo的检测(准备实现成如果没有sudo就检测是否存在doas)。
 - [ ] 我想实现成支持很多软件(源码)分发平台，但目前就只是做了对GitHub的处理。
@@ -37,8 +37,10 @@ TODO:
 ### 安装软件:
 
 ```bash
-$ releasebutler --install <package name> --from <url> [--verbose]
+$ releasebutler --install <name> --pakname <package name> --from <url> [--verbose]
 ```
+
+`--intsall` 字段接受的是要安装的软件的名称，而 `packname` 字段是这个软件包名，例如 `fastfetch-linux-amd64.deb` 就是 `packname`
 
 从命令行安装尚未支持所有字段(如`install`，`build`等)。
 

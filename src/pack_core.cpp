@@ -4,6 +4,7 @@
 #include <unistd.h>
 
 #include <cstdlib>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <string_view>
@@ -13,6 +14,8 @@
 #include "include/log.h"
 #include "include/os-detect.h"
 #include "json.hpp"
+
+namespace fs = std::filesystem;
 
 [[nodiscard]] auto install(std::string url, std::string_view name,
                            std::string_view pack_name, const bool vmode,

@@ -10,10 +10,10 @@ At present, I want to implement something similar to the BSD-based "ports-like s
 
 TODO:
 
-- [x] Use JSON format to store package information.
-- [x] Use the `build` field to store some work performed after installation.
-- [x] Use the `install` field to store some preparation work before installation.
-- [x] I want to realize that if the name of the software package is not provided, it will clone the repository directly by default and prepare to start compiling it.
+- [x] ~~Use JSON format to store package information.~~
+- [x] ~~Use the `build` field to store some work performed after installation.~~
+- [x] ~~Use the `install` field to store some preparation work before installation.~~
+- [x] ~~I want to realize that if the name of the software package is not provided, it will clone the repository directly by default and prepare to start compiling it.~~
 - [ ] Want to create a repository on GitHub to store the json file for software package installation, so that users can directly import and install it. In other words, it's like nix (but I'm just too lazy to learn nix syntax, so I insisted on writing one myself)
 - [ ] Currently, it's using sudo to install the software. It has not checked whether the user rights of the current software are non-root users, and it has  not checked sudo (I'm planning to implement it to detect whether there are doas if there is no sudo).
 - [ ] I want to realize that it supports many software (source code) distribution platforms, but it is only processed with GitHub.
@@ -37,8 +37,10 @@ TODO:
 ### install software:
 
 ```bash
-$ releasebutler --install <package name> --from <url> [--verbose]
+$ releasebutler --install <name> --pakname <package name> --from <url> [--verbose]
 ```
+
+The `--install` field accepts the name of the software to be installed, and the `packname` field is the name of the software package, for example `fastfetch-linux-amd64.deb` is `packname`.
 
 Installing from the command line does not yet support all fields (like `install`, `build`, etc.).
 

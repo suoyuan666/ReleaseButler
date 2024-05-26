@@ -1,0 +1,72 @@
+.TH "src/include/pack_core.h" 3 "Version 1.0" "ReleaseButler" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/include/pack_core.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <string>\fP
+.br
+\fR#include <string_view>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "auto \fBinstall\fP (std::string url, std::string_view name, std::string_view pack_name, bool vmode, bool install) \-> bool"
+.br
+.RI "Programs for download and installation\&. "
+.ti -1c
+.RI "auto \fBinstall_core\fP (std::string_view pack_name, bool vmode) \-> bool"
+.br
+.RI "Core functions that implement the installation functionality\&. "
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "auto install (std::string url, std::string_view name, std::string_view pack_name, bool vmode, bool install) \->  bool\fR [nodiscard]\fP"
+
+.PP
+Programs for download and installation\&. But in fact \fR\fBinstall()\fP\fP does not perform all of the functions involved in installation that are permitted by the software's operation\&. It's the parsing of the file that implements all of the features allowed for installation\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIurl\fP The home page of the website where the program is hosted 
+.br
+\fIname\fP Name of the software 
+.br
+\fIpack_name\fP Name of the package to download, e\&.g\&. \fRfastfetch-linux-amd64\&.deb\fP 
+.br
+\fIvmode\fP Whether to output more information (for debugging purposes) 
+.br
+\fIinstall\fP Whether to call the corresponding package manager to install after download 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Returns a bool indicating whether the function was executed correctly\&. 
+.RE
+.PP
+
+.SS "auto install_core (std::string_view pack_name, bool vmode) \->  bool\fR [nodiscard]\fP"
+
+.PP
+Core functions that implement the installation functionality\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpack_name\fP Name of the package to download, e\&.g\&. \fRfastfetch-linux-amd64\&.deb\fP 
+.br
+\fIvmode\fP Whether to output more information (for debugging purposes) 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Returns a bool indicating whether the function was executed correctly\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ReleaseButler from the source code\&.
