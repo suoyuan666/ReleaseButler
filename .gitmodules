@@ -4,3 +4,9 @@
 [submodule "third_party/json"]
 	path = third_party/json
 	url = https://github.com/nlohmann/json
+[submodule "third_party/argparse"]
+	path = third_party/argparse
+	url = https://github.com/p-ranav/argparse
+[submodule "third_party/process"]
+	path = third_party/process
+	url = https://github.com/boostorg/process.git

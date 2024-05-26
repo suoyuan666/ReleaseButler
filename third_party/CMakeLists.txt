@@ -1,4 +1,7 @@
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 
-add_subdirectory(googletest)
-# add_subdirectory(json)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_subdirectory(googletest)
+endif()
+
+add_subdirectory(argparse)

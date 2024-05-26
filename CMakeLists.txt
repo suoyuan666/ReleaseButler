@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(PROGRAM_NAME releasebutler)
@@ -61,14 +61,15 @@ set(
     ${PROJECT_SOURCE_DIR}/src/include
 )
 
-include_directories(${RB_SRC_INCLUDE_DIR})
+set(
+    RB_THIRD_PARTY_INCLUDE_DIR
+    ${PROJECT_SOURCE_DIR}/third_party/argparse/include
+)
+
+include_directories(${RB_SRC_INCLUDE_DIR} ${RB_THIRD_PARTY_INCLUDE_DIR})
 
 set(ReleaseButler_LIBS
     pack_core
 )
 
-# find_package(Boost REQUIRED)
-find_package(Boost COMPONENTS program_options REQUIRED)
-# include_directories(${Boost_INCLUDE_DIR})
-
-target_link_libraries(${PROGRAM_NAME} Boost::program_options ${ReleaseButler_LIBS})
+target_link_libraries(${PROGRAM_NAME} ${ReleaseButler_LIBS})
