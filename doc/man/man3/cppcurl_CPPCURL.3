@@ -95,35 +95,18 @@ error message
 .SS "auto cppcurl::CPPCURL::getinfo (CURLINFO flag, int64_t * val) \-> void"
 
 .PP
-Simple encapsulation of \fRcurl_easy_getinfo()\fP\&. Simple encapsulation of std::getenv\&.
-.PP
-Call \fRcurl_easy_getinfo()\fP to get the information and put the return value of \fRcurl_easy_getinfo()\fP into the code_ member\&.
+Simple encapsulation of \fRcurl_easy_getinfo()\fP\&. Call \fRcurl_easy_getinfo()\fP to get the information and put the return value of \fRcurl_easy_getinfo()\fP into the code_ member\&.
 .PP
 \fBParameters\fP
 .RS 4
-\fIflag\fP Setting the type of information to be extracted\&. 
+\fI`flag`\fP Setting the type of information to be extracted\&. 
 .br
-\fIval\fP The int that needs to hold the information 
-.RE
-.PP
-\fBReturns\fP
-.RS 4
-The value of the environment variable
+\fI`val`\fP The int that needs to hold the information
 .RE
 .PP
 \fBNote\fP
 .RS 4
-For more information on \fRflag\fP, see https://curl.se/libcurl/c/curl_easy_getinfo.html\&.
-.RE
-.PP
-\fBParameters\fP
-.RS 4
-\fIname\fP Name of the environment variable 
-.RE
-.PP
-\fBReturns\fP
-.RS 4
-The value of the environment variable 
+For more information on \fRflag\fP, see https://curl.se/libcurl/c/curl_easy_getinfo.html\&. 
 .RE
 .PP
 
@@ -136,12 +119,7 @@ Simple encapsulation of \fRcurl_easy_getinfo()\fP\&. Call \fRcurl_easy_getinfo()
 .RS 4
 \fIflag\fP Setting the type of information to be extracted\&. 
 .br
-\fIval\fP The std::string that needs to hold the information 
-.RE
-.PP
-\fBReturns\fP
-.RS 4
-The value of the environment variable
+\fIval\fP The std::string that needs to hold the information
 .RE
 .PP
 \fBNote\fP

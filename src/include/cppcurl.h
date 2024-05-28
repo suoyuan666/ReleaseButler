@@ -9,9 +9,10 @@ namespace cppcurl {
 /**
  * @brief A simple wrapper for libcurl.
  *
- * This class contains only two private members, 
- * `CURL *curl_` and `CURLcode code_`, and a simple wrapper for some libcurl functions, 
- * which I want to be able to use in other source files in a C++ way for web downloads and such.
+ * This class contains only two private members,
+ * `CURL *curl_` and `CURLcode code_`, and a simple wrapper for some libcurl
+ * functions, which I want to be able to use in other source files in a C++ way
+ * for web downloads and such.
  */
 class CPPCURL {
  private:
@@ -29,7 +30,7 @@ class CPPCURL {
   auto ck4ok() -> bool;
 
   /**
-   * @brief Return (curl_ == nullptr)
+   * @brief Return (`curl_ == nullptr`)
    */
   auto empty() -> bool;
 
@@ -44,9 +45,8 @@ class CPPCURL {
    * Call `curl_easy_getinfo()` to get the information and put the return value
    * of `curl_easy_getinfo()` into the code_ member.
    *
-   * @param flag Setting the type of information to be extracted.
-   * @param val The int that needs to hold the information
-   * @return The value of the environment variable
+   * @param `flag` Setting the type of information to be extracted.
+   * @param `val` The int that needs to hold the information
    *
    * @note For more information on `flag`, see
    * https://curl.se/libcurl/c/curl_easy_getinfo.html.
@@ -59,9 +59,8 @@ class CPPCURL {
    * Call `curl_easy_getinfo()` to get the information and put the return value
    * of `curl_easy_getinfo()` into the code_ member.
    *
-   * @param flag Setting the type of information to be extracted.
-   * @param val The std::string that needs to hold the information
-   * @return The value of the environment variable
+   * @param `flag` Setting the type of information to be extracted.
+   * @param `val` The std::string that needs to hold the information
    *
    * @note For more information on `flag`, see
    * https://curl.se/libcurl/c/curl_easy_getinfo.html.
@@ -73,8 +72,8 @@ class CPPCURL {
    *
    * Call `curl_easy_setopt()` to set the information.
    *
-   * @param option What information to set
-   * @param val std::string holding information
+   * @param `option` What information to set
+   * @param `val` std::string holding information
    *
    * @note For more information on `flag`, see
    * https://curl.se/libcurl/c/curl_easy_setopt.html.
@@ -84,10 +83,11 @@ class CPPCURL {
   /**
    * @brief Access the specified URL and save it to the specified file
    *
-   * @param url Specified url
-   * @param file_name Specified file name
-   * @param vmode Whether to output more information (for debugging purposes)
-   * @return Returns a bool indicating whether the function was executed correctly.
+   * @param `url` Specified url
+   * @param `file_name` Specified file name
+   * @param `vmode` Whether to output more information (for debugging purposes)
+   * @return Returns a bool indicating whether the function was executed
+   * correctly.
    */
   [[nodiscard]] auto store_ass2file(std::string_view url,
                                     std::string_view file_name, bool vmod)
