@@ -18,8 +18,8 @@
 namespace fs = std::filesystem;
 
 [[nodiscard]] auto install(std::string url, std::string_view name,
-                           std::string_view pack_name, const bool vmode,
-                           const bool install) -> bool {
+                          std::string_view pack_name, const bool vmode,
+                          const bool install) -> bool {
   std::cout << "install it! url: " << url << "\n";
   auto url_token = url.substr(0, 19);
   std::string version;

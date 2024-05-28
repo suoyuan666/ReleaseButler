@@ -115,23 +115,10 @@ $ cmake -B build -DCMAKE_BUILD_TYPE=Release
 $ cmake --build build -j `nproc`
 ```
 
+如果是在其他平台下编译，原谅我懒了，自己去寻找 libcurl4-openssl-dev 这个包对应其他发型版的软件包名吧。😛
+
 我尝试在 OpenSUSE Tumbleweed 中编译这个项目，我是用了下边的语句安装了所需的软件
 
 ```bash
 $ sudo zypper install libboost_program_options-devel boost-devel libcurl-devel clang18 llvm18-gold cmake
-```
-
-如果是在其他平台下编译，原谅我懒了，自己去寻找 libcurl4-openssl-dev 这个包对应其他发型版的软件包名吧。😛
-
-我在 **CMakeLists.txt** 中写明了使用`clang`编译，因为其中一些编译选项我使用的是`clang`的，如果你希望使用`gcc`编译，也许你还需要修改一下编译选项。就是这部分：
-
-```CMakeLists
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    message(STATUS "Configuring Release build")
-    # something come form https://airbus-seclab.github.io/c-compiler-security/clang_compilation.html
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -pipe -fPIE -Wall -Wextra -Wpedantic -Werror -Wthread-safety")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fstack-clash-protection -fstack-protector-all -fcf-protection=full")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -flto -fvisibility=hidden -fsanitize=cfi")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fsanitize=integer -fsanitize-minimal-runtime -fno-sanitize-recover")
-endif()
 ```

@@ -287,24 +287,15 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Simple encapsulation of <code>curl_easy_getinfo()</code>. </p>
-<p>Simple encapsulation of std::getenv.</p>
 <p>Call <code>curl_easy_getinfo()</code> to get the information and put the return value of <code>curl_easy_getinfo()</code> into the code_ member.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">flag</td><td>Setting the type of information to be extracted. </td></tr>
-    <tr><td class="paramname">val</td><td>The int that needs to hold the information </td></tr>
+    <tr><td class="paramname">`flag`</td><td>Setting the type of information to be extracted. </td></tr>
+    <tr><td class="paramname">`val`</td><td>The int that needs to hold the information</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The value of the environment variable</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>For more information on <code>flag</code>, see <a href="https://curl.se/libcurl/c/curl_easy_getinfo.html">https://curl.se/libcurl/c/curl_easy_getinfo.html</a>.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>Name of the environment variable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The value of the environment variable </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>For more information on <code>flag</code>, see <a href="https://curl.se/libcurl/c/curl_easy_getinfo.html">https://curl.se/libcurl/c/curl_easy_getinfo.html</a>. </dd></dl>
 
 </div>
 </div>
@@ -332,11 +323,10 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">flag</td><td>Setting the type of information to be extracted. </td></tr>
-    <tr><td class="paramname">val</td><td>The std::string that needs to hold the information </td></tr>
+    <tr><td class="paramname">val</td><td>The std::string that needs to hold the information</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The value of the environment variable</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>For more information on <code>flag</code>, see <a href="https://curl.se/libcurl/c/curl_easy_getinfo.html">https://curl.se/libcurl/c/curl_easy_getinfo.html</a>. </dd></dl>
 
 </div>

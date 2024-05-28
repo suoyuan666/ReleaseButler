@@ -115,23 +115,10 @@ $ cmake -B build -DCMAKE_BUILD_TYPE=Release
 $ cmake --build build -j `nproc`
 ```
 
+If it is compiled under other platforms, forgive me for being lazy and look for the package name of the libcurl4-openssl-dev package corresponding to other versions. 😛
+
 I tried to compile this project in OpenSUSE Tumbleweed. I installed the required software using the following code.
 
 ```bash
 $ sudo zypper install libboost_program_options-devel boost-devel libcurl-devel clang18 llvm18-gold cmake
-```
-
-If it is compiled under other platforms, forgive me for being lazy and look for the package name of the libcurl4-openssl-dev package corresponding to other versions. 😛
-
-I wrote in **CMakeLists.txt** that I use `clang` to compile, because I use `clang` for some of the compilation options. If you want to use `gcc` to compile, you may also need to modify the compilation options. This is it:
-
-```CMakeLists
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    message(STATUS "Configuring Release build")
-    # something come form https://airbus-seclab.github.io/c-compiler-security/clang_compilation.html
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -pipe -fPIE -Wall -Wextra -Wpedantic -Werror -Wthread-safety")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fstack-clash-protection -fstack-protector-all -fcf-protection=full")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -flto -fvisibility=hidden -fsanitize=cfi")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fsanitize=integer -fsanitize-minimal-runtime -fno-sanitize-recover")
-endif()
 ```

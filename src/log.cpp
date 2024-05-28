@@ -1,4 +1,6 @@
 #include "include/log.h"
+#include <sys/wait.h>
+#include <unistd.h>
 
 #include <filesystem>
 #include <fstream>
@@ -11,7 +13,7 @@
 namespace fs = std::filesystem;
 
 [[nodiscard]] auto conf_modify(nlohmann::json &json, std::string_view filename,
-                               const bool vmode) -> bool {
+                              const bool vmode) -> bool {
   if (fs::exists(filename.data()) && (!fs::is_empty(filename.data()))) {
     nlohmann::json rdata;
     {
@@ -61,17 +63,21 @@ namespace fs = std::filesystem;
   auto pak_fil = config_file.substr(0, config_file.length() - 9);
   pak_fil.append("package.json");
 
-  std::cout << "pak_fil: " << pak_fil << '\n';
+  if (vmode) {
+    std::cout << "pak_fil: " << pak_fil << '\n';
+  }
 
-  nlohmann::json wdata{{name,
-                        {
-                            {"name", pack_name},
-                            {"version", version},
-                            {"url", url},
-                        }}};
+  nlohmann::json wdata{
+{name, {
+    {"name", pack_name},
+    {"version", version},
+    {"url", url},
+      }
+    }
+  };
 
   nlohmann::json pakdata{
-      {name, version},
+{name, version},
   };
 
   if (vmode) {
@@ -163,7 +169,7 @@ auto parse_confile(std::string_view filename, const bool vmode) -> bool {
         path.append(key);
         command.append(url);
         command.append(path);
-        std::system(command.c_str());
+        
       } else {
         if (val.count("name") != 0U) {
           std::string pack_name = val.at("name");
