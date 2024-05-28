@@ -10,7 +10,7 @@
 
 auto main(int argc, char *argv[]) -> int {
   argparse::ArgumentParser program("releasebutler");
-  program.add_description("package manager on GitHub.");
+  program.add_description("releasebutler: package manager on GitHub.");
   program.set_usage_max_line_width(80);
 
   program.add_argument("-h", "help")
@@ -64,8 +64,8 @@ auto main(int argc, char *argv[]) -> int {
   if (program.is_used("--install")) {
     softname = program.get<std::string>("--install");
   }
-  if (program.is_used("--softname")) {
-    pack_name = program.get<std::string>("--softname");
+  if (program.is_used("--pakname")) {
+    pack_name = program.get<std::string>("--pakname");
   }
 
   if (!(url.empty() && pack_name.empty() && softname.empty())) {

@@ -25,12 +25,6 @@ CPPCURL::~CPPCURL() { curl_easy_cleanup(curl_); }
 
 auto CPPCURL::reset() -> void { curl_easy_reset(curl_); }
 
-/**
- * @brief Simple encapsulation of std::getenv
- *
- * @param name Name of the environment variable
- * @return The value of the environment variable
- */
 auto CPPCURL::getinfo(CURLINFO flag, int64_t *val) -> void {
   code_ = curl_easy_getinfo(curl_, flag, val);
 }
@@ -56,8 +50,8 @@ auto CPPCURL::errorMsg() -> std::string_view {
 auto CPPCURL::empty() -> bool { return curl_ == nullptr; }
 
 [[nodiscard]] auto CPPCURL::store_ass2file(std::string_view url,
-                                           std::string_view file_name,
-                                           const bool vmode) -> bool {
+                                          std::string_view file_name,
+                                          const bool vmode) -> bool {
   std::string path = "/tmp/";
   path.append(file_name);
 
@@ -74,6 +68,7 @@ auto CPPCURL::empty() -> bool { return curl_ == nullptr; }
     return false;
   }
 
+  // set url and view its url after 302 redirection.
   curl_easy_setopt(curl_, CURLOPT_URL, url.data());
   code_ = curl_easy_perform(curl_);
   int64_t response_code;
@@ -82,6 +77,7 @@ auto CPPCURL::empty() -> bool { return curl_ == nullptr; }
     std::cout << "response_code: " << response_code << "\n";
   }
 
+  // since i prefer not to use `char*`, I do it.
   std::string location;
   {
     std::shared_ptr<char *> tmp = std::make_shared<char *>();
@@ -93,6 +89,7 @@ auto CPPCURL::empty() -> bool { return curl_ == nullptr; }
   }
   curl_easy_reset(curl_);
 
+  // start saving
   curl_easy_setopt(curl_, CURLOPT_URL, location.c_str());
   curl_easy_setopt(curl_, CURLOPT_WRITEFUNCTION, WriteCallback);
   curl_easy_setopt(curl_, CURLOPT_WRITEDATA, &ofs);

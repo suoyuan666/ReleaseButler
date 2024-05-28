@@ -8,7 +8,7 @@ namespace os_detect {
  */
 constexpr int OS_KIND = 4;
 
-enum OS_KIND{
+enum OS_KIND {
   debian,
   ubuntu,
   fedora,
@@ -37,7 +37,8 @@ constexpr packinfo OS_PACKAGE[OS_KIND] = {
 /**
  * @brief Used to detect the current Linux distributions.
  *
- * @return A `std::optional<>` class is used to indicate the current system environment.
+ * @return A `std::optional<>` class is used to indicate the current system
+ * environment.
  */
 auto OsDetect() -> std::optional<enum OS_KIND>;
 }  // namespace os_detect

@@ -192,18 +192,9 @@ How to compile</h1>
 <div class="line">$ git submodule update --init --recursive</div>
 <div class="line">$ cmake -B build -DCMAKE_BUILD_TYPE=Release</div>
 <div class="line">$ cmake --build build -j `nproc`</div>
-</div><!-- fragment --><p>I tried to compile this project in OpenSUSE Tumbleweed. I installed the required software using the following code.</p>
-<div class="fragment"><div class="line">$ sudo zypper install libboost_program_options-devel boost-devel libcurl-devel clang18 llvm18-gold cmake</div>
 </div><!-- fragment --><p>If it is compiled under other platforms, forgive me for being lazy and look for the package name of the libcurl4-openssl-dev package corresponding to other versions. 😛</p>
-<p>I wrote in <b>CMakeLists.txt</b> that I use <code>clang</code> to compile, because I use <code>clang</code> for some of the compilation options. If you want to use <code>gcc</code> to compile, you may also need to modify the compilation options. This is it:</p>
-<div class="fragment"><div class="line">if(CMAKE_BUILD_TYPE STREQUAL &quot;Release&quot;)</div>
-<div class="line">    message(STATUS &quot;Configuring Release build&quot;)</div>
-<div class="line">    # something come form https://airbus-seclab.github.io/c-compiler-security/clang_compilation.html</div>
-<div class="line">    set(CMAKE_CXX_FLAGS_RELEASE &quot;${CMAKE_CXX_FLAGS_RELEASE} -O2 -pipe -fPIE -Wall -Wextra -Wpedantic -Werror -Wthread-safety&quot;)</div>
-<div class="line">    set(CMAKE_CXX_FLAGS_RELEASE &quot;${CMAKE_CXX_FLAGS_RELEASE} -fstack-clash-protection -fstack-protector-all -fcf-protection=full&quot;)</div>
-<div class="line">    set(CMAKE_CXX_FLAGS_RELEASE &quot;${CMAKE_CXX_FLAGS_RELEASE} -flto -fvisibility=hidden -fsanitize=cfi&quot;)</div>
-<div class="line">    set(CMAKE_CXX_FLAGS_RELEASE &quot;${CMAKE_CXX_FLAGS_RELEASE} -fsanitize=integer -fsanitize-minimal-runtime -fno-sanitize-recover&quot;)</div>
-<div class="line">endif()</div>
+<p>I tried to compile this project in OpenSUSE Tumbleweed. I installed the required software using the following code.</p>
+<div class="fragment"><div class="line">$ sudo zypper install libboost_program_options-devel boost-devel libcurl-devel clang18 llvm18-gold cmake</div>
 </div><!-- fragment --> </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"/>
 </div><!-- contents -->

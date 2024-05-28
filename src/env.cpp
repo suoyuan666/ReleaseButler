@@ -1,6 +1,6 @@
 #include <cstdlib>
-#include <string_view>
 
+#include "include/env.h"
 #include "include/log.h"
 
 [[nodiscard]] auto get_env2str(std::string_view name) -> std::string {
