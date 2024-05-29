@@ -7,37 +7,37 @@
 
 #include "log.h"
 #include "pack_core.h"
+#include "misc.h"
 
 auto main(int argc, char *argv[]) -> int {
-  argparse::ArgumentParser program("releasebutler");
-  program.add_description("releasebutler: package manager on GitHub.");
+  argparse::ArgumentParser program(PACK_NAME.data());
+  program.add_description(RB_DES.data());
   program.set_usage_max_line_width(80);
 
-  program.add_argument("-h", "help")
-      .default_value(false)
-      .help("print help message")
-      .implicit_value(true)
-      .nargs(0);
-  program.add_argument("-i", "--install").help("set package name");
-  program.add_argument("--pakname").help("set package name");
-  program.add_argument("-f", "--from").help("set package homepage url");
+  argparse::ArgumentParser install_command("install");
+  install_command.add_description("install package form specified url");
+  install_command.add_argument("--package").help("set package name, like fastfetch");
+  install_command.add_argument("--pakname").help("set package binary name, like fastfetch-linux-amd64.deb");
+  install_command.add_argument("-f", "--from").help("set package homepage url");
+
+  argparse::ArgumentParser update_command("update");
+  update_command.add_argument("--all").help("update all installed package");
+  update_command.add_description("update installed package");
+
   program.add_argument("--parse").help("set the file name to be parsed");
-  program.add_argument("-u", "--update")
-      .default_value(false)
-      .help("print help message")
-      .implicit_value(true)
-      .nargs(0);
   program.add_argument("-v", "--verbose")
       .default_value(false)
-      .help("print help message")
+      .help("set more information output")
       .implicit_value(true)
       .nargs(0);
   program.add_argument("--version").help("print version info").nargs(0);
+  program.add_subparser(install_command);
+  program.add_subparser(update_command);
 
   program.parse_args(argc, argv);
 
   if (program.is_used("--version")) {
-    std::cout << "0.1\n";
+    std::cout << RB_MES_PREV << VERSION << std::endl;
     return 0;
   }
 
@@ -51,21 +51,21 @@ auto main(int argc, char *argv[]) -> int {
     return static_cast<int>(parse_confile(filename, vmode));
   }
 
-  if (program.is_used("--update")) {
+  if (update_command.is_used("--all")) {
     return static_cast<int>(parse_confile("", vmode));
   }
 
   std::string url;
   std::string pack_name;
   std::string softname;
-  if (program.is_used("--from")) {
-    url = program.get<std::string>("--from");
+  if (install_command.is_used("--from")) {
+    url = install_command.get<std::string>("--from");
   }
-  if (program.is_used("--install")) {
-    softname = program.get<std::string>("--install");
+  if (install_command.is_used("--package")) {
+    softname = install_command.get<std::string>("--package");
   }
-  if (program.is_used("--pakname")) {
-    pack_name = program.get<std::string>("--pakname");
+  if (install_command.is_used("--pakname")) {
+    pack_name = install_command.get<std::string>("--pakname");
   }
 
   if (!(url.empty() && pack_name.empty() && softname.empty())) {
