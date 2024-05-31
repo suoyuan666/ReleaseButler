@@ -10,36 +10,34 @@
 #include "misc.h"
 
 auto main(int argc, char *argv[]) -> int {
-  argparse::ArgumentParser program(PACK_NAME.data());
+  argparse::ArgumentParser program(PACK_NAME.data() , VERSION.data(), argparse::default_arguments::help);
   program.add_description(RB_DES.data());
   program.set_usage_max_line_width(80);
 
-  argparse::ArgumentParser install_command("install");
+  argparse::ArgumentParser install_command("install", VERSION.data(), argparse::default_arguments::help);
   install_command.add_description("install package form specified url");
-  install_command.add_argument("--package").help("set package name, like fastfetch");
-  install_command.add_argument("--pakname").help("set package binary name, like fastfetch-linux-amd64.deb");
-  install_command.add_argument("-f", "--from").help("set package homepage url");
+  install_command.add_argument("--package").help("set package name, like `fastfetch`").metavar("package");
+  install_command.add_argument("--pakname").help("set package binary name, like `fastfetch-linux-amd64.deb`").metavar("package name");
+  install_command.add_argument("-f", "--from").help("set package homepage url").metavar("url");
 
-  argparse::ArgumentParser update_command("update");
+  argparse::ArgumentParser update_command("update", VERSION.data(), argparse::default_arguments::help);
   update_command.add_argument("--all").help("update all installed package");
   update_command.add_description("update installed package");
 
-  program.add_argument("--parse").help("set the file name to be parsed");
+  program.add_argument("--version").help("shows version info").nargs(0)
+  .action([](const std::string&) {
+    std::cout << RB_MES_PREV << VERSION << std::endl;
+  });
+  program.add_argument("--parse").help("set the file name to be parsed").metavar("file name");
   program.add_argument("-v", "--verbose")
       .default_value(false)
       .help("set more information output")
       .implicit_value(true)
       .nargs(0);
-  program.add_argument("--version").help("print version info").nargs(0);
   program.add_subparser(install_command);
   program.add_subparser(update_command);
 
   program.parse_args(argc, argv);
-
-  if (program.is_used("--version")) {
-    std::cout << RB_MES_PREV << VERSION << std::endl;
-    return 0;
-  }
 
   auto vmode{false};
   if (program.is_used("--verbose")) {
