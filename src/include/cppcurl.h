@@ -23,16 +23,21 @@ class CPPCURL {
   CPPCURL();
   ~CPPCURL();
   explicit CPPCURL(CURL *curl);
+  CPPCURL(const CPPCURL &val);
+  CPPCURL(CPPCURL &&val) noexcept;
+  auto operator=(const CPPCURL& val) -> CPPCURL&;
+  auto operator=(CPPCURL &&val)  noexcept ->CPPCURL&;
+   
 
   /**
    * @brief Detecting errors in the `code_` field
    */
-  auto ck4ok() -> bool;
+  auto ck4ok() const -> bool;
 
   /**
    * @brief Return (`curl_ == nullptr`)
    */
-  auto empty() -> bool;
+  auto empty() const -> bool;
 
   /**
    * @brief Simple wrapping of `curl_easy_reset()`

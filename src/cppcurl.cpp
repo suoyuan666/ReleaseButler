@@ -19,9 +19,47 @@ auto WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
   return size * nmemb;
 }
 
-CPPCURL::CPPCURL() { curl_ = curl_easy_init(); }
+CPPCURL::CPPCURL() { curl_ = curl_easy_init();}
 CPPCURL::CPPCURL(CURL *curl) : curl_(curl) {}
 CPPCURL::~CPPCURL() { curl_easy_cleanup(curl_); }
+
+CPPCURL::CPPCURL(const CPPCURL &val){
+ if(val.ck4ok()) {
+    this->curl_ = val.curl_;
+  }
+  if(val.empty()) {
+    this->code_ = val.code_;
+  }
+}
+
+CPPCURL::CPPCURL(CPPCURL &&val) noexcept{
+  if(val.ck4ok()) {
+    this->curl_ = val.curl_;
+  }
+  if(val.empty()) {
+    this->code_ = val.code_;
+  }
+}
+
+auto CPPCURL::operator=(const CPPCURL &val) -> CPPCURL&{
+  if(val.ck4ok()) {
+    this->curl_ = val.curl_;
+  }
+  if(val.empty()) {
+    this->code_ = val.code_;
+  }
+  return *this;
+}
+
+auto CPPCURL::operator=(CPPCURL &&val)  noexcept -> CPPCURL&{
+  if(val.ck4ok()) {
+    this->curl_ = val.curl_;
+  }
+  if(val.empty()) {
+    this->code_ = val.code_;
+  }
+  return *this;
+}
 
 auto CPPCURL::reset() -> void { curl_easy_reset(curl_); }
 
@@ -41,13 +79,13 @@ auto CPPCURL::setopt(CURLoption option, std::string_view val) -> void {
 
 auto CPPCURL::perform() -> void { code_ = curl_easy_perform(curl_); }
 
-auto CPPCURL::ck4ok() -> bool { return code_ == CURLE_OK; }
+auto CPPCURL::ck4ok() const -> bool { return code_ == CURLE_OK; }
 
 auto CPPCURL::errorMsg() -> std::string_view {
   return curl_easy_strerror(code_);
 }
 
-auto CPPCURL::empty() -> bool { return curl_ == nullptr; }
+auto CPPCURL::empty() const -> bool { return curl_ == nullptr; }
 
 [[nodiscard]] auto CPPCURL::store_ass2file(std::string_view url,
                                           std::string_view file_name,
