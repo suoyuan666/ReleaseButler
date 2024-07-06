@@ -1,4 +1,4 @@
-#include "include/cppcurl.h"
+#include "cppcurl.h"
 
 #include <curl/curl.h>
 #include <curl/easy.h>

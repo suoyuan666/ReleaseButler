@@ -10,17 +10,17 @@
 
 TODO:
 
-- [x] ~~ 使用JSON格式存储软件包的信息。~~
-- [x] ~~ 使用`build`字段存储一些在install之后执行的工作。~~
-- [x] ~~ 使用`install`字段存储一些install之前的准备工作。~~
-- [x] ~~ 我想要实现成如果不提供软件包的名字的话就默认直接clone仓库，准备开始编译它。~~
+- [x] ~~使用JSON格式存储软件包的信息。~~
+- [x] ~~使用`build`字段存储一些在install之后执行的工作。~~
+- [x] ~~使用`install`字段存储一些install之前的准备工作。~~
+- [x] ~~我想要实现成如果不提供软件包的名字的话就默认直接clone仓库，准备开始编译它。~~
 - [ ] 想要在GitHub创建一个仓库存储软件包安装的json文件，这样用户可以直接import之后安装。话说这样就好像nix(但我就是因为懒得学习nix语法，我才执着自己写一个)。
 - [ ] 目前使用的是sudo安装软件，没做对当前软件的用户权限是否是非root用户，并且也没做对sudo的检测(准备实现成如果没有sudo就检测是否存在doas)。
 - [ ] 我想实现成支持很多软件(源码)分发平台，但目前就只是做了对GitHub的处理。
 
 ---
 
-⚠️: 你必须首先安装**sudo**而不是**open-doas**或是其他类似的软件，如果你不想强依赖于**sudo**可以选择修改源代码😀。或者我后续想起来会尝试添加对sudo或doas的检测。
+~~⚠️: 你必须首先安装**sudo**而不是**open-doas**或是其他类似的软件，如果你不想强依赖于**sudo**可以选择修改源代码😀。或者我后续想起来会尝试添加对sudo或doas的检测。~~ 我已经添加了对 `/usr/bin/sudo` 和 `/usr/bin/doas` 的检测。
 
 ---
 
@@ -28,7 +28,7 @@ TODO:
 
 **自动发行版检测：** ReleaseButler 确定运行环境的Linux发行版，确保与各种系统的兼容性。
 
-**安装和更新**：使用单个命令轻松安装软件包。 ReleaseButler 支持更新，使您安装的软件保持最新。(TODO)
+**安装和更新**：使用单个命令轻松安装软件包。 ReleaseButler 支持更新，使您安装的软件保持最新。
 
 **尽量适配各种情况**: 尝试引入各种字段以适配各种仓库的安装步骤。
 
@@ -107,7 +107,7 @@ note: ReleaseButler 现在还不支持指定软件包的单独更新。🙃
 如果你在 Debian 发行版下编译该项目:
 
 ```bash
-$ sudo apt install libcurl4-openssl-dev libboost-all-dev clang cmake
+$ sudo apt install libcurl4-openssl-dev clang cmake
 $ git clone https://github.com/suoyuan666/ReleaseButler.git
 $ cd ReleaseButler
 $ git submodule update --init --recursive
@@ -120,5 +120,5 @@ $ cmake --build build -j `nproc`
 我尝试在 OpenSUSE Tumbleweed 中编译这个项目，我是用了下边的语句安装了所需的软件
 
 ```bash
-$ sudo zypper install libboost_program_options-devel boost-devel libcurl-devel clang18 llvm18-gold cmake
+$ sudo zypper install libcurl-devel clang18 llvm18-gold cmake
 ```

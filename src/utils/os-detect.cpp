@@ -1,4 +1,4 @@
-#include "include/os-detect.h"
+#include "os-detect.h"
 
 #include <fstream>
 #include <utility>

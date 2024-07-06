@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.13)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(PROGRAM_NAME releasebutler)
-
 project(ReleaseButler
     VERSION 2024.5
     DESCRIPTION "package manager on GitHub"
@@ -57,23 +55,3 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
 endif()
 message(STATUS "CMAKE_EXE_LINKER_FLAGS: ${CMAKE_EXE_LINKER_FLAGS}")
 message(STATUS "CMAKE_SHARED_LINKER_FLAGS: ${CMAKE_SHARED_LINKER_FLAGS}")
-
-add_executable(${PROGRAM_NAME} "src/main.cpp")
-
-set(
-    RB_SRC_INCLUDE_DIR
-    ${PROJECT_SOURCE_DIR}/src/include
-)
-
-set(
-    RB_THIRD_PARTY_INCLUDE_DIR
-    ${PROJECT_SOURCE_DIR}/third_party/argparse/include
-)
-
-include_directories(${RB_SRC_INCLUDE_DIR} ${RB_THIRD_PARTY_INCLUDE_DIR})
-
-set(ReleaseButler_LIBS
-    pack_core
-)
-
-target_link_libraries(${PROGRAM_NAME} ${ReleaseButler_LIBS})

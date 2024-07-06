@@ -1,4 +1,4 @@
-#include "include/pack_core.h"
+#include "pack_core.h"
 
 #include <sys/wait.h>
 #include <unistd.h>
@@ -9,10 +9,10 @@
 #include <iostream>
 #include <string_view>
 
-#include "include/cppcurl.h"
-#include "include/env.h"
-#include "include/log.h"
-#include "include/os-detect.h"
+#include "cppcurl.h"
+#include "env.h"
+#include "log.h"
+#include "os-detect.h"
 #include "json.hpp"
 
 namespace fs = std::filesystem;
@@ -174,11 +174,19 @@ namespace fs = std::filesystem;
       case os_detect::OS_KIND::ubuntu:
       case os_detect::OS_KIND::deepin:
         path.append(pack_name);
-        execl("/usr/bin/sudo", "sudo", "dpkg", "-i", path.c_str(), NULL);
+        if (std::filesystem::exists("/usr/bin/sudo")) {
+          execl("/usr/bin/sudo", "sudo", "dpkg", "-i", path.c_str(), NULL);
+        } else if (std::filesystem::exists("/usr/bin/doas")) {
+          execl("/usr/bin/doas", "doas", "dpkg", "-i", path.c_str(), NULL);
+        }
         break;
       case os_detect::OS_KIND::fedora:
         path.append(pack_name);
-        execl("/usr/bin/sudo", "sudo", "dnf", "install", path.c_str(), NULL);
+        if (std::filesystem::exists("/usr/bin/sudo")) {
+          execl("/usr/bin/sudo", "sudo", "dnf", "install", path.c_str(), NULL);
+        } else if (std::filesystem::exists("/usr/bin/doas")) {
+          execl("/usr/bin/doas", "doas", "dnf", "install", path.c_str(), NULL);
+        }
         break;
     }
   }

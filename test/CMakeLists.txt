@@ -16,6 +16,6 @@ set(
 
 include_directories(${TEST_INCLUDE_DIR})
 
-target_link_libraries(${TEST_TARGET_NAME} PRIVATE gtest gtest_main pack_core)
+target_link_libraries(${TEST_TARGET_NAME} PRIVATE gtest gtest_main ${ReleaseButler_LIBS})
 
 add_test(NAME ${TEST_TARGET_NAME} COMMAND ${TEST_TARGET_NAME})

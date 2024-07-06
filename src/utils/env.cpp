@@ -1,7 +1,7 @@
 #include <cstdlib>
 
-#include "include/env.h"
-#include "include/log.h"
+#include "env.h"
+#include "log.h"
 
 [[nodiscard]] auto get_env2str(std::string_view name) -> std::string {
   char* tmp = std::getenv(name.data());

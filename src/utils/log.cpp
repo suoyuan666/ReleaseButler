@@ -1,4 +1,4 @@
-#include "include/log.h"
+#include "log.h"
 #include <sys/wait.h>
 #include <unistd.h>
 
@@ -6,8 +6,8 @@
 #include <fstream>
 #include <iostream>
 
-#include "include/env.h"
-#include "include/pack_core.h"
+#include "env.h"
+#include "pack_core.h"
 #include "json.hpp"
 
 namespace fs = std::filesystem;

@@ -20,7 +20,7 @@ TODO:
 
 ---
 
-⚠️: You must first install **sudo** instead of **open-doas** or other similar software. If you don’t want to rely heavily on **sudo**, you can choose to modify the source code😀. Or if I think of it later, I will try to add detection for sudo or doas.
+~~⚠️: You must first install **sudo** instead of **open-doas** or other similar software. If you don’t want to rely heavily on **sudo**, you can choose to modify the source code 😀. Or if I think of it later, I will try to add detection for sudo or doas.~~ I have added detection for `/usr/bin/sudo` and `/usr/bin/doas`.
 
 ---
 
@@ -44,7 +44,7 @@ The `--install` field accepts the name of the software to be installed, and the 
 
 Installing from the command line does not yet support all fields (like `install`, `build`, etc.).
 
-### Update (Todo)
+### Update
 
 ```bash
 $ releasebutler --update
@@ -107,7 +107,7 @@ I try to support importing json files from other places in this way. But the fil
 If you compile this project under Debian OS:
 
 ```bash
-$ sudo apt install libcurl4-openssl-dev libboost-all-dev clang
+$ sudo apt install libcurl4-openssl-dev clang
 $ git clone https://github.com/suoyuan666/ReleaseButler.git
 $ cd ReleaseButler
 $ git submodule update --init --recursive
@@ -120,5 +120,5 @@ If it is compiled under other platforms, forgive me for being lazy and look for 
 I tried to compile this project in OpenSUSE Tumbleweed. I installed the required software using the following code.
 
 ```bash
-$ sudo zypper install libboost_program_options-devel boost-devel libcurl-devel clang18 llvm18-gold cmake
+$ sudo zypper install libcurl-devel clang18 llvm18-gold cmake
 ```
