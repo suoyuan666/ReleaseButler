@@ -28,7 +28,7 @@ var NAVTREE =
     [ "Features:", "index.html#autotoc_md3", null ],
     [ "Instructions", "index.html#autotoc_md4", [
       [ "install software:", "index.html#autotoc_md5", null ],
-      [ "Update (Todo)", "index.html#autotoc_md6", null ],
+      [ "Update", "index.html#autotoc_md6", null ],
       [ "Parse externally imported json files", "index.html#autotoc_md7", null ]
     ] ],
     [ "Field definitions of software package information files:", "index.html#autotoc_md10", null ],
@@ -68,7 +68,8 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ]
+        [ "Functions", "globals_func.html", null ],
+        [ "Variables", "globals_vars.html", null ]
       ] ]
     ] ]
   ] ]

@@ -106,16 +106,16 @@ $(function(){initNavTree('md_README__ZH__CN.html',''); initResizable(true); });
 <p>目前我是想要实现一个类似 BSD 系“类 ports 系统”那样的东西，就像 Arch Linux 的 <a href="https://wiki.archlinux.org/title/Arch_build_system">ABS</a>，或者像是 Gentoo Linux 的 <a href="https://wiki.gentoo.org/wiki/Portage">protage</a>。目前想要的甚至还没 ABS 那么复杂，Gentoo Linux 那样标记 USE 变量更是想都没想了。</p>
 <p>TODO:</p>
 <ul class="check">
-<li class="checked">~~ 使用JSON格式存储软件包的信息。~~</li>
+<li class="checked"><strike>使用JSON格式存储软件包的信息。</strike></li>
 </ul>
 <ul class="check">
-<li class="checked">~~ 使用<code>build</code>字段存储一些在install之后执行的工作。~~</li>
+<li class="checked"><strike>使用<code>build</code>字段存储一些在install之后执行的工作。</strike></li>
 </ul>
 <ul class="check">
-<li class="checked">~~ 使用<code>install</code>字段存储一些install之前的准备工作。~~</li>
+<li class="checked"><strike>使用<code>install</code>字段存储一些install之前的准备工作。</strike></li>
 </ul>
 <ul class="check">
-<li class="checked">~~ 我想要实现成如果不提供软件包的名字的话就默认直接clone仓库，准备开始编译它。~~</li>
+<li class="checked"><strike>我想要实现成如果不提供软件包的名字的话就默认直接clone仓库，准备开始编译它。</strike></li>
 <li class="unchecked">想要在GitHub创建一个仓库存储软件包安装的json文件，这样用户可以直接import之后安装。话说这样就好像nix(但我就是因为懒得学习nix语法，我才执着自己写一个)。</li>
 </ul>
 <ul class="check">
@@ -125,12 +125,12 @@ $(function(){initNavTree('md_README__ZH__CN.html',''); initResizable(true); });
 <li class="unchecked">我想实现成支持很多软件(源码)分发平台，但目前就只是做了对GitHub的处理。</li>
 </ul>
 <hr  />
-<p>⚠️: 你必须首先安装**sudo**而不是**open-doas**或是其他类似的软件，如果你不想强依赖于**sudo**可以选择修改源代码😀。或者我后续想起来会尝试添加对sudo或doas的检测。</p>
+<p><strike>⚠️: 你必须首先安装**sudo**而不是**open-doas**或是其他类似的软件，如果你不想强依赖于**sudo**可以选择修改源代码😀。或者我后续想起来会尝试添加对sudo或doas的检测。</strike> 我已经添加了对 <code>/usr/bin/sudo</code> 和 <code>/usr/bin/doas</code> 的检测。</p>
 <hr  />
 <h1><a class="anchor" id="autotoc_md17"></a>
 特点:</h1>
 <p><b>自动发行版检测：</b> ReleaseButler 确定运行环境的Linux发行版，确保与各种系统的兼容性。</p>
-<p>**安装和更新**：使用单个命令轻松安装软件包。 ReleaseButler 支持更新，使您安装的软件保持最新。(TODO)</p>
+<p>**安装和更新**：使用单个命令轻松安装软件包。 ReleaseButler 支持更新，使您安装的软件保持最新。</p>
 <p><b>尽量适配各种情况</b>: 尝试引入各种字段以适配各种仓库的安装步骤。</p>
 <h1><a class="anchor" id="autotoc_md18"></a>
 使用方法</h1>
@@ -186,7 +186,7 @@ $(function(){initNavTree('md_README__ZH__CN.html',''); initResizable(true); });
 <h1><a class="anchor" id="autotoc_md27"></a>
 如何编译</h1>
 <p>如果你在 Debian 发行版下编译该项目:</p>
-<div class="fragment"><div class="line">$ sudo apt install libcurl4-openssl-dev libboost-all-dev clang cmake</div>
+<div class="fragment"><div class="line">$ sudo apt install libcurl4-openssl-dev clang cmake</div>
 <div class="line">$ git clone https://github.com/suoyuan666/ReleaseButler.git</div>
 <div class="line">$ cd ReleaseButler</div>
 <div class="line">$ git submodule update --init --recursive</div>
@@ -194,7 +194,7 @@ $(function(){initNavTree('md_README__ZH__CN.html',''); initResizable(true); });
 <div class="line">$ cmake --build build -j `nproc`</div>
 </div><!-- fragment --><p>如果是在其他平台下编译，原谅我懒了，自己去寻找 libcurl4-openssl-dev 这个包对应其他发型版的软件包名吧。😛</p>
 <p>我尝试在 OpenSUSE Tumbleweed 中编译这个项目，我是用了下边的语句安装了所需的软件</p>
-<div class="fragment"><div class="line">$ sudo zypper install libboost_program_options-devel boost-devel libcurl-devel clang18 llvm18-gold cmake</div>
+<div class="fragment"><div class="line">$ sudo zypper install libcurl-devel clang18 llvm18-gold cmake</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

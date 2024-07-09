@@ -22,13 +22,25 @@ cppcurl::CPPCURL \- A simple wrapper for libcurl\&.
 .RI "\fBCPPCURL\fP (CURL *curl)"
 .br
 .ti -1c
-.RI "auto \fBck4ok\fP () \-> bool"
+.RI "\fBCPPCURL\fP (const \fBCPPCURL\fP &val)"
+.br
+.ti -1c
+.RI "\fBCPPCURL\fP (\fBCPPCURL\fP &&val) noexcept"
+.br
+.ti -1c
+.RI "auto \fBoperator=\fP (const \fBCPPCURL\fP &val) \-> \fBCPPCURL\fP &"
+.br
+.ti -1c
+.RI "auto \fBoperator=\fP (\fBCPPCURL\fP &&val) noexcept \-> \fBCPPCURL\fP &"
+.br
+.ti -1c
+.RI "auto \fBck4ok\fP () const \-> bool"
 .br
 .RI "Detecting errors in the \fRcode_\fP field\&. "
 .ti -1c
-.RI "auto \fBempty\fP () \-> bool"
+.RI "auto \fBempty\fP () const \-> bool"
 .br
-.RI "Return (curl_ == nullptr) "
+.RI "Return (\fRcurl_ == nullptr\fP) "
 .ti -1c
 .RI "auto \fBreset\fP () \-> void"
 .br
@@ -71,16 +83,20 @@ This class contains only two private members, \fRCURL *curl_\fP and \fRCURLcode 
 
 .SS "cppcurl::CPPCURL::CPPCURL (CURL * curl)\fR [explicit]\fP"
 
+.SS "cppcurl::CPPCURL::CPPCURL (const \fBCPPCURL\fP & val)"
+
+.SS "cppcurl::CPPCURL::CPPCURL (\fBCPPCURL\fP && val)\fR [noexcept]\fP"
+
 .SH "Member Function Documentation"
 .PP 
-.SS "auto cppcurl::CPPCURL::ck4ok () \-> bool"
+.SS "auto cppcurl::CPPCURL::ck4ok () const \-> bool"
 
 .PP
 Detecting errors in the \fRcode_\fP field\&. 
-.SS "auto cppcurl::CPPCURL::empty () \-> bool"
+.SS "auto cppcurl::CPPCURL::empty () const \-> bool"
 
 .PP
-Return (curl_ == nullptr) 
+Return (\fRcurl_ == nullptr\fP) 
 .SS "auto cppcurl::CPPCURL::errorMsg () \-> std::string_view"
 
 .PP
@@ -117,9 +133,9 @@ Simple encapsulation of \fRcurl_easy_getinfo()\fP\&. Call \fRcurl_easy_getinfo()
 .PP
 \fBParameters\fP
 .RS 4
-\fIflag\fP Setting the type of information to be extracted\&. 
+\fI`flag`\fP Setting the type of information to be extracted\&. 
 .br
-\fIval\fP The std::string that needs to hold the information
+\fI`val`\fP The std::string that needs to hold the information
 .RE
 .PP
 \fBNote\fP
@@ -127,6 +143,10 @@ Simple encapsulation of \fRcurl_easy_getinfo()\fP\&. Call \fRcurl_easy_getinfo()
 For more information on \fRflag\fP, see https://curl.se/libcurl/c/curl_easy_getinfo.html\&. 
 .RE
 .PP
+
+.SS "auto cppcurl::CPPCURL::operator= (const \fBCPPCURL\fP & val) \-> \fBCPPCURL\fP&"
+
+.SS "auto cppcurl::CPPCURL::operator= (\fBCPPCURL\fP && val) \-> \fBCPPCURL\fP&\fR [noexcept]\fP"
 
 .SS "auto cppcurl::CPPCURL::perform () \-> void"
 
@@ -143,9 +163,9 @@ Simple encapsulation of \fRcurl_easy_setopt()\fP\&. Call \fRcurl_easy_setopt()\f
 .PP
 \fBParameters\fP
 .RS 4
-\fIoption\fP What information to set 
+\fI`option`\fP What information to set 
 .br
-\fIval\fP std::string holding information
+\fI`val`\fP std::string holding information
 .RE
 .PP
 \fBNote\fP
@@ -161,11 +181,11 @@ Access the specified URL and save it to the specified file\&.
 .PP
 \fBParameters\fP
 .RS 4
-\fIurl\fP Specified url 
+\fI`url`\fP Specified url 
 .br
-\fIfile_name\fP Specified file name 
+\fI`file_name`\fP Specified file name 
 .br
-\fIvmode\fP Whether to output more information (for debugging purposes) 
+\fI`vmode`\fP Whether to output more information (for debugging purposes) 
 .RE
 .PP
 \fBReturns\fP

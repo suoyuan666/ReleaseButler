@@ -27,7 +27,6 @@ class CPPCURL {
   CPPCURL(CPPCURL &&val) noexcept;
   auto operator=(const CPPCURL& val) -> CPPCURL&;
   auto operator=(CPPCURL &&val)  noexcept ->CPPCURL&;
-   
 
   /**
    * @brief Detecting errors in the `code_` field
