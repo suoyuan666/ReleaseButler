@@ -13,3 +13,6 @@
 [submodule "doc/doxygen-awesome-css"]
 	path = doc/doxygen-awesome-css
 	url = https://github.com/jothepro/doxygen-awesome-css
+[submodule "third_party/tlog"]
+	path = third_party/tlog
+	url = https://github.com/suoyuan666/tlog

@@ -37,6 +37,7 @@ set(
 set(
     RB_THIRD_PARTY_INCLUDE_DIR
     ${PROJECT_SOURCE_DIR}/third_party/argparse/include
+    ${PROJECT_SOURCE_DIR}/third_party/tlog/include/tlog
 )
 
 include_directories(${RB_SRC_INCLUDE_DIR} ${RB_THIRD_PARTY_INCLUDE_DIR})
@@ -47,4 +48,9 @@ set(ReleaseButler_LIBS
     curl_cpp
 )
 
-target_link_libraries(${PROGRAM_NAME} ${ReleaseButler_LIBS})
+set(
+    ReleaseButler_TP_LIBS
+    tlog
+)
+
+target_link_libraries(${PROGRAM_NAME} ${ReleaseButler_LIBS} ${ReleaseButler_TP_LIBS})

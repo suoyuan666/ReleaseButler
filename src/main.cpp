@@ -1,9 +1,10 @@
 #include <sys/types.h>
 #include <unistd.h>
-
-#include <argparse/argparse.hpp>
 #include <iostream>
 #include <string>
+
+#include <argparse/argparse.hpp>
+#include <tlog.h>
 
 #include "log.h"
 #include "misc.h"
@@ -20,7 +21,7 @@ auto main(int argc, char *argv[]) -> int {
   install_command.add_argument("--package")
       .help("set package name, like `fastfetch`")
       .metavar("package");
-  install_command.add_argument("--pakname")
+  install_command.add_argument("--packname")
       .help("set package binary name, like `fastfetch-linux-amd64.deb`")
       .metavar("package name");
   install_command.add_argument("-f", "--from")
@@ -65,14 +66,17 @@ auto main(int argc, char *argv[]) -> int {
   auto vmode{false};
   if (program.is_used("--verbose")) {
     vmode = true;
+    tlog::tprint({"set verbose to on"}, tlog::tlog_status::INFO, tlog::NO_LOG_FILE);
   }
 
   if (program.is_used("--parse")) {
     auto filename = program.get<std::string>("parse");
+    tlog::tprint({"start to parse config file in $HOME/.config/ReleaseButler/*.json"}, tlog::tlog_status::INFO, tlog::NO_LOG_FILE);
     return static_cast<int>(parse_confile(filename, vmode));
   }
 
   if (update_command.is_used("--all")) {
+    tlog::tprint({"start to update all package"}, tlog::tlog_status::INFO, tlog::NO_LOG_FILE);
     return static_cast<int>(parse_confile("", vmode));
   }
 
@@ -86,14 +90,16 @@ auto main(int argc, char *argv[]) -> int {
     if (install_command.is_used("--package")) {
       softname = install_command.get<std::string>("--package");
     }
-    if (program.is_used("--softname")) {
-      pack_name = program.get<std::string>("--softname");
+    if (install_command.is_used("--packname")) {
+      pack_name = install_command.get<std::string>("--packname");
     }
 
-    if (!(url.empty() && pack_name.empty() && softname.empty())) {
+    if (!(url.empty() || pack_name.empty() || softname.empty())) {
       if (!install(url, pack_name, softname, vmode, true)) {
         return 1;
       }
+    } else {
+      tlog::tprint({"`--from`, `--package` and `--packname` must appear together"}, tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
     }
   }
 

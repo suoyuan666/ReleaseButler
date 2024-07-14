@@ -5,3 +5,4 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif()
 
 add_subdirectory(argparse)
+add_subdirectory(tlog)
