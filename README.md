@@ -1,6 +1,7 @@
 # ReleaseButler
 
-[English](./README.md) [简体中文](./README_ZH_CN.md)
+[![GPL v2 license](https://img.shields.io/badge/license-GPL_2-blue.svg)](https://raw.githubusercontent.com/suoyuan666/tlog/master/LICENSE)
+[![Chinses](https://wangchujiang.com/sb/lang/chinese.svg)](README_ZH_CN.md)
 
 ~~The current project is still in the development stage, so the software will output a lot of unnecessary information.~~(The option verbose is now added.)
 
