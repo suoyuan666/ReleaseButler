@@ -1,6 +1,7 @@
 # ReleaseButler
 
-[English](./README.md) [简体中文](./README_ZH_CN.md)
+[![GPL v2 license](https://img.shields.io/badge/license-GPL_2-blue.svg)](https://raw.githubusercontent.com/suoyuan666/tlog/master/LICENSE)
+[![English](https://wangchujiang.com/sb/lang/english.svg)](README.md)
 
 ~~当前项目仍在开发阶段，所以软件会输出很多不必要信息~~(现在添加了 `verbose` 这个 option)
 
