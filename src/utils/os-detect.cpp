@@ -1,6 +1,7 @@
 #include "os-detect.h"
 
 #include <fstream>
+#include <optional>
 #include <utility>
 
 namespace os_detect {
@@ -41,11 +42,11 @@ auto OsDetect() -> std::optional<enum OS_KIND> {
         case 3:
           return OS_KIND::deepin;
         default:
-          return {};
+          return std::nullopt;
       }
     }
   }
 
-  return {};
+  return std::nullopt;
 }
 }  // namespace os_detect

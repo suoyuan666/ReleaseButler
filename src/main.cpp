@@ -30,7 +30,17 @@ auto main(int argc, char *argv[]) -> int {
   argparse::ArgumentParser update_command("update", VERSION.data(),
                                           argparse::default_arguments::help);
   update_command.add_argument("--all").help("update all installed package");
+  update_command.add_argument("--package")
+      .help("set package name, like `fastfetch`")
+      .metavar("package");
   update_command.add_description("update installed package");
+
+  argparse::ArgumentParser uninstall_command("uninstall", VERSION.data(),
+                                             argparse::default_arguments::help);
+  uninstall_command.add_description("uninstall package");
+  uninstall_command.add_argument("--package")
+      .help("set package name, like `fastfetch`")
+      .metavar("package");
 
   program.add_argument("--version")
       .help("shows version info")
@@ -47,6 +57,7 @@ auto main(int argc, char *argv[]) -> int {
       .implicit_value(true)
       .nargs(0);
   program.add_subparser(install_command);
+  program.add_subparser(uninstall_command);
   program.add_subparser(update_command);
 
   program.parse_args(argc, argv);
@@ -65,22 +76,24 @@ auto main(int argc, char *argv[]) -> int {
     return static_cast<int>(parse_confile("", vmode));
   }
 
-  std::string url;
-  std::string pack_name;
-  std::string softname;
-  if (install_command.is_used("--from")) {
-    url = install_command.get<std::string>("--from");
-  }
-  if (install_command.is_used("--package")) {
-    softname = install_command.get<std::string>("--package");
-  }
-  if (program.is_used("--softname")) {
-    pack_name = program.get<std::string>("--softname");
-  }
+  {
+    std::string url;
+    std::string pack_name;
+    std::string softname;
+    if (install_command.is_used("--from")) {
+      url = install_command.get<std::string>("--from");
+    }
+    if (install_command.is_used("--package")) {
+      softname = install_command.get<std::string>("--package");
+    }
+    if (program.is_used("--softname")) {
+      pack_name = program.get<std::string>("--softname");
+    }
 
-  if (!(url.empty() && pack_name.empty() && softname.empty())) {
-    if (!install(url, pack_name, softname, vmode, true)) {
-      return 1;
+    if (!(url.empty() && pack_name.empty() && softname.empty())) {
+      if (!install(url, pack_name, softname, vmode, true)) {
+        return 1;
+      }
     }
   }
 

@@ -11,15 +11,13 @@
 
 #include "cppcurl.h"
 #include "env.h"
+#include "json.hpp"
 #include "log.h"
 #include "os-detect.h"
-#include "json.hpp"
-
-namespace fs = std::filesystem;
 
 [[nodiscard]] auto install(std::string url, std::string_view name,
-                          std::string_view pack_name, const bool vmode,
-                          const bool install) -> bool {
+                           std::string_view pack_name, const bool vmode,
+                           const bool install) -> bool {
   std::cout << "install it! url: " << url << "\n";
   auto url_token = url.substr(0, 19);
   std::string version;
@@ -52,6 +50,7 @@ namespace fs = std::filesystem;
                 << curl.errorMsg() << std::endl;
       return false;
     }
+    // to get GitHub latest release url, it will 302 redirect to the correct url
     if (response_code != 302) {
       std::cerr << "something went wrong with response_code: " << response_code
                 << std::endl;
@@ -76,6 +75,12 @@ namespace fs = std::filesystem;
 
     {
       std::string tmp;
+      // eg: https://github.com/fastfetch-cli/fastfetch/releases/tag/2.17.2
+      // this is to get the version at the end of the url, in this case 2.17.2
+      //
+      // C++ 20 provides `std::ranges::reverse_view` to simplify its writing,
+      // but since I don’t know much about other new features of C++ 20, I will
+      // give up using ranges for now.
       for (auto c = location.rbegin(); c != location.rend(); ++c) {
         if (*c == '/') {
           break;
@@ -97,15 +102,16 @@ namespace fs = std::filesystem;
     }
     config_dir.append("/.config/ReleaseButler/");
 
-    if (!fs::exists(config_dir)) {
-      if (!fs::create_directories(config_dir)) {
+    if (!std::filesystem::exists(config_dir)) {
+      if (!std::filesystem::create_directories(config_dir)) {
         std::cerr << "failed to create directory: " << config_dir << std::endl;
         return false;
       }
     }
 
     config_dir.append("package.json");
-    if (fs::exists(config_dir.data()) && (!fs::is_empty(config_dir.data()))) {
+    if (std::filesystem::exists(config_dir.data()) &&
+        (!std::filesystem::is_empty(config_dir.data()))) {
       nlohmann::json rdata;
       {
         std::ifstream istrm{config_dir.data(), std::ios::binary};
@@ -155,8 +161,8 @@ namespace fs = std::filesystem;
                         vmode);
 }
 
-[[nodiscard]] auto install_core(std::string_view pack_name, const bool vmode)
-    -> bool {
+[[nodiscard]] auto install_core(std::string_view pack_name,
+                                const bool vmode) -> bool {
   auto tmp = os_detect::OsDetect();
   if (!tmp.has_value()) {
     std::cerr << "not support your operating system\n";
