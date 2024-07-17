@@ -1,24 +1,25 @@
-#include "pack_core.h"
+#include "core/pack_core.h"
 
 #include <sys/wait.h>
+#include <tlog.h>
 #include <unistd.h>
 
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <json.hpp>
 #include <string_view>
 
-#include "cppcurl.h"
-#include "env.h"
-#include "json.hpp"
-#include "log.h"
-#include "os-detect.h"
+#include "curl_cpp/cppcurl.h"
+#include "utils/env.h"
+#include "utils/log.h"
+#include "utils/os-detect.h"
 
 [[nodiscard]] auto install(std::string url, std::string_view name,
                            std::string_view pack_name, const bool vmode,
                            const bool install) -> bool {
-  std::cout << "install it! url: " << url << "\n";
+  tlog::tprint({"instalk it! url: ", url}, tlog::tlog_status::SUCCESS, tlog::NO_LOG_FILE);
   auto url_token = url.substr(0, 19);
   std::string version;
 
@@ -26,7 +27,8 @@
 
   if (url_token == "https://github.com/") {
     if (vmode) {
-      std::cout << "find it! GitHub\n";
+      tlog::tprint({"find it on GitHub"}, tlog::tlog_status::DEBUG,
+                   tlog::NO_LOG_FILE);
     }
 
     cppcurl::CPPCURL curl;
@@ -70,7 +72,8 @@
       return false;
     }
     if (vmode) {
-      std::cout << "location to :" << location << "\n";
+      tlog::tprint({"location to :", location}, tlog::tlog_status::DEBUG,
+                   tlog::NO_LOG_FILE);
     }
 
     {
@@ -92,7 +95,8 @@
       }
     }
     if (vmode) {
-      std::cout << "version: " << version << "\n";
+      tlog::tprint({"version :", version}, tlog::tlog_status::DEBUG,
+                   tlog::NO_LOG_FILE);
     }
 
     auto config_dir = get_env2str("HOME");
@@ -141,7 +145,8 @@
     url.append(pack_name);
 
     if (vmode) {
-      std::cout << "download it from the url: " << url << "\n";
+      tlog::tprint({"download it from the url: ", url},
+                   tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
     }
 
     if (!curl.store_ass2file(url, pack_name, vmode)) {
@@ -154,7 +159,8 @@
   }
 
   if (vmode) {
-    std::cout << "url_bak_1: " << url.substr(0, url_len) << '\n';
+    tlog::tprint({"url_bak_1 :", url.substr(0, url_len)},
+                 tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
   }
 
   return record2confile(url.substr(0, url_len), name, pack_name, version,
@@ -163,9 +169,9 @@
 
 [[nodiscard]] auto install_core(std::string_view pack_name,
                                 const bool vmode) -> bool {
-  auto tmp = os_detect::OsDetect();
+  auto tmp = os_detect::OsDetect(vmode);
   if (!tmp.has_value()) {
-    std::cerr << "not support your operating system\n";
+    tlog::tprint({"not support your operating system"}, tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
     return false;
   }
 
@@ -173,7 +179,8 @@
   if (pid == 0) {
     std::string path = "/tmp/";
     if (vmode) {
-      std::cout << "start install !!!!\n";
+      tlog::tprint({"start install !!!!"}, tlog::tlog_status::DEBUG,
+                   tlog::NO_LOG_FILE);
     }
     switch (tmp.value()) {
       case os_detect::OS_KIND::debian:

@@ -1,19 +1,24 @@
-#include "log.h"
+#include "utils/log.h"
+
 #include <sys/wait.h>
+#include <tlog.h>
 #include <unistd.h>
 
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <json.hpp>
+#include <sstream>
 
-#include "env.h"
-#include "pack_core.h"
-#include "json.hpp"
+#include "core/pack_core.h"
+#include "utils/env.h"
 
 namespace fs = std::filesystem;
 
 [[nodiscard]] auto conf_modify(nlohmann::json &json, std::string_view filename,
-                              const bool vmode) -> bool {
+                               const bool vmode) -> bool {
+  std::stringstream str;
+  str << std::setw(3) << json;
   if (fs::exists(filename.data()) && (!fs::is_empty(filename.data()))) {
     nlohmann::json rdata;
     {
@@ -31,32 +36,34 @@ namespace fs = std::filesystem;
       rdata[key] = val;
 
       if (vmode) {
-        std::cout << "json_2:\n" << std::setw(3) << json << '\n';
+        tlog::tprint({"json_2: ", str.str()}, tlog::tlog_status::DEBUG,
+                     tlog::NO_LOG_FILE);
       }
 
-      ostrm_conf << std::setw(3) << rdata;
+      ostrm_conf << str.str();
     } else {
-      ostrm_conf << std::setw(3) << json;
+      ostrm_conf << str.str();
     }
   } else {
     std::ofstream ostrm{filename.data(), std::ios::binary};
-    ostrm << std::setw(3) << json;
+    ostrm << str.str();
   }
   return true;
 }
 
 [[nodiscard]] auto record2confile(std::string_view url, std::string_view name,
                                   std::string_view pack_name,
-                                  std::string_view version, const bool vmode)
-    -> bool {
+                                  std::string_view version,
+                                  const bool vmode) -> bool {
   if (vmode) {
-    std::cout << "url: " << url << "\nname: " << name
-              << "\nversion: " << version << "\n";
+    tlog::tprint({"url :", url, "\n name: ", name, "\n version: ", version},
+                 tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
   }
 
   auto config_file = get_env2str("HOME");
   if (config_file.empty()) {
-    std::cerr << "can not read $HOME variable\n";
+    tlog::tprint({"can not read $HOME variable"}, tlog::tlog_status::ERROR,
+                 tlog::NO_LOG_FILE);
     return false;
   }
   config_file.append("/.config/ReleaseButler/info.json");
@@ -64,25 +71,30 @@ namespace fs = std::filesystem;
   pak_fil.append("package.json");
 
   if (vmode) {
-    std::cout << "pak_fil: " << pak_fil << '\n';
+    tlog::tprint({"pak_fil: ", pak_fil}, tlog::tlog_status::DEBUG,
+                 tlog::NO_LOG_FILE);
   }
 
-  nlohmann::json wdata{
-{name, {
-    {"name", pack_name},
-    {"version", version},
-    {"url", url},
-      }
-    }
-  };
+  nlohmann::json wdata{{name,
+                        {
+                            {"name", pack_name},
+                            {"version", version},
+                            {"url", url},
+                        }}};
 
   nlohmann::json pakdata{
-{name, version},
+      {name, version},
   };
 
   if (vmode) {
-    std::cout << "wdata_1:\n" << std::setw(3) << wdata << '\n';
-    std::cout << "pakdata_1:\n" << std::setw(3) << pakdata << '\n';
+    std::ostringstream str_wdata;
+    std::ostringstream str_pakdata;
+    str_wdata << std::setw(3) << wdata;
+    str_pakdata << std::setw(3) << pakdata;
+    tlog::tprint({"wdata_1: ", str_wdata.str()}, tlog::tlog_status::DEBUG,
+                 tlog::NO_LOG_FILE);
+    tlog::tprint({"pakdata_1: ", str_pakdata.str()}, tlog::tlog_status::DEBUG,
+                 tlog::NO_LOG_FILE);
   }
 
   if (!conf_modify(wdata, config_file, vmode)) {
@@ -98,14 +110,16 @@ namespace fs = std::filesystem;
 auto parse_confile(std::string_view filename, const bool vmode) -> bool {
   auto config_dir = get_env2str("HOME");
   if (config_dir.empty()) {
-    std::cerr << "can not read $HOME variable\n";
+    tlog::tprint({"can not read $HOME variable"}, tlog::tlog_status::ERROR,
+                 tlog::NO_LOG_FILE);
     return false;
   }
   config_dir.append("/.config/ReleaseButler/");
 
   if (!fs::exists(config_dir)) {
     if (!fs::create_directories(config_dir)) {
-      std::cerr << "failed to create directory: " << config_dir << std::endl;
+      tlog::tprint({"failed to create directory: ", config_dir},
+                   tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
       return false;
     }
   }
@@ -113,7 +127,8 @@ auto parse_confile(std::string_view filename, const bool vmode) -> bool {
   if (!filename.empty()) {
     config_dir.append(filename);
     if (vmode) {
-      std::cout << "file name to parse: " << filename << '\n';
+      tlog::tprint({"file name to parse: ", filename}, tlog::tlog_status::DEBUG,
+                   tlog::NO_LOG_FILE);
     }
     return parse_confile_core(config_dir, vmode);
   }
@@ -169,14 +184,14 @@ auto parse_confile(std::string_view filename, const bool vmode) -> bool {
         path.append(key);
         command.append(url);
         command.append(path);
-        
+
       } else {
         if (val.count("name") != 0U) {
           std::string pack_name = val.at("name");
           if (vmode) {
-            std::cout << "url: " << url << "\n";
-            std::cout << "name: " << key << "\n";
-            std::cout << "pack_name: " << pack_name << "\n";
+            tlog::tprint(
+                {"url :", url, "\n name: ", key, "\n pack_name: ", pack_name},
+                tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
           }
 
           if (!install(url, key, pack_name, vmode, install_flag)) {
@@ -185,7 +200,8 @@ auto parse_confile(std::string_view filename, const bool vmode) -> bool {
         }
       }
     } else {
-      std::cout << "need url !!!\n";
+      tlog::tprint({"need url !!!"}, tlog::tlog_status::ERROR,
+                   tlog::NO_LOG_FILE);
       return false;
     }
 

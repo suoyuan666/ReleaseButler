@@ -4,11 +4,16 @@ set (
 )
 
 set (
+    CURL_CPP_TP_INCLUDE
+    ${PROJECT_SOURCE_DIR}/third_party/tlog/include/tlog
+)
+
+set (
     CURL_CPP_SRC
     cppcurl.cpp
 )
 
-include_directories(${CURL_CPP_SRC_INCLUDE})
+include_directories(${CURL_CPP_SRC_INCLUDE} ${CURL_CPP_TP_INCLUDE})
 
 find_package(CURL REQUIRED)
 

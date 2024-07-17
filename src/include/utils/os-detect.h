@@ -40,5 +40,5 @@ constexpr packinfo OS_PACKAGE[OS_KIND] = {
  * @return A `std::optional<>` class is used to indicate the current system
  * environment.
  */
-auto OsDetect() -> std::optional<enum OS_KIND>;
+auto OsDetect(const bool vmode) -> std::optional<enum OS_KIND>;
 }  // namespace os_detect

@@ -1,7 +1,7 @@
 # ReleaseButler
 
 [![GPL v2 license](https://img.shields.io/badge/license-GPL_2-blue.svg)](https://raw.githubusercontent.com/suoyuan666/tlog/master/LICENSE)
-[![English](https://wangchujiang.com/sb/lang/english.svg)](README.md)
+[![English](https://wangchujiang.com/sb/lang/english.svg)](./README.md)
 
 ~~当前项目仍在开发阶段，所以软件会输出很多不必要信息~~(现在添加了 `verbose` 这个 option)
 
@@ -16,7 +16,7 @@ TODO:
 - [x] ~~使用`install`字段存储一些install之前的准备工作。~~
 - [x] ~~我想要实现成如果不提供软件包的名字的话就默认直接clone仓库，准备开始编译它。~~
 - [ ] 想要在GitHub创建一个仓库存储软件包安装的json文件，这样用户可以直接import之后安装。话说这样就好像nix(但我就是因为懒得学习nix语法，我才执着自己写一个)。
-- [ ] 目前使用的是sudo安装软件，没做对当前软件的用户权限是否是非root用户，并且也没做对sudo的检测(准备实现成如果没有sudo就检测是否存在doas)。
+- [x] 目前使用的是sudo安装软件，没做对当前软件的用户权限是否是非root用户，并且也没做对sudo的检测(准备实现成如果没有sudo就检测是否存在doas)。
 - [ ] 我想实现成支持很多软件(源码)分发平台，但目前就只是做了对GitHub的处理。
 
 ---

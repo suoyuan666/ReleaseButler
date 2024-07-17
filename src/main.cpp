@@ -6,9 +6,9 @@
 #include <argparse/argparse.hpp>
 #include <tlog.h>
 
-#include "log.h"
-#include "misc.h"
-#include "pack_core.h"
+#include "utils/log.h"
+#include "utils/misc.h"
+#include "core/pack_core.h"
 
 auto main(int argc, char *argv[]) -> int {
   argparse::ArgumentParser program("releasebutler");
@@ -95,7 +95,7 @@ auto main(int argc, char *argv[]) -> int {
     }
 
     if (!(url.empty() || pack_name.empty() || softname.empty())) {
-      if (!install(url, pack_name, softname, vmode, true)) {
+      if (!install(url, softname, pack_name, vmode, true)) {
         return 1;
       }
     } else {

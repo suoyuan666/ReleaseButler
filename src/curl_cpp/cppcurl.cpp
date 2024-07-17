@@ -1,12 +1,14 @@
-#include "cppcurl.h"
+#include "curl_cpp/cppcurl.h"
 
 #include <curl/curl.h>
 #include <curl/easy.h>
+#include <tlog.h>
 
 #include <cstdint>
 #include <fstream>
 #include <iostream>
 #include <memory>
+#include <sstream>
 #include <string>
 #include <string_view>
 
@@ -94,7 +96,7 @@ auto CPPCURL::empty() const -> bool { return curl_ == nullptr; }
   path.append(file_name);
 
   if (vmode) {
-    std::cout << "store it to " << path << std::endl;
+    tlog::tprint({"store it to: ", path}, tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
   }
 
   std::ofstream ofs{path.data(), std::ios::binary};
@@ -102,7 +104,7 @@ auto CPPCURL::empty() const -> bool { return curl_ == nullptr; }
     curl_easy_reset(curl_);
   }
   if (curl_ == nullptr) {
-    std::cerr << "cannot reinit curl" << std::endl;
+    tlog::tprint({"cannot reinit curl"}, tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
     return false;
   }
 
@@ -112,18 +114,20 @@ auto CPPCURL::empty() const -> bool { return curl_ == nullptr; }
   int64_t response_code;
   curl_easy_getinfo(curl_, CURLINFO_RESPONSE_CODE, &response_code);
   if (vmode) {
-    std::cout << "response_code: " << response_code << "\n";
+    std::ostringstream str;
+    str << "response_code: " << response_code;
+    tlog::tprint({str.str()}, tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
   }
 
   // since i prefer not to use `char*`, I do it.
   std::string location;
   {
-    std::shared_ptr<char *> tmp = std::make_shared<char *>();
-    curl_easy_getinfo(curl_, CURLINFO_REDIRECT_URL, tmp.get());
+    std::shared_ptr<char *> redirect = std::make_shared<char *>();
+    curl_easy_getinfo(curl_, CURLINFO_REDIRECT_URL, redirect.get());
     if (vmode) {
-      std::cout << *tmp << "\n";
+      tlog::tprint({"redirect url: ", *redirect}, tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
     }
-    location = *tmp;
+    location = *redirect;
   }
   curl_easy_reset(curl_);
 
@@ -134,6 +138,7 @@ auto CPPCURL::empty() const -> bool { return curl_ == nullptr; }
   code_ = curl_easy_perform(curl_);
 
   if (code_ != CURLE_OK) {
+    tlog::tprint({"store it to: ", path}, tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
     std::cerr << "connect to link(s) for get information failed, error message:"
               << curl_easy_strerror(code_) << std::endl;
     return false;

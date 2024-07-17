@@ -1,7 +1,7 @@
 # ReleaseButler
 
 [![GPL v2 license](https://img.shields.io/badge/license-GPL_2-blue.svg)](https://raw.githubusercontent.com/suoyuan666/tlog/master/LICENSE)
-[![Chinses](https://wangchujiang.com/sb/lang/chinese.svg)](README_ZH_CN.md)
+[![Chinses](https://wangchujiang.com/sb/lang/chinese.svg)](./README_ZH_CN.md)
 
 ~~The current project is still in the development stage, so the software will output a lot of unnecessary information.~~(The option verbose is now added.)
 
@@ -16,7 +16,7 @@ TODO:
 - [x] ~~Use the `install` field to store some preparation work before installation.~~
 - [x] ~~I want to realize that if the name of the software package is not provided, it will clone the repository directly by default and prepare to start compiling it.~~
 - [ ] Want to create a repository on GitHub to store the json file for software package installation, so that users can directly import and install it. In other words, it's like nix (but I'm just too lazy to learn nix syntax, so I insisted on writing one myself)
-- [ ] Currently, it's using sudo to install the software. It has not checked whether the user rights of the current software are non-root users, and it has  not checked sudo (I'm planning to implement it to detect whether there are doas if there is no sudo).
+- [x] Currently, it's using sudo to install the software. It has not checked whether the user rights of the current software are non-root users, and it has  not checked sudo (I'm planning to implement it to detect whether there are doas if there is no sudo).
 - [ ] I want to realize that it supports many software (source code) distribution platforms, but it is only processed with GitHub.
 
 ---

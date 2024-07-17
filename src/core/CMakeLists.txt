@@ -6,6 +6,7 @@ set (
 set (
     RB_CORE_TP_INCLUDE
     ${PROJECT_SOURCE_DIR}/third_party/json/single_include/nlohmann
+    ${PROJECT_SOURCE_DIR}/third_party/tlog/include/tlog
 )
 
 set (

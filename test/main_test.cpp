@@ -1,6 +1,6 @@
-#include "gtest/gtest.h"
-#include "log.h"
-#include "pack_core.h"
+#include <gtest/gtest.h>
+#include "utils/log.h"
+#include "core/pack_core.h"
 
 TEST(install_test, install) {
     // EXPECT_EQ(install("https://github.com/fastfetch-cli/fastfetch", "fastfetch", "fastfetch-linux-amd64.deb", true, false), true);

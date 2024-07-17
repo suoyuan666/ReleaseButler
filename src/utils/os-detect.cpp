@@ -1,11 +1,13 @@
-#include "os-detect.h"
+#include "utils/os-detect.h"
 
 #include <fstream>
 #include <optional>
 #include <utility>
 
+#include <tlog.h>
+
 namespace os_detect {
-auto OsDetect() -> std::optional<enum OS_KIND> {
+auto OsDetect(const bool vmode) -> std::optional<enum OS_KIND> {
   std::string os_name;
   {
     std::string buf;
@@ -28,6 +30,10 @@ auto OsDetect() -> std::optional<enum OS_KIND> {
 
   if (os_name.empty()) {
     return {};
+  }
+
+  if (vmode) {
+    tlog::tprint({"os name: ", os_name}, tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
   }
 
   for (int i = 0; i < OS_KIND; ++i) {

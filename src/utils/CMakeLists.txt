@@ -6,6 +6,7 @@ set (
 set (
     RB_UTILS_TP_INCLUDE
     ${PROJECT_SOURCE_DIR}/third_party/json/single_include/nlohmann
+    ${PROJECT_SOURCE_DIR}/third_party/tlog/include/tlog
 )
 
 include_directories(${RB_UTILS_SRC_INCLUDE} ${RB_UTILS_TP_INCLUDE})
