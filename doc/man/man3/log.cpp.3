@@ -1,12 +1,16 @@
-.TH "src/log.cpp" 3 "Version 1.0" "ReleaseButler" \" -*- nroff -*-
+.TH "src/utils/log.cpp" 3 "Version 1.0" "ReleaseButler" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-src/log.cpp
+src/utils/log.cpp
 .SH SYNOPSIS
 .br
 .PP
-\fR#include 'include/log\&.h'\fP
+\fR#include 'log\&.h'\fP
+.br
+\fR#include <sys/wait\&.h>\fP
+.br
+\fR#include <unistd\&.h>\fP
 .br
 \fR#include <filesystem>\fP
 .br
@@ -14,9 +18,9 @@ src/log.cpp
 .br
 \fR#include <iostream>\fP
 .br
-\fR#include 'include/env\&.h'\fP
+\fR#include 'env\&.h'\fP
 .br
-\fR#include 'include/pack_core\&.h'\fP
+\fR#include 'pack_core\&.h'\fP
 .br
 \fR#include 'json\&.hpp'\fP
 .br

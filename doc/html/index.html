@@ -125,7 +125,7 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <li class="unchecked">I want to realize that it supports many software (source code) distribution platforms, but it is only processed with GitHub.</li>
 </ul>
 <hr  />
-<p>⚠️: You must first install <b>sudo</b> instead of <b>open-doas</b> or other similar software. If you don’t want to rely heavily on <b>sudo</b>, you can choose to modify the source code😀. Or if I think of it later, I will try to add detection for sudo or doas.</p>
+<p><strike>⚠️: You must first install <b>sudo</b> instead of <b>open-doas</b> or other similar software. If you don’t want to rely heavily on <b>sudo</b>, you can choose to modify the source code 😀. Or if I think of it later, I will try to add detection for sudo or doas.</strike> I have added detection for <code>/usr/bin/sudo</code> and <code>/usr/bin/doas</code>.</p>
 <hr  />
 <h1><a class="anchor" id="autotoc_md3"></a>
 Features:</h1>
@@ -140,7 +140,7 @@ install software:</h2>
 </div><!-- fragment --><p>The <code>--install</code> field accepts the name of the software to be installed, and the <code>packname</code> field is the name of the software package, for example <code>fastfetch-linux-amd64.deb</code> is <code>packname</code>.</p>
 <p>Installing from the command line does not yet support all fields (like <code>install</code>, <code>build</code>, etc.).</p>
 <h2><a class="anchor" id="autotoc_md6"></a>
-Update (Todo)</h2>
+Update</h2>
 <div class="fragment"><div class="line">$ releasebutler --update</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
 Parse externally imported json files</h2>
@@ -186,7 +186,7 @@ Supported Linux distributions</h1>
 <h1><a class="anchor" id="autotoc_md13"></a>
 How to compile</h1>
 <p>If you compile this project under Debian OS:</p>
-<div class="fragment"><div class="line">$ sudo apt install libcurl4-openssl-dev libboost-all-dev clang</div>
+<div class="fragment"><div class="line">$ sudo apt install libcurl4-openssl-dev clang</div>
 <div class="line">$ git clone https://github.com/suoyuan666/ReleaseButler.git</div>
 <div class="line">$ cd ReleaseButler</div>
 <div class="line">$ git submodule update --init --recursive</div>
@@ -194,7 +194,7 @@ How to compile</h1>
 <div class="line">$ cmake --build build -j `nproc`</div>
 </div><!-- fragment --><p>If it is compiled under other platforms, forgive me for being lazy and look for the package name of the libcurl4-openssl-dev package corresponding to other versions. 😛</p>
 <p>I tried to compile this project in OpenSUSE Tumbleweed. I installed the required software using the following code.</p>
-<div class="fragment"><div class="line">$ sudo zypper install libboost_program_options-devel boost-devel libcurl-devel clang18 llvm18-gold cmake</div>
+<div class="fragment"><div class="line">$ sudo zypper install libcurl-devel clang18 llvm18-gold cmake</div>
 </div><!-- fragment --> </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"/>
 </div><!-- contents -->

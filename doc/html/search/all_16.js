@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['更新_0',['更新',['../md_README__ZH__CN.html#autotoc_md20',1,'']]]
+  ['支持的linux发行版_0',['支持的Linux发行版',['../md_README__ZH__CN.html#autotoc_md25',1,'']]]
 ];
