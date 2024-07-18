@@ -14,50 +14,50 @@
 
 namespace cppcurl {
 
-auto WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
-    -> size_t {
+auto WriteCallback(void *contents, size_t size, size_t nmemb,
+                   void *userp) -> size_t {
   auto ofs = static_cast<std::ofstream *>(userp);
   ofs->write(static_cast<char *>(contents), size * nmemb);
   return size * nmemb;
 }
 
-CPPCURL::CPPCURL() { curl_ = curl_easy_init();}
+CPPCURL::CPPCURL() { curl_ = curl_easy_init(); }
 CPPCURL::CPPCURL(CURL *curl) : curl_(curl) {}
 CPPCURL::~CPPCURL() { curl_easy_cleanup(curl_); }
 
-CPPCURL::CPPCURL(const CPPCURL &val){
- if(val.ck4ok()) {
+CPPCURL::CPPCURL(const CPPCURL &val) {
+  if (val.ck4ok()) {
     this->curl_ = val.curl_;
   }
-  if(val.empty()) {
+  if (val.empty()) {
     this->code_ = val.code_;
   }
 }
 
-CPPCURL::CPPCURL(CPPCURL &&val) noexcept{
-  if(val.ck4ok()) {
+CPPCURL::CPPCURL(CPPCURL &&val) noexcept {
+  if (val.ck4ok()) {
     this->curl_ = val.curl_;
   }
-  if(val.empty()) {
+  if (val.empty()) {
     this->code_ = val.code_;
   }
 }
 
-auto CPPCURL::operator=(const CPPCURL &val) -> CPPCURL&{
-  if(val.ck4ok()) {
+auto CPPCURL::operator=(const CPPCURL &val) -> CPPCURL & {
+  if (val.ck4ok()) {
     this->curl_ = val.curl_;
   }
-  if(val.empty()) {
+  if (val.empty()) {
     this->code_ = val.code_;
   }
   return *this;
 }
 
-auto CPPCURL::operator=(CPPCURL &&val)  noexcept -> CPPCURL&{
-  if(val.ck4ok()) {
+auto CPPCURL::operator=(CPPCURL &&val) noexcept -> CPPCURL & {
+  if (val.ck4ok()) {
     this->curl_ = val.curl_;
   }
-  if(val.empty()) {
+  if (val.empty()) {
     this->code_ = val.code_;
   }
   return *this;
@@ -90,13 +90,14 @@ auto CPPCURL::errorMsg() -> std::string_view {
 auto CPPCURL::empty() const -> bool { return curl_ == nullptr; }
 
 [[nodiscard]] auto CPPCURL::store_ass2file(std::string_view url,
-                                          std::string_view file_name,
-                                          const bool vmode) -> bool {
+                                           std::string_view file_name,
+                                           const bool vmode) -> bool {
   std::string path = "/tmp/";
   path.append(file_name);
 
   if (vmode) {
-    tlog::tprint({"store it to: ", path}, tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
+    tlog::tprint({"store it to: ", path}, tlog::tlog_status::DEBUG,
+                 tlog::NO_LOG_FILE);
   }
 
   std::ofstream ofs{path.data(), std::ios::binary};
@@ -104,7 +105,8 @@ auto CPPCURL::empty() const -> bool { return curl_ == nullptr; }
     curl_easy_reset(curl_);
   }
   if (curl_ == nullptr) {
-    tlog::tprint({"cannot reinit curl"}, tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
+    tlog::tprint({"cannot reinit curl"}, tlog::tlog_status::ERROR,
+                 tlog::NO_LOG_FILE);
     return false;
   }
 
@@ -125,7 +127,8 @@ auto CPPCURL::empty() const -> bool { return curl_ == nullptr; }
     std::shared_ptr<char *> redirect = std::make_shared<char *>();
     curl_easy_getinfo(curl_, CURLINFO_REDIRECT_URL, redirect.get());
     if (vmode) {
-      tlog::tprint({"redirect url: ", *redirect}, tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
+      tlog::tprint({"redirect url: ", *redirect}, tlog::tlog_status::DEBUG,
+                   tlog::NO_LOG_FILE);
     }
     location = *redirect;
   }
@@ -138,7 +141,8 @@ auto CPPCURL::empty() const -> bool { return curl_ == nullptr; }
   code_ = curl_easy_perform(curl_);
 
   if (code_ != CURLE_OK) {
-    tlog::tprint({"store it to: ", path}, tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
+    tlog::tprint({"store it to: ", path}, tlog::tlog_status::DEBUG,
+                 tlog::NO_LOG_FILE);
     std::cerr << "connect to link(s) for get information failed, error message:"
               << curl_easy_strerror(code_) << std::endl;
     return false;

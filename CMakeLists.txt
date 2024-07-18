@@ -8,8 +8,8 @@ project(ReleaseButler
     LANGUAGES CXX
 )
 
-add_subdirectory(src)
 add_subdirectory(third_party)
+add_subdirectory(src)
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     message(STATUS "Setting build type to `Debug` as none was specified.")

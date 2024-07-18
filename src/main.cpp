@@ -1,14 +1,14 @@
 #include <sys/types.h>
+#include <tlog.h>
 #include <unistd.h>
+
+#include <argparse/argparse.hpp>
 #include <iostream>
 #include <string>
 
-#include <argparse/argparse.hpp>
-#include <tlog.h>
-
+#include "core/pack_core.h"
 #include "utils/log.h"
 #include "utils/misc.h"
-#include "core/pack_core.h"
 
 auto main(int argc, char *argv[]) -> int {
   argparse::ArgumentParser program("releasebutler");
@@ -66,40 +66,46 @@ auto main(int argc, char *argv[]) -> int {
   auto vmode{false};
   if (program.is_used("--verbose")) {
     vmode = true;
-    tlog::tprint({"set verbose to on"}, tlog::tlog_status::INFO, tlog::NO_LOG_FILE);
+    tlog::tprint({"set verbose to on"}, tlog::tlog_status::INFO,
+                 tlog::NO_LOG_FILE);
   }
 
   if (program.is_used("--parse")) {
     auto filename = program.get<std::string>("parse");
-    tlog::tprint({"start to parse config file in $HOME/.config/ReleaseButler/*.json"}, tlog::tlog_status::INFO, tlog::NO_LOG_FILE);
+    tlog::tprint(
+        {"start to parse config file in $HOME/.config/ReleaseButler/*.json"},
+        tlog::tlog_status::INFO, tlog::NO_LOG_FILE);
     return static_cast<int>(parse_confile(filename, vmode));
   }
 
   if (update_command.is_used("--all")) {
-    tlog::tprint({"start to update all package"}, tlog::tlog_status::INFO, tlog::NO_LOG_FILE);
+    tlog::tprint({"start to update all package"}, tlog::tlog_status::INFO,
+                 tlog::NO_LOG_FILE);
     return static_cast<int>(parse_confile("", vmode));
   }
 
   {
     std::string url;
     std::string pack_name;
-    std::string softname;
+    std::string package;
     if (install_command.is_used("--from")) {
       url = install_command.get<std::string>("--from");
     }
     if (install_command.is_used("--package")) {
-      softname = install_command.get<std::string>("--package");
+      package = install_command.get<std::string>("--package");
     }
     if (install_command.is_used("--packname")) {
       pack_name = install_command.get<std::string>("--packname");
     }
 
-    if (!(url.empty() || pack_name.empty() || softname.empty())) {
-      if (!install(url, softname, pack_name, vmode, true)) {
+    if (!(url.empty() || pack_name.empty() || package.empty())) {
+      if (!install(url, package, pack_name, vmode, true)) {
         return 1;
       }
     } else {
-      tlog::tprint({"`--from`, `--package` and `--packname` must appear together"}, tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
+      tlog::tprint(
+          {"`--from`, `--package` and `--packname` must appear together"},
+          tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
     }
   }
 

@@ -56,7 +56,7 @@ namespace fs = std::filesystem;
                                   std::string_view version,
                                   const bool vmode) -> bool {
   if (vmode) {
-    tlog::tprint({"url :", url, "\n name: ", name, "\n version: ", version},
+    tlog::tprint({"url: ", url, "\n name: ", name, "\n version: ", version},
                  tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
   }
 
@@ -77,7 +77,7 @@ namespace fs = std::filesystem;
 
   nlohmann::json wdata{{name,
                         {
-                            {"name", pack_name},
+                            {"pakname", pack_name},
                             {"version", version},
                             {"url", url},
                         }}};

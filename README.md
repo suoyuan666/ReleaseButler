@@ -74,7 +74,7 @@ I try to support importing json files from other places in this way. But the fil
 ```json
 {
     "fastfetch": {
-       "name": "fastfetch-linux-amd64.deb",
+       "pakname": "fastfetch-linux-amd64.deb",
        "url": "https://github.com/fastfetch-cli/fastfetch",
        "version": "2.13.2",
        "build" : [
@@ -90,7 +90,7 @@ I try to support importing json files from other places in this way. But the fil
 }
 ```
 
-- `name` is the package name of the Release page.
+- `pakname` is the package name of the Release page.
 - `build` used to store some operations to be performed before downloading the software.
 - `install` used to store some operations to be performed after the software is installed.
 - `clone` indicates whether to directly clone the repository.

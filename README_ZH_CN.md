@@ -74,7 +74,7 @@ note: ReleaseButler 现在还不支持指定软件包的单独更新。🙃
 ```json
 {
    "fastfetch": {
-      "name": "fastfetch-linux-amd64.deb",
+      "pakname": "fastfetch-linux-amd64.deb",
       "url": "https://github.com/fastfetch-cli/fastfetch",
       "version": "2.13.2",
       "build" : [
@@ -90,7 +90,7 @@ note: ReleaseButler 现在还不支持指定软件包的单独更新。🙃
 }
 ```
 
-- `name` 是 Release 页面的软件包名称。
+- `pakname` 是 Release 页面的软件包名称。
 - `build` 用于存储一些软件下载前的要执行操作。
 - `install` 用于存储一些软件安装后要执行的操作。
 - `clone` 表示是否直接 clone 这个仓库。

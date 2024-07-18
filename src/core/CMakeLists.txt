@@ -12,6 +12,7 @@ set (
 set (
     RB_CORE_SRC
     pack_core.cpp
+    github.cpp
 )
 
 include_directories(${RB_CORE_SRC_INCLUDE} ${RB_CORE_TP_INCLUDE})
