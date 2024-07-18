@@ -84,7 +84,6 @@ auto main(int argc, char *argv[]) -> int {
     return static_cast<int>(parse_confile("", vmode));
   }
 
-  {
     std::string url;
     std::string pack_name;
     std::string package;
@@ -107,7 +106,6 @@ auto main(int argc, char *argv[]) -> int {
           {"`--from`, `--package` and `--packname` must appear together"},
           tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
     }
-  }
 
   std::cout << program << "\n";
 

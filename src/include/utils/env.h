@@ -1,3 +1,4 @@
+#include <optional>
 #include <string>
 
 /**
@@ -7,3 +8,5 @@
  * @return The value of the environment variable
  */
 [[nodiscard]] auto get_env2str(std::string_view name) -> std::string;
+
+[[nodiscard]] auto get_val_from_std() -> std::string;

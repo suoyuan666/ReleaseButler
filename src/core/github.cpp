@@ -7,6 +7,7 @@
 #include <fstream>
 #include <iostream>
 #include <json.hpp>
+#include <sstream>
 #include <string_view>
 
 #include "core/pack_core.h"
@@ -15,14 +16,15 @@
 #include "utils/log.h"
 #include "utils/os-detect.h"
 
-[[nodiscard]] auto install_github(std::string url, const std::string_view name,
-                                  const std::string_view pack_name,
-                                  const bool vmode) -> std::string {
+auto install_github(std::string url, const std::string_view name,
+                    const std::string_view pack_name,
+                    const bool vmode) -> std::string {
   std::string version = "";
 
   cppcurl::CPPCURL curl;
   if (curl.empty()) {
-    std::cerr << "cannot init curl" << std::endl;
+    tlog::tprint({"cannot init curl"}, tlog::tlog_status::ERROR,
+                 tlog::NO_LOG_FILE);
     return version;
   }
   if (*(url.end() - 1) != '/') {
@@ -37,26 +39,30 @@
   curl.getinfo(CURLINFO_RESPONSE_CODE, &response_code);
 
   if (!curl.ck4ok()) {
-    std::cerr << "connect to link(s) for response failed, error message:"
-              << curl.errorMsg() << std::endl;
+    tlog::tprint({"connect to link(s) for response failed, error message: ",
+                  curl.errorMsg()},
+                 tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
     return version;
   }
   // to get GitHub latest release url, it will 302 redirect to the correct url
   if (response_code != 302) {
-    std::cerr << "something went wrong with response_code: " << response_code
-              << std::endl;
+    std::ostringstream tmp;
+    tmp << "something went wrong with response_code: " << response_code;
+    tlog::tprint({tmp.str()}, tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
     return version;
   }
   std::string location;
   curl.getinfo_from_str(CURLINFO_REDIRECT_URL, location);
   if (!curl.ck4ok()) {
-    std::cerr << "connect to link(s) for location failed, error message:"
-              << curl.errorMsg() << std::endl;
+    tlog::tprint({"connect to link(s) for response failed, error message: ",
+                  curl.errorMsg()},
+                 tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
     return version;
   }
 
   if (location.empty()) {
-    std::cerr << "something went wrong with *location" << location << std::endl;
+    tlog::tprint({"something went wrong with *location"},
+                 tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
     return version;
   }
   if (vmode) {
