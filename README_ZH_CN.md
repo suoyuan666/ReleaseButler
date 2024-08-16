@@ -38,10 +38,10 @@ TODO:
 ### 安装软件:
 
 ```bash
-$ releasebutler --install <name> --pakname <package name> --from <url> [--verbose]
+$ releasebutler install --package <name> --pakname <package name> --from <url> [--verbose]
 ```
 
-`--intsall` 字段接受的是要安装的软件的名称，而 `packname` 字段是这个软件包名，例如 `fastfetch-linux-amd64.deb` 就是 `packname`
+`--package` 字段接受的是要安装的软件的名称，而 `packname` 字段是这个软件包名，例如 `fastfetch-linux-amd64.deb` 就是 `packname`
 
 从命令行安装尚未支持所有字段(如`install`，`build`等)。
 
@@ -61,11 +61,20 @@ note: 这个文件需要在 **~/.config/ReleaseButler/** 目录中
 
 ---
 
-note: ReleaseButler 现在还不支持指定软件包的单独更新。🙃
+> [!NOTE]
+> ReleaseButler 现在还不支持指定软件包的单独更新。🙃
+>
+> 使用命令行安装的软件是记录在 **~/.config/ReleaseButler/info.json**，但是在更新的时候实际上会遍历 **~/.config/ReleaseButler/** 目录下的所有json文件。
+>
+> 我尝试通过这种方式支持引入其他地方来的json文件。但文件名不能叫 **package.json**，这个文件用来记录已安装软件包的版本，遍历到了这个json文件也会跳过。
 
-使用命令行安装的软件是记录在 **~/.config/ReleaseButler/info.json**，但是在更新的时候实际上会遍历 **~/.config/ReleaseButler/** 目录下的所有json文件。
+### 调试模式
 
-我尝试通过这种方式支持引入其他地方来的json文件。但文件名不能叫 **package.json**，这个文件用来记录已安装软件包的版本，遍历到了这个json文件也会跳过。
+你可以附加 `-verbose` 得到更多的调试信息输出
+
+```bash
+$ relesebutler --verbose
+```
 
 ---
 

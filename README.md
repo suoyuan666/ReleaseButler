@@ -38,10 +38,10 @@ TODO:
 ### install software:
 
 ```bash
-$ releasebutler --install <name> --pakname <package name> --from <url> [--verbose]
+$ releasebutler install --package <name> --pakname <package name> --from <url> [--verbose]
 ```
 
-The `--install` field accepts the name of the software to be installed, and the `packname` field is the name of the software package, for example `fastfetch-linux-amd64.deb` is `packname`.
+The `--package` field accepts the name of the software to be installed, and the `packname` field is the name of the software package, for example `fastfetch-linux-amd64.deb` is `packname`.
 
 Installing from the command line does not yet support all fields (like `install`, `build`, etc.).
 
@@ -57,17 +57,22 @@ $ releasebutler --update
 $ releasebutler --parse <file name>
 ```
 
-note: This file needs to be in the **~/.config/ReleaseButler/** directory
+> [!NOTE]
+> This file needs to be in the **~/.config/ReleaseButler/** directory
+> 
+>  ReleaseButler does not currently support individual updates of specified packages. 🙃
+>
+> Software installed using the command line is recorded in **~/.config/ReleaseButler/info.json**, but when updating, all json files in the **~/.config/ReleaseButler/** directory will actually be traversed.
+> 
+> I try to support importing json files from other places in this way. But the file name cannot be called **package.json**. This file is used to record the version of the installed software package. This json file will also be skipped if it is traversed.
 
----
+### Debug mode
 
-note: ReleaseButler does not currently support individual updates of specified packages. 🙃
+You can add `-verbose` to get more debug output
 
-Software installed using the command line is recorded in **~/.config/ReleaseButler/info.json**, but when updating, all json files in the **~/.config/ReleaseButler/** directory will actually be traversed.
-
-I try to support importing json files from other places in this way. But the file name cannot be called **package.json**. This file is used to record the version of the installed software package. This json file will also be skipped if it is traversed.
-
----
+```bash
+$ relesebutler --verbose
+```
 
 ## Field definitions of software package information files:
 
@@ -108,7 +113,7 @@ I try to support importing json files from other places in this way. But the fil
 If you compile this project under Debian OS:
 
 ```bash
-$ sudo apt install libcurl4-openssl-dev clang
+$ sudo apt install libcurl4-openssl-dev 
 $ git clone https://github.com/suoyuan666/ReleaseButler.git
 $ cd ReleaseButler
 $ git submodule update --init --recursive
