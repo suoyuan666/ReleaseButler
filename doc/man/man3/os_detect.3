@@ -25,7 +25,7 @@ os_detect
 
 .in +1c
 .ti -1c
-.RI "auto \fBOsDetect\fP () \-> std::optional< enum \fBOS_KIND\fP >"
+.RI "auto \fBOsDetect\fP (const bool vmode) \-> std::optional< enum \fBOS_KIND\fP >"
 .br
 .RI "Used to detect the current Linux distributions\&. "
 .in -1c
@@ -64,16 +64,16 @@ Linux distribution related information\&.
 \fBEnumerator\fP
 .in +1c
 .TP
-\fB\fIdebian \fP\fP
+\f(BIdebian \fP
 .TP
-\fB\fIubuntu \fP\fP
+\f(BIubuntu \fP
 .TP
-\fB\fIfedora \fP\fP
+\f(BIfedora \fP
 .TP
-\fB\fIdeepin \fP\fP
+\f(BIdeepin \fP
 .SH "Function Documentation"
 .PP 
-.SS "auto os_detect::OsDetect () \-> std::optional<enum \fBOS_KIND\fP>"
+.SS "auto os_detect::OsDetect (const bool vmode) \-> std::optional<enum \fBOS_KIND\fP>"
 
 .PP
 Used to detect the current Linux distributions\&. 

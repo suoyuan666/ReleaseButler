@@ -6,11 +6,15 @@ src/utils/os-detect.cpp
 .SH SYNOPSIS
 .br
 .PP
-\fR#include 'os\-detect\&.h'\fP
+\fR#include 'utils/os\-detect\&.h'\fP
 .br
 \fR#include <fstream>\fP
 .br
+\fR#include <optional>\fP
+.br
 \fR#include <utility>\fP
+.br
+\fR#include <tlog\&.h>\fP
 .br
 
 .SS "Namespaces"
@@ -24,7 +28,7 @@ src/utils/os-detect.cpp
 
 .in +1c
 .ti -1c
-.RI "auto \fBos_detect::OsDetect\fP () \-> std::optional< enum \fBOS_KIND\fP >"
+.RI "auto \fBos_detect::OsDetect\fP (const bool vmode) \-> std::optional< enum \fBOS_KIND\fP >"
 .br
 .RI "Used to detect the current Linux distributions\&. "
 .in -1c

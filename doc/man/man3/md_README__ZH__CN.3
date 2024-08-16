@@ -4,15 +4,23 @@
 .SH NAME
 md_README__ZH__CN \- ReleaseButler 
 .PP
- \fBEnglish\fP \fB简体中文\fP
+
+
+.PP
+\fR\fP \fB\fP
+
 .PP
 当前项目仍在开发阶段，所以软件会输出很多不必要信息(现在添加了 \fRverbose\fP 这个 option)
+
 .PP
 ReleaseButler 旨在简化Linux系统上的 Github 上的软件安装过程🤗。 它可以自动检测底层 Linux 发行版，从指定的 GitHub 项目主页获取对应的软件包并安装，同时也支持更新操作。
+
 .PP
 目前我是想要实现一个类似 BSD 系“类 ports 系统”那样的东西，就像 Arch Linux 的 \fRABS\fP，或者像是 Gentoo Linux 的 \fRprotage\fP。目前想要的甚至还没 ABS 那么复杂，Gentoo Linux 那样标记 USE 变量更是想都没想了。
+
 .PP
 TODO:
+
 .PP
 .IP "[x]" 4
 使用JSON格式存储软件包的信息。
@@ -28,23 +36,27 @@ TODO:
 .IP "[ ]" 4
 想要在GitHub创建一个仓库存储软件包安装的json文件，这样用户可以直接import之后安装。话说这样就好像nix(但我就是因为懒得学习nix语法，我才执着自己写一个)。
 .PP
-.IP "[ ]" 4
+.IP "[x]" 4
 目前使用的是sudo安装软件，没做对当前软件的用户权限是否是非root用户，并且也没做对sudo的检测(准备实现成如果没有sudo就检测是否存在doas)。
-.PP
 .IP "[ ]" 4
 我想实现成支持很多软件(源码)分发平台，但目前就只是做了对GitHub的处理。
 .PP
+
 .PP
 .PP
+
 .PP
 ⚠️: 你必须首先安装**sudo**而不是**open-doas**或是其他类似的软件，如果你不想强依赖于**sudo**可以选择修改源代码😀。或者我后续想起来会尝试添加对sudo或doas的检测。 我已经添加了对 \fR/usr/bin/sudo\fP 和 \fR/usr/bin/doas\fP 的检测。
+
 .PP
 .PP
 .SH "特点:"
 .PP
 \fB自动发行版检测：\fP ReleaseButler 确定运行环境的Linux发行版，确保与各种系统的兼容性。
+
 .PP
 **安装和更新**：使用单个命令轻松安装软件包。 ReleaseButler 支持更新，使您安装的软件保持最新。
+
 .PP
 \fB尽量适配各种情况\fP: 尝试引入各种字段以适配各种仓库的安装步骤。
 .SH "使用方法"
@@ -55,8 +67,10 @@ TODO:
 $ releasebutler \-\-install <name> \-\-pakname <package name> \-\-from <url> [\-\-verbose]
 .fi
 .PP
+
 .PP
 \fR--intsall\fP 字段接受的是要安装的软件的名称，而 \fRpackname\fP 字段是这个软件包名，例如 \fRfastfetch-linux-amd64\&.deb\fP 就是 \fRpackname\fP
+
 .PP
 从命令行安装尚未支持所有字段(如\fRinstall\fP，\fRbuild\fP等)。
 .SS "更新"
@@ -71,16 +85,22 @@ $ relesebutler \-\-update
 $ relesebutler \-\-parse <file name>
 .fi
 .PP
+
 .PP
 note: 这个文件需要在 **~/\&.config/ReleaseButler/** 目录中
+
 .PP
 .PP
+
 .PP
 note: ReleaseButler 现在还不支持指定软件包的单独更新。🙃
+
 .PP
 使用命令行安装的软件是记录在 **~/\&.config/ReleaseButler/info\&.json**，但是在更新的时候实际上会遍历 **~/\&.config/ReleaseButler/** 目录下的所有json文件。
+
 .PP
 我尝试通过这种方式支持引入其他地方来的json文件。但文件名不能叫 **package\&.json**，这个文件用来记录已安装软件包的版本，遍历到了这个json文件也会跳过。
+
 .PP
 .PP
 .SH "软件包信息文件的字段定义:"
@@ -89,7 +109,7 @@ note: ReleaseButler 现在还不支持指定软件包的单独更新。🙃
 .nf
 {
    "fastfetch": {
-      "name": "fastfetch\-linux\-amd64\&.deb",
+      "pakname": "fastfetch\-linux\-amd64\&.deb",
       "url": "https://github\&.com/fastfetch\-cli/fastfetch",
       "version": "2\&.13\&.2",
       "build" : [
@@ -105,9 +125,10 @@ note: ReleaseButler 现在还不支持指定软件包的单独更新。🙃
 }
 .fi
 .PP
+
 .PP
 .IP "\(bu" 2
-\fRname\fP 是 Release 页面的软件包名称。
+\fRpakname\fP 是 Release 页面的软件包名称。
 .IP "\(bu" 2
 \fRbuild\fP 用于存储一些软件下载前的要执行操作。
 .IP "\(bu" 2
@@ -124,11 +145,13 @@ Debian/Ubuntu/Deepin
 .IP "\(bu" 2
 Fedora
 .PP
+
 .PP
 .PP
 .SH "如何编译"
 .PP
 如果你在 Debian 发行版下编译该项目:
+
 .PP
 .PP
 .nf
@@ -140,10 +163,13 @@ $ cmake \-B build \-DCMAKE_BUILD_TYPE=Release
 $ cmake \-\-build build \-j `nproc`
 .fi
 .PP
+
 .PP
 如果是在其他平台下编译，原谅我懒了，自己去寻找 libcurl4-openssl-dev 这个包对应其他发型版的软件包名吧。😛
+
 .PP
 我尝试在 OpenSUSE Tumbleweed 中编译这个项目，我是用了下边的语句安装了所需的软件
+
 .PP
 .PP
 .nf

@@ -1,4 +1,4 @@
 var os_detect_8cpp =
 [
-    [ "OsDetect", "os-detect_8cpp.html#ad7d03e9d59c1db07ce7952b9c4ff6bcb", null ]
+    [ "OsDetect", "os-detect_8cpp.html#aa3b063c2d5941faaf77701e67db55c88", null ]
 ];

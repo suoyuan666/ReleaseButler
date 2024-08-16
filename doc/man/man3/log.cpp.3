@@ -6,9 +6,11 @@ src/utils/log.cpp
 .SH SYNOPSIS
 .br
 .PP
-\fR#include 'log\&.h'\fP
+\fR#include 'utils/log\&.h'\fP
 .br
 \fR#include <sys/wait\&.h>\fP
+.br
+\fR#include <tlog\&.h>\fP
 .br
 \fR#include <unistd\&.h>\fP
 .br
@@ -18,11 +20,13 @@ src/utils/log.cpp
 .br
 \fR#include <iostream>\fP
 .br
-\fR#include 'env\&.h'\fP
+\fR#include <json\&.hpp>\fP
 .br
-\fR#include 'pack_core\&.h'\fP
+\fR#include <sstream>\fP
 .br
-\fR#include 'json\&.hpp'\fP
+\fR#include 'core/pack_core\&.h'\fP
+.br
+\fR#include 'utils/env\&.h'\fP
 .br
 
 .SS "Functions"
@@ -46,12 +50,13 @@ src/utils/log.cpp
 .in -1c
 .SH "Function Documentation"
 .PP 
-.SS "auto conf_modify (nlohmann::json & json, std::string_view filename, const bool vmode) \-> bool \fR [nodiscard]\fP"
+.SS "auto conf_modify (nlohmann::json & json, std::string_view filename, const bool vmode) \-> bool "
 
 .SS "auto parse_confile (std::string_view filename, bool vmode) \->  bool\fR [nodiscard]\fP"
 
 .PP
 Parse the passed file name and start downloading and installing, etc\&. Because it is necessary to realize the function of traversing all files in the folder, the specific download and installation functions are implemented in \fR\fBparse_confile_core()\fP\fP
+
 .PP
 \fBParameters\fP
 .RS 4

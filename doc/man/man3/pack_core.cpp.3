@@ -6,9 +6,11 @@ src/core/pack_core.cpp
 .SH SYNOPSIS
 .br
 .PP
-\fR#include 'pack_core\&.h'\fP
+\fR#include 'core/pack_core\&.h'\fP
 .br
 \fR#include <sys/wait\&.h>\fP
+.br
+\fR#include <tlog\&.h>\fP
 .br
 \fR#include <unistd\&.h>\fP
 .br
@@ -16,28 +18,26 @@ src/core/pack_core.cpp
 .br
 \fR#include <filesystem>\fP
 .br
-\fR#include <fstream>\fP
+\fR#include <json\&.hpp>\fP
 .br
-\fR#include <iostream>\fP
+\fR#include <string>\fP
 .br
 \fR#include <string_view>\fP
 .br
-\fR#include 'cppcurl\&.h'\fP
+\fR#include 'curl_cpp/cppcurl\&.h'\fP
 .br
-\fR#include 'env\&.h'\fP
+\fR#include 'utils/env\&.h'\fP
 .br
-\fR#include 'log\&.h'\fP
+\fR#include 'utils/log\&.h'\fP
 .br
-\fR#include 'os\-detect\&.h'\fP
-.br
-\fR#include 'json\&.hpp'\fP
+\fR#include 'utils/os\-detect\&.h'\fP
 .br
 
 .SS "Functions"
 
 .in +1c
 .ti -1c
-.RI "auto \fBinstall\fP (std::string url, std::string_view name, std::string_view pack_name, const bool vmode, const bool install) \-> bool"
+.RI "auto \fBinstall\fP (std::string_view url, std::string_view name, std::string_view pack_name, const bool vmode, const bool install) \-> bool"
 .br
 .RI "Programs for download and installation\&. "
 .ti -1c
@@ -47,10 +47,11 @@ src/core/pack_core.cpp
 .in -1c
 .SH "Function Documentation"
 .PP 
-.SS "auto install (std::string url, std::string_view name, std::string_view pack_name, bool vmode, bool install) \->  bool\fR [nodiscard]\fP"
+.SS "auto install (std::string_view url, const std::string_view name, const std::string_view pack_name, bool vmode, bool install) \->  bool\fR [nodiscard]\fP"
 
 .PP
 Programs for download and installation\&. But in fact \fR\fBinstall()\fP\fP does not perform all of the functions involved in installation that are permitted by the software's operation\&. It's the parsing of the file that implements all of the features allowed for installation\&.
+
 .PP
 \fBParameters\fP
 .RS 4

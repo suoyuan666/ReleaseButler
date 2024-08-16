@@ -7,5 +7,5 @@ var searchData=
   ['os_5fdetect_4',['os_detect',['../namespaceos__detect.html',1,'']]],
   ['os_5fkind_5',['OS_KIND',['../namespaceos__detect.html#aed30d0f2eab8a9abb335f0a950429bfc',1,'os_detect::OS_KIND'],['../namespaceos__detect.html#a0156aeed75c84ff7fe970f8959f5b9e2',1,'os_detect::OS_KIND']]],
   ['os_5fpackage_6',['OS_PACKAGE',['../namespaceos__detect.html#a78da4fb775c7fa1c417b1338969cfec5',1,'os_detect']]],
-  ['osdetect_7',['OsDetect',['../namespaceos__detect.html#ad7d03e9d59c1db07ce7952b9c4ff6bcb',1,'os_detect']]]
+  ['osdetect_7',['OsDetect',['../namespaceos__detect.html#aa3b063c2d5941faaf77701e67db55c88',1,'os_detect']]]
 ];

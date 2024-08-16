@@ -1,8 +1,8 @@
-.TH "src/include/os-detect.h" 3 "Version 1.0" "ReleaseButler" \" -*- nroff -*-
+.TH "src/include/utils/os-detect.h" 3 "Version 1.0" "ReleaseButler" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-src/include/os-detect.h
+src/include/utils/os-detect.h
 .SH SYNOPSIS
 .br
 .PP
@@ -37,7 +37,7 @@ src/include/os-detect.h
 
 .in +1c
 .ti -1c
-.RI "auto \fBos_detect::OsDetect\fP () \-> std::optional< enum \fBOS_KIND\fP >"
+.RI "auto \fBos_detect::OsDetect\fP (const bool vmode) \-> std::optional< enum \fBOS_KIND\fP >"
 .br
 .RI "Used to detect the current Linux distributions\&. "
 .in -1c
