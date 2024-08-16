@@ -19,9 +19,9 @@
  * @return  Returns a bool indicating whether the function was executed
  * correctly.
  */
-[[nodiscard]] auto install(std::string url, std::string_view name,
-                            std::string_view pack_name, bool vmode, bool install)
-    -> bool;
+[[nodiscard]] auto install(std::string_view url, const std::string_view name,
+                           const std::string_view pack_name, bool vmode,
+                           bool install) -> bool;
 /**
  * @brief Core functions that implement the installation functionality
  *
@@ -32,3 +32,18 @@
  * correctly.
  */
 [[nodiscard]] auto install_core(std::string_view pack_name, bool vmode) -> bool;
+
+/**
+ * @brief handling GitHub release links
+ *
+ * @param `url` The home page of the website where the program is hosted
+ * @param `name` Name of the software
+ * @param `pack_name` Name of the package to download, e.g.
+ * `fastfetch-linux-amd64.deb`
+ * @param `vmode` Whether to output more information (for debugging purposes)
+ * @return  Returns a bool indicating whether the function was executed
+ * correctly.
+ */
+[[nodiscard]] auto install_github(std::string url, std::string_view name,
+                                  std::string_view pack_name,
+                                  const bool vmode) -> std::string;

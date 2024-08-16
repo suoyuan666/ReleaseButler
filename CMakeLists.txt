@@ -8,8 +8,8 @@ project(ReleaseButler
     LANGUAGES CXX
 )
 
-add_subdirectory(src)
 add_subdirectory(third_party)
+add_subdirectory(src)
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     message(STATUS "Setting build type to `Debug` as none was specified.")
@@ -19,7 +19,12 @@ endif()
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     enable_testing()
     add_subdirectory(test)
+<<<<<<< HEAD
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Werror -fsanitize=address -fsanitize=undefined")
+=======
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Werror")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -fsanitize=undefined -fsanitize=thread -fsanitize=memory")
+>>>>>>> dev
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
@@ -28,8 +33,13 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -pipe -fPIE -Wall -Wextra -Wpedantic -Werror")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fstack-clash-protection -fstack-protector-all -fcf-protection=full")
     if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+<<<<<<< HEAD
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fsanitize=integer -fsanitize-minimal-runtime -fno-sanitize-recover")
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wthread-safety -flto -fvisibility=hidden -fsanitize=cfi")
+=======
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fsanitize=integer -fsanitize=address -fsanitize-minimal-runtime -fno-sanitize-recover")
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wthread-safety  -fvisibility=hidden -fsanitize=cfi")
+>>>>>>> dev
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fstack-protector-strong -D_FORTIFY_SOURCE=2")
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wl,-z,now,-z,noexecstack")
@@ -42,7 +52,6 @@ if(EXISTS "${PATH_TO_CMAKELISTS_TXT}")
     Some junk files were created in this folder (CMakeCache.txt, CMakeFiles); you should delete those.")
 endif()
 
-# Compiler flags.
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 message(STATUS "CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")

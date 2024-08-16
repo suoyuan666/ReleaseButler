@@ -33,7 +33,7 @@ auto OsDetect(const bool vmode) -> std::optional<enum OS_KIND> {
   }
 
   if (vmode) {
-    tlog::tprint({"os name: ", os_name}, tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
+    tlog::tprint({"your os name: ", os_name}, tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
   }
 
   for (int i = 0; i < OS_KIND; ++i) {

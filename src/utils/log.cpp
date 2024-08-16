@@ -15,8 +15,8 @@
 
 namespace fs = std::filesystem;
 
-[[nodiscard]] auto conf_modify(nlohmann::json &json, std::string_view filename,
-                               const bool vmode) -> bool {
+auto conf_modify(nlohmann::json &json, std::string_view filename,
+                 const bool vmode) -> bool {
   std::stringstream str;
   str << std::setw(3) << json;
   if (fs::exists(filename.data()) && (!fs::is_empty(filename.data()))) {
@@ -51,12 +51,11 @@ namespace fs = std::filesystem;
   return true;
 }
 
-[[nodiscard]] auto record2confile(std::string_view url, std::string_view name,
-                                  std::string_view pack_name,
-                                  std::string_view version,
-                                  const bool vmode) -> bool {
+auto record2confile(std::string_view url, std::string_view name,
+                    std::string_view pack_name, std::string_view version,
+                    const bool vmode) -> bool {
   if (vmode) {
-    tlog::tprint({"url :", url, "\n name: ", name, "\n version: ", version},
+    tlog::tprint({"url: ", url, "\n name: ", name, "\n version: ", version},
                  tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
   }
 
@@ -77,7 +76,7 @@ namespace fs = std::filesystem;
 
   nlohmann::json wdata{{name,
                         {
-                            {"name", pack_name},
+                            {"pakname", pack_name},
                             {"version", version},
                             {"url", url},
                         }}};
@@ -146,8 +145,7 @@ auto parse_confile(std::string_view filename, const bool vmode) -> bool {
   return true;
 }
 
-[[nodiscard]] auto parse_confile_core(std::string_view filename,
-                                      const bool vmode) -> bool {
+auto parse_confile_core(std::string_view filename, const bool vmode) -> bool {
   std::ifstream istrm{filename.data(), std::ios::binary};
   nlohmann::json rdata = nlohmann::json::parse(istrm);
 
