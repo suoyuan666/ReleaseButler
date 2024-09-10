@@ -14,7 +14,7 @@ include_directories(${RB_UTILS_SRC_INCLUDE} ${RB_UTILS_TP_INCLUDE})
 set (
     RB_UTILS_SRC
     env.cpp
-    log.cpp
+    confile.cpp
     os-detect.cpp
 )
 

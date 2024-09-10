@@ -13,7 +13,7 @@
 #include "core/pack_core.h"
 #include "curl_cpp/cppcurl.h"
 #include "utils/env.h"
-#include "utils/log.h"
+#include "utils/confile.h"
 #include "utils/os-detect.h"
 
 auto install_github(std::string url, const std::string_view name,

@@ -12,7 +12,7 @@
 
 #include "curl_cpp/cppcurl.h"
 #include "utils/env.h"
-#include "utils/log.h"
+#include "utils/confile.h"
 #include "utils/os-detect.h"
 
 auto install(std::string_view url, std::string_view name,

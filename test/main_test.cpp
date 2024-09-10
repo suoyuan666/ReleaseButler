@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "utils/log.h"
+#include "utils/confile.h"
 #include "core/pack_core.h"
 
 TEST(install_test, install) {
