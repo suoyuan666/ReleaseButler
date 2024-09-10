@@ -22,12 +22,14 @@ auto install(std::string_view url, std::string_view name,
                tlog::NO_LOG_FILE);
   std::string_view url_token;
   std::string_view version;
+  bool fetch_enable = false;
 
   if (url.length() > 19) {
     url_token = url.substr(0, 19);
   }
 
   if (url_token == "https://github.com/") {
+    fetch_enable = true;
     if (vmode) {
       tlog::tprint({"find it on GitHub"}, tlog::tlog_status::DEBUG,
                    tlog::NO_LOG_FILE);
@@ -45,7 +47,7 @@ auto install(std::string_view url, std::string_view name,
     }
   }
 
-  if (install && (!install_core(pack_name, vmode))) {
+  if (!fetch_enable || (install && (!install_core(pack_name, vmode)))) {
     return false;
   }
 
@@ -62,14 +64,16 @@ auto install_core(std::string_view pack_name, const bool vmode) -> bool {
 
   pid_t pid = fork();
   if (pid == 0) {
-    auto debug_out4sudo = [&vmode](){
+    auto debug_out4sudo = [&vmode]() {
       if (vmode) {
-        tlog::tprint({"it will install by sudo"}, tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
+        tlog::tprint({"it will install by sudo"}, tlog::tlog_status::DEBUG,
+                     tlog::NO_LOG_FILE);
       }
     };
-    auto debug_out4doas = [&vmode](){
+    auto debug_out4doas = [&vmode]() {
       if (vmode) {
-        tlog::tprint({"it will install by doas"}, tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
+        tlog::tprint({"it will install by doas"}, tlog::tlog_status::DEBUG,
+                     tlog::NO_LOG_FILE);
       }
     };
     std::string path = "/tmp/";
