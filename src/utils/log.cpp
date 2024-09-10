@@ -64,7 +64,12 @@ auto record2confile(std::string_view url, std::string_view name,
                  tlog::NO_LOG_FILE);
     return false;
   }
-  config_file.append("/.config/ReleaseButler/info.json");
+  config_file.append("/.config/ReleaseButler");
+  if (!std::filesystem::is_directory(config_file)) {
+    std::filesystem::create_directory(config_file);
+  }
+  config_file.append("/info.json");
+  std::cout << "confile: " << config_file << std::endl;
   auto pak_fil = config_file.substr(0, config_file.length() - 9);
   pak_fil.append("package.json");
 
