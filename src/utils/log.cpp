@@ -13,13 +13,12 @@
 #include "core/pack_core.h"
 #include "utils/env.h"
 
-namespace fs = std::filesystem;
-
 auto conf_modify(nlohmann::json &json, std::string_view filename,
                  const bool vmode) -> bool {
   std::stringstream str;
   str << std::setw(3) << json;
-  if (fs::exists(filename.data()) && (!fs::is_empty(filename.data()))) {
+  if (std::filesystem::exists(filename.data()) &&
+      (!std::filesystem::is_empty(filename.data()))) {
     nlohmann::json rdata;
     {
       std::ifstream istrm{filename.data(), std::ios::binary};
@@ -115,8 +114,8 @@ auto parse_confile(std::string_view filename, const bool vmode) -> bool {
   }
   config_dir.append("/.config/ReleaseButler/");
 
-  if (!fs::exists(config_dir)) {
-    if (!fs::create_directories(config_dir)) {
+  if (!std::filesystem::exists(config_dir)) {
+    if (!std::filesystem::create_directories(config_dir)) {
       tlog::tprint({"failed to create directory: ", config_dir},
                    tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
       return false;
@@ -132,7 +131,7 @@ auto parse_confile(std::string_view filename, const bool vmode) -> bool {
     return parse_confile_core(config_dir, vmode);
   }
 
-  for (const auto &entry : fs::directory_iterator(config_dir)) {
+  for (const auto &entry : std::filesystem::directory_iterator(config_dir)) {
     if (entry.is_regular_file() && entry.path().extension() == ".json") {
       if (entry.path().filename() == "package.json") {
         continue;
