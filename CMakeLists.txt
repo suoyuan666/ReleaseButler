@@ -45,8 +45,6 @@ if(EXISTS "${PATH_TO_CMAKELISTS_TXT}")
     Some junk files were created in this folder (CMakeCache.txt, CMakeFiles); you should delete those.")
 endif()
 
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-
 message(STATUS "CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     message(STATUS "CMAKE_CXX_FLAGS_DEBUG: ${CMAKE_CXX_FLAGS_DEBUG}")
