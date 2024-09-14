@@ -4,7 +4,7 @@
 #include <optional>
 #include <utility>
 
-#include <tlog.h>
+#include "tlog.h"
 
 namespace os_detect {
 auto OsDetect(const bool vmode) -> std::optional<enum OS_KIND> {

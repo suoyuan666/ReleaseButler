@@ -1,12 +1,12 @@
 #include <sys/types.h>
-#include <tlog.h>
 #include <unistd.h>
 
-#include <argparse/argparse.hpp>
 #include <iostream>
 #include <string>
 
+#include "argparse/argparse.hpp"
 #include "core/pack_core.h"
+#include "tlog.h"
 #include "utils/confile.h"
 #include "utils/misc.h"
 
@@ -84,28 +84,28 @@ auto main(int argc, char *argv[]) -> int {
     return static_cast<int>(parse_confile("", vmode));
   }
 
-    std::string url;
-    std::string pack_name;
-    std::string package;
-    if (install_command.is_used("--from")) {
-      url = install_command.get<std::string>("--from");
-    }
-    if (install_command.is_used("--package")) {
-      package = install_command.get<std::string>("--package");
-    }
-    if (install_command.is_used("--packname")) {
-      pack_name = install_command.get<std::string>("--packname");
-    }
+  std::string url;
+  std::string pack_name;
+  std::string package;
+  if (install_command.is_used("--from")) {
+    url = install_command.get<std::string>("--from");
+  }
+  if (install_command.is_used("--package")) {
+    package = install_command.get<std::string>("--package");
+  }
+  if (install_command.is_used("--packname")) {
+    pack_name = install_command.get<std::string>("--packname");
+  }
 
-    if (!(url.empty() || pack_name.empty() || package.empty())) {
-      if (!install(url, package, pack_name, vmode, true)) {
-        return 1;
-      }
-    } else {
-      tlog::tprint(
-          {"`--from`, `--package` and `--packname` must appear together"},
-          tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
+  if (!(url.empty() || pack_name.empty() || package.empty())) {
+    if (!install(url, package, pack_name, vmode, true)) {
+      return 1;
     }
+  } else {
+    tlog::tprint(
+        {"`--from`, `--package` and `--packname` must appear together"},
+        tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
+  }
 
   std::cout << program << "\n";
 

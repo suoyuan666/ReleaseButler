@@ -1,19 +1,19 @@
 #include <sys/wait.h>
-#include <tlog.h>
 #include <unistd.h>
 
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
-#include <json.hpp>
 #include <sstream>
 #include <string_view>
 
 #include "core/pack_core.h"
 #include "curl_cpp/cppcurl.h"
-#include "utils/env.h"
+#include "json.hpp"
+#include "tlog.h"
 #include "utils/confile.h"
+#include "utils/env.h"
 #include "utils/os-detect.h"
 
 auto install_github(std::string url, const std::string_view name,
