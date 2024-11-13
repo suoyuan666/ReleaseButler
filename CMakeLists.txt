@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE) # for generate full compile_commands.json
 
 project(ReleaseButler
-    VERSION 2024.9
+    VERSION 0.01
     DESCRIPTION "package manager on GitHub"
     LANGUAGES CXX
 )
