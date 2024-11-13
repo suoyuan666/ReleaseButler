@@ -37,7 +37,7 @@ auto OsDetect(const bool vmode) -> std::optional<enum OS_KIND> {
   }
 
   for (int i = 0; i < OS_KIND; ++i) {
-    if (os_name == OS_PACKAGE[i].os_kind_) {
+    if (os_name == OS_PACKAGE.at(i).os_kind_) {
       switch (i) {
         case 0:
           return OS_KIND::debian;

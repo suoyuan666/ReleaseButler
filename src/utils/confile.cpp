@@ -21,7 +21,7 @@ auto conf_modify(nlohmann::json &json, std::string_view filename,
       (!std::filesystem::is_empty(filename.data()))) {
     nlohmann::json rdata;
     {
-      std::ifstream istrm{filename.data(), std::ios::binary};
+      std::ifstream istrm{filename.begin(), std::ios::binary};
       if (istrm.is_open()) {
         rdata = nlohmann::json::parse(istrm);
       } else {
@@ -29,7 +29,7 @@ auto conf_modify(nlohmann::json &json, std::string_view filename,
         return false;
       }
     }
-    std::ofstream ostrm_conf{filename.data(), std::ios::binary};
+    std::ofstream ostrm_conf{filename.begin(), std::ios::binary};
     if (!rdata.empty()) {
       auto [key, val] = json.items().begin();
       rdata[key] = val;
@@ -44,7 +44,7 @@ auto conf_modify(nlohmann::json &json, std::string_view filename,
       ostrm_conf << str.str();
     }
   } else {
-    std::ofstream ostrm{filename.data(), std::ios::binary};
+    std::ofstream ostrm{filename.begin(), std::ios::binary};
     ostrm << str.str();
   }
   return true;
@@ -150,7 +150,7 @@ auto parse_confile(std::string_view filename, const bool vmode) -> bool {
 }
 
 auto parse_confile_core(std::string_view filename, const bool vmode) -> bool {
-  std::ifstream istrm{filename.data(), std::ios::binary};
+  std::ifstream istrm{filename.begin(), std::ios::binary};
   nlohmann::json rdata = nlohmann::json::parse(istrm);
 
   for (const auto &[key, val] : rdata.items()) {

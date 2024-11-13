@@ -76,7 +76,7 @@ auto CPPCURL::getinfo_from_str(CURLINFO flag, std::string &val) -> void {
 }
 
 auto CPPCURL::setopt(CURLoption option, std::string_view val) -> void {
-  curl_easy_setopt(curl_, option, val.data());
+  curl_easy_setopt(curl_, option, val.begin());
 }
 
 auto CPPCURL::perform() -> void { code_ = curl_easy_perform(curl_); }
@@ -111,7 +111,7 @@ auto CPPCURL::empty() const -> bool { return curl_ == nullptr; }
   }
 
   // set url and view its url after 302 redirection.
-  curl_easy_setopt(curl_, CURLOPT_URL, url.data());
+  curl_easy_setopt(curl_, CURLOPT_URL, url.begin());
   code_ = curl_easy_perform(curl_);
   int64_t response_code = 0;
   curl_easy_getinfo(curl_, CURLINFO_RESPONSE_CODE, &response_code);

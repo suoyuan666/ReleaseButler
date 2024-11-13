@@ -33,7 +33,7 @@ auto install(std::string_view url, std::string_view name,
       tlog::tprint({"find it on GitHub"}, tlog::tlog_status::DEBUG,
                    tlog::NO_LOG_FILE);
     }
-    auto rs_version = install_github(url.data(), name, pack_name, vmode);
+    auto rs_version = install_github(url.begin(), name, pack_name, vmode);
     if (rs_version.empty()) {
       tlog::tprint({"cannot get version"}, tlog::tlog_status::ERROR,
                    tlog::NO_LOG_FILE);
