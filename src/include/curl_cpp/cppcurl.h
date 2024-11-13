@@ -32,12 +32,12 @@ class CPPCURL {
   /**
    * @brief Detecting errors in the `code_` field
    */
-  auto ck4ok() const -> bool;
+  [[nodiscard]] auto ck4ok() const -> bool;
 
   /**
    * @brief Return (`curl_ == nullptr`)
    */
-  auto empty() const -> bool;
+  [[nodiscard]] auto empty() const -> bool;
 
   /**
    * @brief Simple wrapping of `curl_easy_reset()`

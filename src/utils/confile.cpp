@@ -69,7 +69,7 @@ auto record2confile(std::string_view url, std::string_view name,
     std::filesystem::create_directory(config_file);
   }
   config_file.append("/info.json");
-  std::cout << "confile: " << config_file << std::endl;
+  std::cout << "confile: " << config_file << '\n';
   auto pak_fil = config_file.substr(0, config_file.length() - 9);
   pak_fil.append("package.json");
 

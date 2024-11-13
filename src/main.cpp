@@ -47,7 +47,7 @@ auto main(int argc, char *argv[]) -> int {
       .help("shows version info")
       .nargs(0)
       .action([](const std::string &) {
-        std::cout << RB_MES_PREV << VERSION << std::endl;
+        std::cout << RB_MES_PREV << VERSION << '\n';
       });
   program.add_argument("--parse")
       .help("set the file name to be parsed")

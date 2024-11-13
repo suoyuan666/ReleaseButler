@@ -19,7 +19,7 @@
 auto install_github(std::string url, const std::string_view name,
                     const std::string_view pack_name,
                     const bool vmode) -> std::string {
-  std::string version = "";
+  std::string version {};
 
   cppcurl::CPPCURL curl;
   if (curl.empty()) {
@@ -35,7 +35,7 @@ auto install_github(std::string url, const std::string_view name,
   curl.setopt(CURLOPT_URL, url);
   curl.perform();
 
-  int64_t response_code;
+  int64_t response_code = 0;
   curl.getinfo(CURLINFO_RESPONSE_CODE, &response_code);
 
   if (!curl.ck4ok()) {
@@ -84,7 +84,7 @@ auto install_github(std::string url, const std::string_view name,
       }
       tmp += *c;
     }
-    for (int i = tmp.length() - 1; i >= 0; --i) {
+    for (int i = static_cast<int>(tmp.length()) - 1; i >= 0; --i) {
       version += tmp.at(i);
     }
   }
@@ -102,7 +102,7 @@ auto install_github(std::string url, const std::string_view name,
 
   if (!std::filesystem::exists(config_dir)) {
     if (!std::filesystem::create_directories(config_dir)) {
-      std::cerr << "failed to create directory: " << config_dir << std::endl;
+      std::cerr << "failed to create directory: " << config_dir << '\n';
       return version;
     }
   }

@@ -1,4 +1,6 @@
 #pragma once
+#include <array>
+#include <cstdint>
 #include <optional>
 #include <string_view>
 
@@ -9,7 +11,7 @@ namespace os_detect {
  */
 constexpr int OS_KIND = 4;
 
-enum OS_KIND {
+enum OS_KIND : std::uint8_t {
   debian,
   ubuntu,
   fedora,
@@ -28,12 +30,12 @@ using packinfo = struct Packinfo {
 /**
  * @brief Information about currently supported Linux distributions
  */
-constexpr packinfo OS_PACKAGE[OS_KIND] = {
+constexpr std::array<packinfo, OS_KIND> OS_PACKAGE = {{
     {"deb", "dpkg", "debian"},
     {"deb", "dpkg", "ubuntu"},
     {"rpm", "dnf", "fedora"},
     {"deb", "dpkg", "deepin"},
-};
+}};
 
 /**
  * @brief Used to detect the current Linux distributions.

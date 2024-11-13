@@ -16,13 +16,13 @@ namespace cppcurl {
 
 auto WriteCallback(void *contents, size_t size, size_t nmemb,
                    void *userp) -> size_t {
-  auto ofs = static_cast<std::ofstream *>(userp);
+  auto *ofs = static_cast<std::ofstream *>(userp);
   ofs->write(static_cast<char *>(contents), size * nmemb);
   return size * nmemb;
 }
 
-CPPCURL::CPPCURL() { curl_ = curl_easy_init(); }
-CPPCURL::CPPCURL(CURL *curl) : curl_(curl) {}
+CPPCURL::CPPCURL() : curl_(curl_easy_init()), code_() {}
+CPPCURL::CPPCURL(CURL *curl) : curl_(curl), code_() {}
 CPPCURL::~CPPCURL() { curl_easy_cleanup(curl_); }
 
 CPPCURL::CPPCURL(const CPPCURL &val) {
@@ -113,7 +113,7 @@ auto CPPCURL::empty() const -> bool { return curl_ == nullptr; }
   // set url and view its url after 302 redirection.
   curl_easy_setopt(curl_, CURLOPT_URL, url.data());
   code_ = curl_easy_perform(curl_);
-  int64_t response_code;
+  int64_t response_code = 0;
   curl_easy_getinfo(curl_, CURLINFO_RESPONSE_CODE, &response_code);
   if (vmode) {
     std::ostringstream str;
@@ -144,7 +144,7 @@ auto CPPCURL::empty() const -> bool { return curl_ == nullptr; }
     tlog::tprint({"store it to: ", path}, tlog::tlog_status::DEBUG,
                  tlog::NO_LOG_FILE);
     std::cerr << "connect to link(s) for get information failed, error message:"
-              << curl_easy_strerror(code_) << std::endl;
+              << curl_easy_strerror(code_) << '\n';
     return false;
   }
   return true;
