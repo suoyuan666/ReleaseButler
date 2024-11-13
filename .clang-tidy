@@ -1,29 +1,31 @@
-Checks: '*,
-    -llvm-*,
-    -llvmlibc-*,
-    -fuchsia-*,
-    -cppcoreguidelines-*,
-    cppcoreguidelines-explicit-virtual-functions,
-    cppcoreguidelines-special-member-functions,
-    -cert-err58-cpp,
-    -cert-env33-c,
-    -cert-dcl37-c,
-    -cert-dcl51-cpp,
-    -readability-magic-numbers,
-    -readability-function-cognitive-complexity,
-    -misc-no-recursion,
-    -bugprone-exception-escape,
+Checks: '
+  modernize-*,
+  performance-*,
+  readability-*,
+  bugprone-*,
+  cppcoreguidelines-*,
+  hicpp-*,
+  google-*,
+  llvm-*
+  clang-analyzer-cplusplus.NewDelete,
+  clang-analyzer-cplusplus.Move,
+  clang-analyzer-cplusplus.SmartPtr,
+  clang-analyzer-core.NonNullParamChecker,
+  clang-analyzer-core.NullDereference,
+  clang-analyzer-core.UndefinedBinaryOperatorResult,
+  clang-analyzer-core.CallAndMessage,
+  clang-analyzer-core.StackAddressEscape,
+  clang-analyzer-core.DivideZero,
+  readability-identifier-naming,
 '
 CheckOptions:
-  - { key: readability-identifier-naming.ClassCase,           value: CamelCase  }
-  - { key: readability-identifier-naming.EnumCase,            value: CamelCase  }
-  - { key: readability-identifier-naming.FunctionCase,        value: CamelCase  }
-  - { key: readability-identifier-naming.GlobalConstantCase,  value: UPPER_CASE }
-  - { key: readability-identifier-naming.MemberCase,          value: lower_case }
-  - { key: readability-identifier-naming.MemberSuffix,        value: _          }
-  - { key: readability-identifier-naming.NamespaceCase,       value: lower_case }
-  - { key: readability-identifier-naming.StructCase,          value: CamelCase  }
-  - { key: readability-identifier-naming.UnionCase,           value: CamelCase  }
-  - { key: readability-identifier-naming.VariableCase,        value: lower_case }
+  - { key: modernize-use-auto.MinTypeNameLength,                            value: 5  }
+  - { key: modernize-use-using.OverrideThreshold,                           value: 4  }
+  - { key: readability-identifier-naming.VariableCase,                      value: camelCase }
+  - { key: readability-identifier-naming.ClassCase,                         value: CamelCase }
+  - { key: readability-identifier-naming.FunctionCase,                      value: camelBack }
+  - { key: readability-identifier-naming.NamespaceCase,                     value: camelBack }
+  - { key: performance-implicit-conversion-in-loop.CheckTrivialTypes,       value: false }
 WarningsAsErrors: '*'
-HeaderFilterRegex: '/(src|test)/include'
+HeaderFilterRegex: '/(src|test)/*'
+ExcludeHeaderFilterRegex: '/third_party'
