@@ -1,119 +1,122 @@
 # ReleaseButler
 
 [![GPL v2 license](https://img.shields.io/badge/license-GPL_2-blue.svg)](https://raw.githubusercontent.com/suoyuan666/tlog/master/LICENSE)
-[![Chinses](https://wangchujiang.com/sb/lang/chinese.svg)](./README_ZH_CN.md)
 
-~~The current project is still in the development stage, so the software will output a lot of unnecessary information.~~(The option verbose is now added.)
+~~当前项目仍在开发阶段，所以软件会输出很多不必要信息~~(现在添加了 `verbose` 这个 option)
 
-~~ReleaseButler is designed to simplify the software installation process on Github on Linux systems🤗. It can automatically detect the underlying Linux distribution, obtain and install the corresponding software package from the designated GitHub project homepage, and also supports update operations.~~
+~~ReleaseButler 旨在简化Linux系统上的 Github 上的软件安装过程🤗。 它可以自动检测底层 Linux 发行版，从指定的 GitHub 项目主页获取对应的软件包并安装，同时也支持更新操作。~~
 
-At present, I want to implement something similar to the BSD-based "ports-like system", like Arch Linux's [ABS](https://wiki.archlinux.org/title/Arch_build_system), or like Gentoo Linux's [ protage](https://wiki.gentoo.org/wiki/Portage). What I want now is not even as complicated as ABS, and I haven't even thought about the USE variable like Gentoo Linux.
+目前我是想要实现一个类似 BSD 系“类 ports 系统”那样的东西，就像 Arch Linux 的 [ABS](https://wiki.archlinux.org/title/Arch_build_system)，或者像是 Gentoo Linux 的 [protage](https://wiki.gentoo.org/wiki/Portage)。目前想要的甚至还没 ABS 那么复杂，Gentoo Linux 那样标记 USE 变量更是想都没想了。
 
 TODO:
 
-- [x] ~~Use JSON format to store package information.~~
-- [x] ~~Use the `build` field to store some work performed after installation.~~
-- [x] ~~Use the `install` field to store some preparation work before installation.~~
-- [x] ~~I want to realize that if the name of the software package is not provided, it will clone the repository directly by default and prepare to start compiling it.~~
-- [ ] Want to create a repository on GitHub to store the json file for software package installation, so that users can directly import and install it. In other words, it's like nix (but I'm just too lazy to learn nix syntax, so I insisted on writing one myself)
-- [x] Currently, it's using sudo to install the software. It has not checked whether the user rights of the current software are non-root users, and it has  not checked sudo (I'm planning to implement it to detect whether there are doas if there is no sudo).
-- [ ] I want to realize that it supports many software (source code) distribution platforms, but it is only processed with GitHub.
+- [x] ~~使用JSON格式存储软件包的信息。~~
+- [x] ~~使用`build`字段存储一些在install之后执行的工作。~~
+- [x] ~~使用`install`字段存储一些install之前的准备工作。~~
+- [x] ~~我想要实现成如果不提供软件包的名字的话就默认直接clone仓库，准备开始编译它。~~
+- [ ] 想要在GitHub创建一个仓库存储软件包安装的json文件，这样用户可以直接import之后安装。话说这样就好像nix(但我就是因为懒得学习nix语法，我才执着自己写一个)。
+- [x] 目前使用的是sudo安装软件，没做对当前软件的用户权限是否是非root用户，并且也没做对sudo的检测(准备实现成如果没有sudo就检测是否存在doas)。
+- [ ] 我想实现成支持很多软件(源码)分发平台，但目前就只是做了对GitHub的处理。
 
 ---
 
-~~⚠️: You must first install **sudo** instead of **open-doas** or other similar software. If you don’t want to rely heavily on **sudo**, you can choose to modify the source code 😀. Or if I think of it later, I will try to add detection for sudo or doas.~~ I have added detection for `/usr/bin/sudo` and `/usr/bin/doas`.
+~~⚠️: 你必须首先安装**sudo**而不是**open-doas**或是其他类似的软件，如果你不想强依赖于**sudo**可以选择修改源代码😀。或者我后续想起来会尝试添加对sudo或doas的检测。~~ 我已经添加了对 `/usr/bin/sudo` 和 `/usr/bin/doas` 的检测。
 
 ---
 
-## Features:
+## 特点:
 
-**Automatic release detection:** ReleaseButler determines the Linux distribution of the running environment to ensure compatibility with various systems.
+**自动发行版检测：** ReleaseButler 确定运行环境的Linux发行版，确保与各种系统的兼容性。
 
-**INSTALL & UPDATE**: Easily install packages using a single command. ReleaseButler supports updates to keep your installed software up to date.
+**安装和更新**：使用单个命令轻松安装软件包。 ReleaseButler 支持更新，使您安装的软件保持最新。
 
-**Try to adapt to various situations**: Try to introduce various fields to adapt to the installation steps of various repositories.
+**尽量适配各种情况**: 尝试引入各种字段以适配各种仓库的安装步骤。
 
-## Instructions
+## 使用方法
 
-### install software:
+### 安装软件:
 
 ```bash
 $ releasebutler install --package <name> --pakname <package name> --from <url> [--verbose]
 ```
 
-The `--package` field accepts the name of the software to be installed, and the `packname` field is the name of the software package, for example `fastfetch-linux-amd64.deb` is `packname`.
+`--package` 字段接受的是要安装的软件的名称，而 `packname` 字段是这个软件包名，例如 `fastfetch-linux-amd64.deb` 就是 `packname`
 
-Installing from the command line does not yet support all fields (like `install`, `build`, etc.).
+从命令行安装尚未支持所有字段(如`install`，`build`等)。
 
-### Update
-
-```bash
-$ releasebutler --update
-```
-
-### Parse externally imported json files
+### 更新
 
 ```bash
-$ releasebutler --parse <file name>
+$ relesebutler --update
 ```
+
+### 解析外部引入的json文件
+
+```bash
+$ relesebutler --parse <file name>
+```
+
+note: 这个文件需要在 **~/.config/ReleaseButler/** 目录中
+
+---
 
 > [!NOTE]
-> This file needs to be in the **~/.config/ReleaseButler/** directory
-> 
->  ReleaseButler does not currently support individual updates of specified packages. 🙃
+> ReleaseButler 现在还不支持指定软件包的单独更新。🙃
 >
-> Software installed using the command line is recorded in **~/.config/ReleaseButler/info.json**, but when updating, all json files in the **~/.config/ReleaseButler/** directory will actually be traversed.
-> 
-> I try to support importing json files from other places in this way. But the file name cannot be called **package.json**. This file is used to record the version of the installed software package. This json file will also be skipped if it is traversed.
+> 使用命令行安装的软件是记录在 **~/.config/ReleaseButler/info.json**，但是在更新的时候实际上会遍历 **~/.config/ReleaseButler/** 目录下的所有json文件。
+>
+> 我尝试通过这种方式支持引入其他地方来的json文件。但文件名不能叫 **package.json**，这个文件用来记录已安装软件包的版本，遍历到了这个json文件也会跳过。
 
-### Debug mode
+### 调试模式
 
-You can add `-verbose` to get more debug output
+你可以附加 `-verbose` 得到更多的调试信息输出
 
 ```bash
 $ relesebutler --verbose
 ```
 
-## Field definitions of software package information files:
+---
+
+## 软件包信息文件的字段定义:
 
 ```json
 {
-    "fastfetch": {
-       "pakname": "fastfetch-linux-amd64.deb",
-       "url": "https://github.com/fastfetch-cli/fastfetch",
-       "version": "2.13.2",
-       "build" : [
-          "touch something",
-          "touch haaa"
-       ],
-       "install" : [
-          "echo something > something"
-       ],
-       "clone": false,
-       "download" : false
-    }
+   "fastfetch": {
+      "pakname": "fastfetch-linux-amd64.deb",
+      "url": "https://github.com/fastfetch-cli/fastfetch",
+      "version": "2.13.2",
+      "build" : [
+         "touch something",
+         "touch haaa"
+      ],
+      "install" : [
+         "echo something > something"
+      ],
+      "clone": false,
+      "download" : false
+   }
 }
 ```
 
-- `pakname` is the package name of the Release page.
-- `build` used to store some operations to be performed before downloading the software.
-- `install` used to store some operations to be performed after the software is installed.
-- `clone` indicates whether to directly clone the repository.
-- `download` indicates whether to just download the package from Release instead of calling the system package manager to install it after downloading.
+- `pakname` 是 Release 页面的软件包名称。
+- `build` 用于存储一些软件下载前的要执行操作。
+- `install` 用于存储一些软件安装后要执行的操作。
+- `clone` 表示是否直接 clone 这个仓库。
+- `download` 表示是否只是单纯在从Release下载了软件包，而不是下载了之后调用系统软件包管理器安装它。
 
-## Supported Linux distributions
+## 支持的Linux发行版
 
 - Debian/Ubuntu/Deepin
 - Fedora
 
 ---
 
-## How to compile
+## 如何编译
 
-If you compile this project under Debian OS:
+如果你在 Debian 发行版下编译该项目:
 
 ```bash
-$ sudo apt install libcurl4-openssl-dev 
+$ sudo apt install libcurl4-openssl-dev clang cmake
 $ git clone https://github.com/suoyuan666/ReleaseButler.git
 $ cd ReleaseButler
 $ git submodule update --init --recursive
@@ -121,9 +124,9 @@ $ cmake -B build -DCMAKE_BUILD_TYPE=Release
 $ cmake --build build -j `nproc`
 ```
 
-If it is compiled under other platforms, forgive me for being lazy and look for the package name of the libcurl4-openssl-dev package corresponding to other versions. 😛
+如果是在其他平台下编译，原谅我懒了，自己去寻找 libcurl4-openssl-dev 这个包对应其他发型版的软件包名吧。😛
 
-I tried to compile this project in OpenSUSE Tumbleweed. I installed the required software using the following code.
+我尝试在 OpenSUSE Tumbleweed 中编译这个项目，我是用了下边的语句安装了所需的软件
 
 ```bash
 $ sudo zypper install libcurl-devel clang18 llvm18-gold cmake
