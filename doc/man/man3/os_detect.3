@@ -18,7 +18,7 @@ os_detect
 
 .in +1c
 .ti -1c
-.RI "enum \fBOS_KIND\fP { \fBdebian\fP, \fBubuntu\fP, \fBfedora\fP, \fBdeepin\fP }"
+.RI "enum \fBOS_KIND\fP : std::uint8_t { \fBdebian\fP, \fBubuntu\fP, \fBfedora\fP, \fBdeepin\fP }"
 .br
 .in -1c
 .SS "Functions"
@@ -37,7 +37,7 @@ os_detect
 .br
 .RI "The types of Linux distributions that the current software can detect\&. "
 .ti -1c
-.RI "constexpr \fBpackinfo\fP \fBOS_PACKAGE\fP [\fBOS_KIND\fP]"
+.RI "constexpr std::array< \fBpackinfo\fP, \fBOS_KIND\fP > \fBOS_PACKAGE\fP"
 .br
 .RI "Information about currently supported Linux distributions\&. "
 .in -1c
@@ -58,7 +58,7 @@ os_detect
 Linux distribution related information\&. 
 .SH "Enumeration Type Documentation"
 .PP 
-.SS "enum \fBos_detect::OS_KIND\fP"
+.SS "enum \fBos_detect::OS_KIND\fP : std::uint8_t"
 
 .PP
 \fBEnumerator\fP
@@ -90,15 +90,15 @@ A \fRstd::optional<>\fP class is used to indicate the current system environment
 
 .PP
 The types of Linux distributions that the current software can detect\&. 
-.SS "\fBpackinfo\fP os_detect::OS_PACKAGE[\fBOS_KIND\fP]\fR [constexpr]\fP"
+.SS "std::array<\fBpackinfo\fP, \fBOS_KIND\fP> os_detect::OS_PACKAGE\fR [constexpr]\fP"
 \fBInitial value:\fP
 .nf
-= {
+= {{
     {"deb", "dpkg", "debian"},
     {"deb", "dpkg", "ubuntu"},
     {"rpm", "dnf", "fedora"},
     {"deb", "dpkg", "deepin"},
-}
+}}
 .PP
 .fi
 

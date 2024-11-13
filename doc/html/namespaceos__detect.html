@@ -114,16 +114,16 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:aed30d0f2eab8a9abb335f0a950429bfc" id="r_aed30d0f2eab8a9abb335f0a950429bfc"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed30d0f2eab8a9abb335f0a950429bfc">OS_KIND</a> { <a class="el" href="#aed30d0f2eab8a9abb335f0a950429bfcafdfada1b4f85a16869893b18ba1c0af1">debian</a>
-, <a class="el" href="#aed30d0f2eab8a9abb335f0a950429bfca0d3149da5f22f6015b4b59f091e3e696">ubuntu</a>
-, <a class="el" href="#aed30d0f2eab8a9abb335f0a950429bfcad767cfcbf7f2d6cbe96cf968d1164c2b">fedora</a>
-, <a class="el" href="#aed30d0f2eab8a9abb335f0a950429bfca05a3d8f7bc32b31f1ccae5f6079afcc9">deepin</a>
+<tr class="memitem:a46457e418ea6f49c22730cbcc6399936" id="r_a46457e418ea6f49c22730cbcc6399936"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46457e418ea6f49c22730cbcc6399936">OS_KIND</a> : std::uint8_t { <a class="el" href="#a46457e418ea6f49c22730cbcc6399936afdfada1b4f85a16869893b18ba1c0af1">debian</a>
+, <a class="el" href="#a46457e418ea6f49c22730cbcc6399936a0d3149da5f22f6015b4b59f091e3e696">ubuntu</a>
+, <a class="el" href="#a46457e418ea6f49c22730cbcc6399936ad767cfcbf7f2d6cbe96cf968d1164c2b">fedora</a>
+, <a class="el" href="#a46457e418ea6f49c22730cbcc6399936a05a3d8f7bc32b31f1ccae5f6079afcc9">deepin</a>
  }</td></tr>
-<tr class="separator:aed30d0f2eab8a9abb335f0a950429bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a46457e418ea6f49c22730cbcc6399936"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa3b063c2d5941faaf77701e67db55c88" id="r_aa3b063c2d5941faaf77701e67db55c88"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3b063c2d5941faaf77701e67db55c88">OsDetect</a> (const bool vmode) -&gt; std::optional&lt; enum <a class="el" href="#aed30d0f2eab8a9abb335f0a950429bfc">OS_KIND</a> &gt;</td></tr>
+<tr class="memitem:aa3b063c2d5941faaf77701e67db55c88" id="r_aa3b063c2d5941faaf77701e67db55c88"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3b063c2d5941faaf77701e67db55c88">OsDetect</a> (const bool vmode) -&gt; std::optional&lt; enum <a class="el" href="#a46457e418ea6f49c22730cbcc6399936">OS_KIND</a> &gt;</td></tr>
 <tr class="memdesc:aa3b063c2d5941faaf77701e67db55c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to detect the current Linux distributions.  <br /></td></tr>
 <tr class="separator:aa3b063c2d5941faaf77701e67db55c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -132,9 +132,9 @@ Variables</h2></td></tr>
 <tr class="memitem:a0156aeed75c84ff7fe970f8959f5b9e2" id="r_a0156aeed75c84ff7fe970f8959f5b9e2"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0156aeed75c84ff7fe970f8959f5b9e2">OS_KIND</a> = 4</td></tr>
 <tr class="memdesc:a0156aeed75c84ff7fe970f8959f5b9e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The types of Linux distributions that the current software can detect.  <br /></td></tr>
 <tr class="separator:a0156aeed75c84ff7fe970f8959f5b9e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78da4fb775c7fa1c417b1338969cfec5" id="r_a78da4fb775c7fa1c417b1338969cfec5"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="#afb426b5c3b47907002fdb4c27df4b3db">packinfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78da4fb775c7fa1c417b1338969cfec5">OS_PACKAGE</a> [<a class="el" href="#aed30d0f2eab8a9abb335f0a950429bfc">OS_KIND</a>]</td></tr>
-<tr class="memdesc:a78da4fb775c7fa1c417b1338969cfec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Information about currently supported Linux distributions.  <br /></td></tr>
-<tr class="separator:a78da4fb775c7fa1c417b1338969cfec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6cdd605b38dfb6bb9b2c7c60e33f336" id="r_ac6cdd605b38dfb6bb9b2c7c60e33f336"><td class="memItemLeft" align="right" valign="top">constexpr std::array&lt; <a class="el" href="#afb426b5c3b47907002fdb4c27df4b3db">packinfo</a>, <a class="el" href="#a46457e418ea6f49c22730cbcc6399936">OS_KIND</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6cdd605b38dfb6bb9b2c7c60e33f336">OS_PACKAGE</a></td></tr>
+<tr class="memdesc:ac6cdd605b38dfb6bb9b2c7c60e33f336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Information about currently supported Linux distributions.  <br /></td></tr>
+<tr class="separator:ac6cdd605b38dfb6bb9b2c7c60e33f336"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="afb426b5c3b47907002fdb4c27df4b3db" name="afb426b5c3b47907002fdb4c27df4b3db"></a>
@@ -159,22 +159,22 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="aed30d0f2eab8a9abb335f0a950429bfc" name="aed30d0f2eab8a9abb335f0a950429bfc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed30d0f2eab8a9abb335f0a950429bfc">&#9670;&#160;</a></span>OS_KIND</h2>
+<a id="a46457e418ea6f49c22730cbcc6399936" name="a46457e418ea6f49c22730cbcc6399936"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46457e418ea6f49c22730cbcc6399936">&#9670;&#160;</a></span>OS_KIND</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="#aed30d0f2eab8a9abb335f0a950429bfc">os_detect::OS_KIND</a></td>
+          <td class="memname">enum <a class="el" href="#a46457e418ea6f49c22730cbcc6399936">os_detect::OS_KIND</a> : std::uint8_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aed30d0f2eab8a9abb335f0a950429bfcafdfada1b4f85a16869893b18ba1c0af1" name="aed30d0f2eab8a9abb335f0a950429bfcafdfada1b4f85a16869893b18ba1c0af1"></a>debian&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aed30d0f2eab8a9abb335f0a950429bfca0d3149da5f22f6015b4b59f091e3e696" name="aed30d0f2eab8a9abb335f0a950429bfca0d3149da5f22f6015b4b59f091e3e696"></a>ubuntu&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aed30d0f2eab8a9abb335f0a950429bfcad767cfcbf7f2d6cbe96cf968d1164c2b" name="aed30d0f2eab8a9abb335f0a950429bfcad767cfcbf7f2d6cbe96cf968d1164c2b"></a>fedora&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aed30d0f2eab8a9abb335f0a950429bfca05a3d8f7bc32b31f1ccae5f6079afcc9" name="aed30d0f2eab8a9abb335f0a950429bfca05a3d8f7bc32b31f1ccae5f6079afcc9"></a>deepin&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a46457e418ea6f49c22730cbcc6399936afdfada1b4f85a16869893b18ba1c0af1" name="a46457e418ea6f49c22730cbcc6399936afdfada1b4f85a16869893b18ba1c0af1"></a>debian&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a46457e418ea6f49c22730cbcc6399936a0d3149da5f22f6015b4b59f091e3e696" name="a46457e418ea6f49c22730cbcc6399936a0d3149da5f22f6015b4b59f091e3e696"></a>ubuntu&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a46457e418ea6f49c22730cbcc6399936ad767cfcbf7f2d6cbe96cf968d1164c2b" name="a46457e418ea6f49c22730cbcc6399936ad767cfcbf7f2d6cbe96cf968d1164c2b"></a>fedora&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a46457e418ea6f49c22730cbcc6399936a05a3d8f7bc32b31f1ccae5f6079afcc9" name="a46457e418ea6f49c22730cbcc6399936a05a3d8f7bc32b31f1ccae5f6079afcc9"></a>deepin&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -190,7 +190,7 @@ Variables</h2></td></tr>
           <td class="memname">auto os_detect::OsDetect </td>
           <td>(</td>
           <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>vmode</em></span></td><td>)</td>
-          <td> -&gt; std::optional&lt;enum <a class="el" href="#aed30d0f2eab8a9abb335f0a950429bfc">OS_KIND</a>&gt;</td>
+          <td> -&gt; std::optional&lt;enum <a class="el" href="#a46457e418ea6f49c22730cbcc6399936">OS_KIND</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -211,7 +211,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="#aed30d0f2eab8a9abb335f0a950429bfc">os_detect::OS_KIND</a> = 4</td>
+          <td class="memname">int <a class="el" href="#a46457e418ea6f49c22730cbcc6399936">os_detect::OS_KIND</a> = 4</td>
         </tr>
       </table>
   </td>
@@ -225,8 +225,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a78da4fb775c7fa1c417b1338969cfec5" name="a78da4fb775c7fa1c417b1338969cfec5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78da4fb775c7fa1c417b1338969cfec5">&#9670;&#160;</a></span>OS_PACKAGE</h2>
+<a id="ac6cdd605b38dfb6bb9b2c7c60e33f336" name="ac6cdd605b38dfb6bb9b2c7c60e33f336"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6cdd605b38dfb6bb9b2c7c60e33f336">&#9670;&#160;</a></span>OS_PACKAGE</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -235,7 +235,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#afb426b5c3b47907002fdb4c27df4b3db">packinfo</a> os_detect::OS_PACKAGE[<a class="el" href="#aed30d0f2eab8a9abb335f0a950429bfc">OS_KIND</a>]</td>
+          <td class="memname">std::array&lt;<a class="el" href="#afb426b5c3b47907002fdb4c27df4b3db">packinfo</a>, <a class="el" href="#a46457e418ea6f49c22730cbcc6399936">OS_KIND</a>&gt; os_detect::OS_PACKAGE</td>
         </tr>
       </table>
   </td>
@@ -244,12 +244,12 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {{</div>
 <div class="line">    {<span class="stringliteral">&quot;deb&quot;</span>, <span class="stringliteral">&quot;dpkg&quot;</span>, <span class="stringliteral">&quot;debian&quot;</span>},</div>
 <div class="line">    {<span class="stringliteral">&quot;deb&quot;</span>, <span class="stringliteral">&quot;dpkg&quot;</span>, <span class="stringliteral">&quot;ubuntu&quot;</span>},</div>
 <div class="line">    {<span class="stringliteral">&quot;rpm&quot;</span>, <span class="stringliteral">&quot;dnf&quot;</span>, <span class="stringliteral">&quot;fedora&quot;</span>},</div>
 <div class="line">    {<span class="stringliteral">&quot;deb&quot;</span>, <span class="stringliteral">&quot;dpkg&quot;</span>, <span class="stringliteral">&quot;deepin&quot;</span>},</div>
-<div class="line">}</div>
+<div class="line">}}</div>
 </div><!-- fragment -->
 <p>Information about currently supported Linux distributions. </p>
 

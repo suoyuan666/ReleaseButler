@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['支持的linux发行版_0',['支持的Linux发行版',['../md_README__ZH__CN.html#autotoc_md25',1,'']]]
+  ['调试模式_0',['调试模式',['../index.html#autotoc_md9',1,'']]]
 ];

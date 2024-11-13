@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['如何编译_0',['如何编译',['../md_README__ZH__CN.html#autotoc_md27',1,'']]]
+  ['特点_3a_0',['特点:',['../index.html#autotoc_md3',1,'']]]
 ];

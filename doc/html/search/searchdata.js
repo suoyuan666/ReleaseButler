@@ -1,9 +1,9 @@
 var indexSectionsWithContent =
 {
-  0: "cdefghijlmoprstuvw~使如安支更特解软",
+  0: "cdefgimoprsuvw~使如安支更特解调软",
   1: "c",
   2: "co",
-  3: "ceglmopr",
+  3: "cegmopr",
   4: "cegimoprsw~",
   5: "oprv",
   6: "p",

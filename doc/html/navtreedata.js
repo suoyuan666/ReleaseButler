@@ -25,26 +25,16 @@
 var NAVTREE =
 [
   [ "ReleaseButler", "index.html", [
-    [ "Features:", "index.html#autotoc_md3", null ],
-    [ "Instructions", "index.html#autotoc_md4", [
-      [ "install software:", "index.html#autotoc_md5", null ],
-      [ "Update", "index.html#autotoc_md6", null ],
-      [ "Parse externally imported json files", "index.html#autotoc_md7", null ]
+    [ "特点:", "index.html#autotoc_md3", null ],
+    [ "使用方法", "index.html#autotoc_md4", [
+      [ "安装软件:", "index.html#autotoc_md5", null ],
+      [ "更新", "index.html#autotoc_md6", null ],
+      [ "解析外部引入的json文件", "index.html#autotoc_md7", null ],
+      [ "调试模式", "index.html#autotoc_md9", null ]
     ] ],
-    [ "Field definitions of software package information files:", "index.html#autotoc_md10", null ],
-    [ "Supported Linux distributions", "index.html#autotoc_md11", null ],
-    [ "How to compile", "index.html#autotoc_md13", null ],
-    [ "ReleaseButler", "md_README__ZH__CN.html", [
-      [ "特点:", "md_README__ZH__CN.html#autotoc_md17", null ],
-      [ "使用方法", "md_README__ZH__CN.html#autotoc_md18", [
-        [ "安装软件:", "md_README__ZH__CN.html#autotoc_md19", null ],
-        [ "更新", "md_README__ZH__CN.html#autotoc_md20", null ],
-        [ "解析外部引入的json文件", "md_README__ZH__CN.html#autotoc_md21", null ]
-      ] ],
-      [ "软件包信息文件的字段定义:", "md_README__ZH__CN.html#autotoc_md24", null ],
-      [ "支持的Linux发行版", "md_README__ZH__CN.html#autotoc_md25", null ],
-      [ "如何编译", "md_README__ZH__CN.html#autotoc_md27", null ]
-    ] ],
+    [ "软件包信息文件的字段定义:", "index.html#autotoc_md11", null ],
+    [ "支持的Linux发行版", "index.html#autotoc_md12", null ],
+    [ "如何编译", "index.html#autotoc_md14", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [

@@ -6,6 +6,10 @@ src/include/utils/os-detect.h
 .SH SYNOPSIS
 .br
 .PP
+\fR#include <array>\fP
+.br
+\fR#include <cstdint>\fP
+.br
 \fR#include <optional>\fP
 .br
 \fR#include <string_view>\fP
@@ -30,7 +34,7 @@ src/include/utils/os-detect.h
 
 .in +1c
 .ti -1c
-.RI "enum \fBos_detect::OS_KIND\fP { \fBos_detect::debian\fP, \fBos_detect::ubuntu\fP, \fBos_detect::fedora\fP, \fBos_detect::deepin\fP }"
+.RI "enum \fBos_detect::OS_KIND\fP : std::uint8_t { \fBos_detect::debian\fP, \fBos_detect::ubuntu\fP, \fBos_detect::fedora\fP, \fBos_detect::deepin\fP }"
 .br
 .in -1c
 .SS "Functions"
@@ -49,7 +53,7 @@ src/include/utils/os-detect.h
 .br
 .RI "The types of Linux distributions that the current software can detect\&. "
 .ti -1c
-.RI "constexpr \fBpackinfo\fP \fBos_detect::OS_PACKAGE\fP [\fBOS_KIND\fP]"
+.RI "constexpr std::array< \fBpackinfo\fP, \fBOS_KIND\fP > \fBos_detect::OS_PACKAGE\fP"
 .br
 .RI "Information about currently supported Linux distributions\&. "
 .in -1c

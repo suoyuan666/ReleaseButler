@@ -106,7 +106,9 @@ $(function(){initNavTree('os-detect_8h.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">os-detect.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;optional&gt;</code><br />
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string_view&gt;</code><br />
 </div>
 <p><a href="os-detect_8h_source.html">Go to the source code of this file.</a></p>
@@ -124,16 +126,16 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:aed30d0f2eab8a9abb335f0a950429bfc" id="r_aed30d0f2eab8a9abb335f0a950429bfc"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceos__detect.html#aed30d0f2eab8a9abb335f0a950429bfc">os_detect::OS_KIND</a> { <a class="el" href="namespaceos__detect.html#aed30d0f2eab8a9abb335f0a950429bfcafdfada1b4f85a16869893b18ba1c0af1">os_detect::debian</a>
-, <a class="el" href="namespaceos__detect.html#aed30d0f2eab8a9abb335f0a950429bfca0d3149da5f22f6015b4b59f091e3e696">os_detect::ubuntu</a>
-, <a class="el" href="namespaceos__detect.html#aed30d0f2eab8a9abb335f0a950429bfcad767cfcbf7f2d6cbe96cf968d1164c2b">os_detect::fedora</a>
-, <a class="el" href="namespaceos__detect.html#aed30d0f2eab8a9abb335f0a950429bfca05a3d8f7bc32b31f1ccae5f6079afcc9">os_detect::deepin</a>
+<tr class="memitem:a46457e418ea6f49c22730cbcc6399936" id="r_a46457e418ea6f49c22730cbcc6399936"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceos__detect.html#a46457e418ea6f49c22730cbcc6399936">os_detect::OS_KIND</a> : std::uint8_t { <a class="el" href="namespaceos__detect.html#a46457e418ea6f49c22730cbcc6399936afdfada1b4f85a16869893b18ba1c0af1">os_detect::debian</a>
+, <a class="el" href="namespaceos__detect.html#a46457e418ea6f49c22730cbcc6399936a0d3149da5f22f6015b4b59f091e3e696">os_detect::ubuntu</a>
+, <a class="el" href="namespaceos__detect.html#a46457e418ea6f49c22730cbcc6399936ad767cfcbf7f2d6cbe96cf968d1164c2b">os_detect::fedora</a>
+, <a class="el" href="namespaceos__detect.html#a46457e418ea6f49c22730cbcc6399936a05a3d8f7bc32b31f1ccae5f6079afcc9">os_detect::deepin</a>
  }</td></tr>
-<tr class="separator:aed30d0f2eab8a9abb335f0a950429bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a46457e418ea6f49c22730cbcc6399936"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa3b063c2d5941faaf77701e67db55c88" id="r_aa3b063c2d5941faaf77701e67db55c88"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceos__detect.html#aa3b063c2d5941faaf77701e67db55c88">os_detect::OsDetect</a> (const bool vmode) -&gt; std::optional&lt; enum <a class="el" href="namespaceos__detect.html#aed30d0f2eab8a9abb335f0a950429bfc">OS_KIND</a> &gt;</td></tr>
+<tr class="memitem:aa3b063c2d5941faaf77701e67db55c88" id="r_aa3b063c2d5941faaf77701e67db55c88"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceos__detect.html#aa3b063c2d5941faaf77701e67db55c88">os_detect::OsDetect</a> (const bool vmode) -&gt; std::optional&lt; enum <a class="el" href="namespaceos__detect.html#a46457e418ea6f49c22730cbcc6399936">OS_KIND</a> &gt;</td></tr>
 <tr class="memdesc:aa3b063c2d5941faaf77701e67db55c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to detect the current Linux distributions.  <br /></td></tr>
 <tr class="separator:aa3b063c2d5941faaf77701e67db55c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -142,9 +144,9 @@ Variables</h2></td></tr>
 <tr class="memitem:a0156aeed75c84ff7fe970f8959f5b9e2" id="r_a0156aeed75c84ff7fe970f8959f5b9e2"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceos__detect.html#a0156aeed75c84ff7fe970f8959f5b9e2">os_detect::OS_KIND</a> = 4</td></tr>
 <tr class="memdesc:a0156aeed75c84ff7fe970f8959f5b9e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The types of Linux distributions that the current software can detect.  <br /></td></tr>
 <tr class="separator:a0156aeed75c84ff7fe970f8959f5b9e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78da4fb775c7fa1c417b1338969cfec5" id="r_a78da4fb775c7fa1c417b1338969cfec5"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="namespaceos__detect.html#afb426b5c3b47907002fdb4c27df4b3db">packinfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceos__detect.html#a78da4fb775c7fa1c417b1338969cfec5">os_detect::OS_PACKAGE</a> [<a class="el" href="namespaceos__detect.html#aed30d0f2eab8a9abb335f0a950429bfc">OS_KIND</a>]</td></tr>
-<tr class="memdesc:a78da4fb775c7fa1c417b1338969cfec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Information about currently supported Linux distributions.  <br /></td></tr>
-<tr class="separator:a78da4fb775c7fa1c417b1338969cfec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6cdd605b38dfb6bb9b2c7c60e33f336" id="r_ac6cdd605b38dfb6bb9b2c7c60e33f336"><td class="memItemLeft" align="right" valign="top">constexpr std::array&lt; <a class="el" href="namespaceos__detect.html#afb426b5c3b47907002fdb4c27df4b3db">packinfo</a>, <a class="el" href="namespaceos__detect.html#a46457e418ea6f49c22730cbcc6399936">OS_KIND</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceos__detect.html#ac6cdd605b38dfb6bb9b2c7c60e33f336">os_detect::OS_PACKAGE</a></td></tr>
+<tr class="memdesc:ac6cdd605b38dfb6bb9b2c7c60e33f336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Information about currently supported Linux distributions.  <br /></td></tr>
+<tr class="separator:ac6cdd605b38dfb6bb9b2c7c60e33f336"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
