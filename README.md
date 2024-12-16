@@ -12,6 +12,7 @@ TODO:
 
 - [ ] 与 libapt-pkg 和 libdnf 等集成
 - [ ] 在 GitHub 创建一个仓库存储软件包安装的json文件，用户可以直接 import 之后安装
+   - [ ] 现在计划实现成 portage 的表现形式，即创建一个 Git 仓库，远端的 build 脚本都通过 `git clone --depth=1` 来更新，软件从这个文件夹去找到相关的 build 脚本。
 - [ ] 支持更多的软件(源码)分发平台，但目前就只是做了对 GitHub 的处理
 
 ---
