@@ -37,7 +37,7 @@ TODO:
 ### 安装软件:
 
 ```bash
-$ releasebutler [--verbose] install --package <name> --pakname <package name> --from <url>
+$ releasebutler [--verbose] install --package <name> --packname <package name> --from <url>
 ```
 
 `--package` 字段接受的是要安装的软件的名称，而 `packname` 字段是这个软件包名，例如 `fastfetch-linux-amd64.deb` 就是 `packname`
