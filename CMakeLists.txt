@@ -11,6 +11,13 @@ project(ReleaseButler
     LANGUAGES CXX
 )
 
+option(DEBIAN "build for Debian distro" OFF)
+
+if(DEBIAN)
+    message(STATUS "build for Debian distro")
+    add_compile_definitions(DEBIAN)
+endif()
+
 add_subdirectory(third_party)
 add_subdirectory(src)
 
