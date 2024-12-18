@@ -8,7 +8,6 @@
 #include <string>
 #include <string_view>
 
-#include "curl_cpp/cppcurl.h"
 #include "tlog.h"
 #include "utils/confile.h"
 #include "utils/misc.h"

@@ -12,7 +12,6 @@
 #include "curl_cpp/cppcurl.h"
 #include "json.hpp"
 #include "tlog.h"
-#include "utils/confile.h"
 #include "utils/env.h"
 
 auto install_github(std::string url, const std::string_view name,
