@@ -133,3 +133,12 @@ $ cmake --build build -j `nproc`
 ```bash
 $ sudo zypper install libcurl-devel clang cmake
 ```
+
+该项目使用了：
+
+- [libcurl](https://curl.se/libcurl/)：用于通过 URL 获取网页内容
+- [openssl](https://github.com/openssl/openssl)：使用了 libcrypto 提供的 SHA256 哈希算法
+- [p-ranav/argparse](https://github.com/p-ranav/argparse)：用于命令行参数的解析
+- [google/googletest](https://github.com/google/googletest)：用于对特定函数的测试
+- [nlohmann/json](https://github.com/nlohmann/json)：针对 JSON 文件格式的读取和写入
+- [suoyuan666/tlog](https://github.com/suoyuan666/tlog)：日志格式的信息输出
