@@ -2,9 +2,16 @@
 
 #include <sys/wait.h>
 #include <unistd.h>
+#include <openssl/sha.h>
 
+#include <array>
+#include <cstdio>
 #include <cstdlib>
 #include <filesystem>
+#include <fstream>
+#include <ios>
+#include <iostream>
+#include <sstream>
 #include <string>
 #include <string_view>
 
@@ -13,9 +20,9 @@
 #include "utils/misc.h"
 
 auto install(std::string_view url, std::string_view name,
-             std::string_view pack_name, const bool vmode, const bool install)
-    -> bool {
-  tlog::tprint({"instalk it! url: ", url}, tlog::tlog_status::SUCCESS,
+             std::string_view pack_name, std::optional<std::string_view> sha256_val,
+             const bool vmode, const bool install) -> bool {
+  tlog::tprint({"install it! url: ", url}, tlog::tlog_status::SUCCESS,
                tlog::NO_LOG_FILE);
   std::string_view url_token;
   std::string_view version;
@@ -42,6 +49,43 @@ auto install(std::string_view url, std::string_view name,
       tlog::tprint({"version: ", version}, tlog::tlog_status::DEBUG,
                    tlog::NO_LOG_FILE);
     }
+  }
+
+  if (sha256_val.has_value()) {
+    if (sha256_val->size() != SHA256_DIGEST_LENGTH * 2) {
+      tlog::tprint({"installl: sha256 value length erro, sha256_val: ",
+                    sha256_val.value()},
+                   tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
+      return false;
+    }
+
+    SHA256_CTX sha256;
+    SHA256_Init(&sha256);
+
+    std::string path {"/tmp/"};
+    path.append(pack_name);
+    std::ifstream file {path.c_str(), std::ios::binary};
+    if (!file.is_open()) {
+      tlog::tprint({path, "no suh file"}, tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
+    }
+    std::ostringstream tmp {};
+    tmp << file.rdbuf();
+    std::string buffer {tmp.str()};
+
+    SHA256_Update(&sha256, buffer.data(), buffer.size());
+    std::array<unsigned char, SHA256_DIGEST_LENGTH> hash {};
+    SHA256_Final(hash.data(), &sha256);
+
+    std::stringstream sha256_tmp {};
+    for (int i = 0; i < SHA256_DIGEST_LENGTH; i++) {
+      sha256_tmp << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(hash.at(i));
+    }
+
+    if (sha256_tmp.str() != sha256_val.value()) {
+      tlog::tprint({"installl: sha256 verify failed"}, tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
+      return false;
+    }
+    tlog::tprint({"sha256 verification passed"}, tlog::tlog_status::INFO, tlog::NO_LOG_FILE);
   }
 
   if (!fetch_enable || (install && (!install_core(pack_name, vmode)))) {

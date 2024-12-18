@@ -2,6 +2,7 @@
 #include <unistd.h>
 
 #include <iostream>
+#include <optional>
 #include <string>
 
 #include "argparse/argparse.hpp"
@@ -87,7 +88,7 @@ auto main(int argc, char *argv[]) -> int {
   std::string url;
   std::string pack_name;
   std::string package;
-  bool install_enable {false};
+  bool install_enable{false};
   if (install_command.is_used("--from")) {
     install_enable = true;
     url = install_command.get<std::string>("--from");
@@ -103,7 +104,7 @@ auto main(int argc, char *argv[]) -> int {
 
   if (install_enable) {
     if (!(url.empty() || pack_name.empty() || package.empty())) {
-      if (!install(url, package, pack_name, vmode, true)) {
+      if (!install(url, package, pack_name, std::nullopt, vmode, true)) {
         return 1;
       }
     } else {

@@ -22,3 +22,5 @@ add_library(
     OBJECT
     ${RB_CORE_SRC}
 )
+
+target_link_libraries(core crypto)

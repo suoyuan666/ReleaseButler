@@ -11,7 +11,7 @@
 TODO:
 
 - [ ] 与 libapt-pkg 和 libdnf 等集成
-- [ ] 在 GitHub 创建一个仓库存储软件包安装的json文件，用户可以直接 import 之后安装
+- [ ] 在 GitHub 创建一个仓库存储软件包安装的 json 文件，用户可以直接 import 之后安装
    - [ ] 现在计划实现成 portage 的表现形式，即创建一个 Git 仓库，远端的 build 脚本都通过 `git clone --depth=1` 来更新，软件从这个文件夹去找到相关的 build 脚本。
 - [ ] 支持更多的软件(源码)分发平台，但目前就只是做了对 GitHub 的处理
 
@@ -84,8 +84,9 @@ $ relesebutler --verbose
 {
    "fastfetch": {
       "pakname": "fastfetch-linux-amd64.deb",
+      "sha256": "5542cec5666645d5562a0c345d75cb6a828b914c5e0f53d8d0deee703667c75f",
       "url": "https://github.com/fastfetch-cli/fastfetch",
-      "version": "2.13.2",
+      "version": "2.32.1",
       "build" : [
          "touch something",
          "touch haaa"
@@ -100,6 +101,7 @@ $ relesebutler --verbose
 ```
 
 - `pakname` 是 Release 页面的软件包名称。
+- `sha256` 是该软件包的 SHA256 哈希值，非必需参数。
 - `build` 用于存储一些软件下载前的要执行操作。
 - `install` 用于存储一些软件安装后要执行的操作。
 - `clone` 表示是否直接 clone 这个仓库。
@@ -107,8 +109,7 @@ $ relesebutler --verbose
 
 ## 支持的Linux发行版
 
-- Debian/Ubuntu/Deepin
-- Fedora
+- Debian/OpenSUSE
 
 ---
 
@@ -130,5 +131,5 @@ $ cmake --build build -j `nproc`
 我尝试在 OpenSUSE Tumbleweed 中编译这个项目，我是用了下边的语句安装了所需的软件
 
 ```bash
-$ sudo zypper install libcurl-devel clang18 llvm18-gold cmake
+$ sudo zypper install libcurl-devel clang cmake
 ```
