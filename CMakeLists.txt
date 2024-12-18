@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.13)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF) # use c++17 insead of gnuc++17
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE) # for generate full compile_commands.json
 
 project(ReleaseButler
@@ -12,10 +11,14 @@ project(ReleaseButler
 )
 
 option(DEBIAN "build for Debian distro" OFF)
+option(OPENSUSE_TUM "build for OpenSUSE Tumbleweed distro" OFF)
 
 if(DEBIAN)
     message(STATUS "build for Debian distro")
     add_compile_definitions(DEBIAN)
+elseif(OPENSUSE_TUM)
+    message(STATUS "build for OpenSUSE Tumbleweed distro")
+    add_compile_definitions(OPENSUSE_TUM)
 endif()
 
 add_subdirectory(third_party)

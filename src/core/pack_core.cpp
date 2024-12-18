@@ -11,12 +11,11 @@
 #include "curl_cpp/cppcurl.h"
 #include "tlog.h"
 #include "utils/confile.h"
-#include "utils/env.h"
-#include "utils/os-detect.h"
+#include "utils/misc.h"
 
 auto install(std::string_view url, std::string_view name,
-             std::string_view pack_name, const bool vmode,
-             const bool install) -> bool {
+             std::string_view pack_name, const bool vmode, const bool install)
+    -> bool {
   tlog::tprint({"instalk it! url: ", url}, tlog::tlog_status::SUCCESS,
                tlog::NO_LOG_FILE);
   std::string_view url_token;
@@ -54,13 +53,6 @@ auto install(std::string_view url, std::string_view name,
 }
 
 auto install_core(std::string_view pack_name, const bool vmode) -> bool {
-  auto tmp = os_detect::OsDetect(vmode);
-  if (!tmp.has_value()) {
-    tlog::tprint({"not support your operating system"},
-                 tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
-    return false;
-  }
-
   pid_t pid = fork();
   if (pid == 0) {
     auto debug_out4sudo = [&vmode]() {
@@ -80,29 +72,16 @@ auto install_core(std::string_view pack_name, const bool vmode) -> bool {
       tlog::tprint({"start install !!!!"}, tlog::tlog_status::DEBUG,
                    tlog::NO_LOG_FILE);
     }
-    switch (tmp.value()) {
-      case os_detect::OS_KIND::debian:
-      case os_detect::OS_KIND::ubuntu:
-      case os_detect::OS_KIND::deepin:
-        path.append(pack_name);
-        if (std::filesystem::exists("/usr/bin/sudo")) {
-          debug_out4sudo();
-          execl("/usr/bin/sudo", "sudo", "dpkg", "-i", path.c_str(), NULL);
-        } else if (std::filesystem::exists("/usr/bin/doas")) {
-          debug_out4doas();
-          execl("/usr/bin/doas", "doas", "dpkg", "-i", path.c_str(), NULL);
-        }
-        break;
-      case os_detect::OS_KIND::fedora:
-        path.append(pack_name);
-        if (std::filesystem::exists("/usr/bin/sudo")) {
-          debug_out4sudo();
-          execl("/usr/bin/sudo", "sudo", "dnf", "install", path.c_str(), NULL);
-        } else if (std::filesystem::exists("/usr/bin/doas")) {
-          debug_out4doas();
-          execl("/usr/bin/doas", "doas", "dnf", "install", path.c_str(), NULL);
-        }
-        break;
+    path.append(pack_name);
+    if (std::filesystem::exists("/usr/bin/sudo")) {
+      debug_out4sudo();
+      execl("/usr/bin/sudo", PACKAGE_INS_CMD.begin(), path.c_str(), NULL);
+    } else if (std::filesystem::exists("/usr/bin/doas")) {
+      debug_out4doas();
+      execl("/usr/bin/doas", PACKAGE_INS_CMD.begin(), path.c_str(), NULL);
+    } else {
+      tlog::tprint({"cannot find sudo or doas on /usr/bin"},
+                   tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
     }
   }
   wait(nullptr);

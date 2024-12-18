@@ -1,5 +1,5 @@
 {
     "cmake.configureArgs": [
-        "-DDEBIAN=ON"
+        "-DOPENSUSE_TUM=ON"
     ]
 }
