@@ -6,6 +6,8 @@ src/include/core/pack_core.h
 .SH SYNOPSIS
 .br
 .PP
+\fR#include <optional>\fP
+.br
 \fR#include <string>\fP
 .br
 \fR#include <string_view>\fP
@@ -15,7 +17,7 @@ src/include/core/pack_core.h
 
 .in +1c
 .ti -1c
-.RI "auto \fBinstall\fP (std::string_view url, const std::string_view name, const std::string_view pack_name, bool vmode, bool install) \-> bool"
+.RI "auto \fBinstall\fP (std::string_view url, std::string_view name, std::string_view pack_name, std::optional< std::string_view > sha256_val, bool vmode, bool install) \-> bool"
 .br
 .RI "Programs for download and installation\&. "
 .ti -1c
@@ -29,7 +31,7 @@ src/include/core/pack_core.h
 .in -1c
 .SH "Function Documentation"
 .PP 
-.SS "auto install (std::string_view url, const std::string_view name, const std::string_view pack_name, bool vmode, bool install) \->  bool\fR [nodiscard]\fP"
+.SS "auto install (std::string_view url, std::string_view name, std::string_view pack_name, std::optional< std::string_view > sha256_val, bool vmode, bool install) \->  bool\fR [nodiscard]\fP"
 
 .PP
 Programs for download and installation\&. But in fact \fR\fBinstall()\fP\fP does not perform all of the functions involved in installation that are permitted by the software's operation\&. It's the parsing of the file that implements all of the features allowed for installation\&.
@@ -42,6 +44,8 @@ Programs for download and installation\&. But in fact \fR\fBinstall()\fP\fP does
 \fI`name`\fP Name of the software 
 .br
 \fI`pack_name`\fP Name of the package to download, e\&.g\&. \fRfastfetch-linux-amd64\&.deb\fP 
+.br
+\fI`sha256_val`\fP SHA256 of the file to download\&. 
 .br
 \fI`vmode`\fP Whether to output more information (for debugging purposes) 
 .br

@@ -94,6 +94,7 @@ var NAVTREEINDEX0 =
 "namespacecppcurl.html":[5,0,0],
 "namespacecppcurl.html#a814181601cdf12d335b50b59610a7b1d":[5,0,0,1],
 "namespacemembers.html":[5,1,0],
+<<<<<<< HEAD
 "namespacemembers_enum.html":[5,1,4],
 "namespacemembers_eval.html":[5,1,5],
 "namespacemembers_func.html":[5,1,1],
@@ -129,6 +130,16 @@ var NAVTREEINDEX0 =
 "pack__core_8h.html":[7,0,0,2,0,0],
 "pack__core_8h.html#a38452952c37c035933219ad025000dc4":[7,0,0,2,0,0,2],
 "pack__core_8h.html#ad0c0b6a472bb94654a23c2c52f8ea024":[7,0,0,2,0,0,0],
+=======
+"namespacemembers_func.html":[5,1,1],
+"namespaces.html":[5,0],
+"pack__core_8cpp.html":[7,0,0,0,1],
+"pack__core_8cpp.html#a869fd5280c1be22c28a681a62cf1a1e2":[7,0,0,0,1,1],
+"pack__core_8cpp.html#ae73076755f2fc8f1e31d0317d10c0b3f":[7,0,0,0,1,0],
+"pack__core_8h.html":[7,0,0,2,0,0],
+"pack__core_8h.html#a38452952c37c035933219ad025000dc4":[7,0,0,2,0,0,2],
+"pack__core_8h.html#ab2c16ebc8c38081a7ea25d9e45f263a8":[7,0,0,2,0,0,0],
+>>>>>>> dev
 "pack__core_8h.html#af2ceaec1022665e4f0c02b57c3f69b5b":[7,0,0,2,0,0,1],
 "pack__core_8h_source.html":[7,0,0,2,0,0],
 "pages.html":[]

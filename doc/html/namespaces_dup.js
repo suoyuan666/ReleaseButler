@@ -1,5 +1,6 @@
 var namespaces_dup =
 [
+<<<<<<< HEAD
     [ "cppcurl", "namespacecppcurl.html", "namespacecppcurl" ],
     [ "os_detect", "namespaceos__detect.html", [
       [ "packinfo", "namespaceos__detect.html#afb426b5c3b47907002fdb4c27df4b3db", null ],
@@ -13,4 +14,7 @@ var namespaces_dup =
       [ "OS_KIND", "namespaceos__detect.html#a0156aeed75c84ff7fe970f8959f5b9e2", null ],
       [ "OS_PACKAGE", "namespaceos__detect.html#ac6cdd605b38dfb6bb9b2c7c60e33f336", null ]
     ] ]
+=======
+    [ "cppcurl", "namespacecppcurl.html", "namespacecppcurl" ]
+>>>>>>> dev
 ];

@@ -107,6 +107,7 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <p>目前我是想要实现一个类似 BSD 系“类 ports 系统”那样的东西，就像 Arch Linux 的 <a href="https://wiki.archlinux.org/title/Arch_build_system">ABS</a>，或者像是 Gentoo Linux 的 <a href="https://wiki.gentoo.org/wiki/Portage">protage</a>。目前想要的甚至还没 ABS 那么复杂，Gentoo Linux 那样标记 USE 变量更是想都没想了。</p>
 <p>TODO:</p>
 <ul class="check">
+<<<<<<< HEAD
 <li class="checked"><strike>使用JSON格式存储软件包的信息</strike></li>
 </ul>
 <ul class="check">
@@ -125,21 +126,48 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 </ul>
 <hr  />
 <p><strike>⚠️: 你必须首先安装**sudo**而不是**open-doas**或是其他类似的软件，如果你不想强依赖于**sudo**可以选择修改源代码😀。或者我后续想起来会尝试添加对sudo或doas的检测。</strike> 我已经添加了对 <code>/usr/bin/sudo</code> 和 <code>/usr/bin/doas</code> 的检测。</p>
+=======
+<li class="unchecked">与 libapt-pkg 和 libdnf 等集成</li>
+</ul>
+<ul class="check">
+<li class="unchecked">在 GitHub 创建一个仓库存储软件包安装的 json 文件，用户可以直接 import 之后安装<ul class="check">
+<li class="unchecked">现在计划实现成 portage 的表现形式，即创建一个 Git 仓库，远端的 build 脚本都通过 <code>git clone --depth=1</code> 来更新，软件从这个文件夹去找到相关的 build 脚本。</li>
+</ul>
+</li>
+</ul>
+<ul class="check">
+<li class="unchecked">支持更多的软件(源码)分发平台，但目前就只是做了对 GitHub 的处理</li>
+</ul>
+<hr  />
+<p><strike>⚠️: 你必须首先安装**sudo**而不是**open-doas**或是其他类似的软件，如果你不想强依赖于**sudo**可以选择修改源代码😀。或者我后续想起来会尝试添加对sudo或doas的检测。</strike> 我已经添加了对 <code>sudo</code> 和 <code>doas</code> 的检测。</p>
+>>>>>>> dev
 <dl class="section note"><dt>Note</dt><dd><br  />
  我这里假设了 <code>sudo</code> 和 <code>doas</code> 会存在于 /usr/bin 目录下</dd></dl>
 <hr  />
 <h1><a class="anchor" id="autotoc_md3"></a>
 特点:</h1>
+<<<<<<< HEAD
 <p><b>自动发行版检测：</b> ReleaseButler 确定运行环境的Linux发行版，确保与各种系统的兼容性。</p>
 <p>**安装和更新**：使用单个命令轻松安装软件包。 ReleaseButler 支持更新，使您安装的软件保持最新。</p>
 <p><b>尽量适配各种情况</b>: 尝试引入各种字段以适配各种仓库的安装步骤。</p>
+=======
+<p>**自动发行版检测**：ReleaseButler 确定运行环境的Linux发行版，确保与各种系统的兼容性。</p>
+<p>**安装和更新**：使用单个命令轻松安装软件包。 ReleaseButler 支持更新，使您安装的软件保持最新。</p>
+<p>**尽量适配各种情况**：尝试引入各种字段以适配各种仓库的安装步骤。</p>
+>>>>>>> dev
 <h1><a class="anchor" id="autotoc_md4"></a>
 使用方法</h1>
 <h2><a class="anchor" id="autotoc_md5"></a>
 安装软件:</h2>
+<<<<<<< HEAD
 <div class="fragment"><div class="line">$ releasebutler install --package &lt;name&gt; --pakname &lt;package name&gt; --from &lt;url&gt; [--verbose]</div>
 </div><!-- fragment --><p><code>--package</code> 字段接受的是要安装的软件的名称，而 <code>packname</code> 字段是这个软件包名，例如 <code>fastfetch-linux-amd64.deb</code> 就是 <code>packname</code></p>
 <p>从命令行安装尚未支持所有字段(如<code>install</code>，<code>build</code>等)。</p>
+=======
+<div class="fragment"><div class="line">$ releasebutler [--verbose] install --package &lt;name&gt; --packname &lt;package name&gt; --from &lt;url&gt;</div>
+</div><!-- fragment --><p><code>--package</code> 字段接受的是要安装的软件的名称，而 <code>packname</code> 字段是这个软件包名，例如 <code>fastfetch-linux-amd64.deb</code> 就是 <code>packname</code></p>
+<p>从命令行安装尚未支持所有字段（如 <code>install</code>，<code>build</code> 等）。</p>
+>>>>>>> dev
 <h2><a class="anchor" id="autotoc_md6"></a>
 更新</h2>
 <div class="fragment"><div class="line">$ relesebutler --update</div>
@@ -163,8 +191,14 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <div class="fragment"><div class="line">{</div>
 <div class="line">   &quot;fastfetch&quot;: {</div>
 <div class="line">      &quot;pakname&quot;: &quot;fastfetch-linux-amd64.deb&quot;,</div>
+<<<<<<< HEAD
 <div class="line">      &quot;url&quot;: &quot;https://github.com/fastfetch-cli/fastfetch&quot;,</div>
 <div class="line">      &quot;version&quot;: &quot;2.13.2&quot;,</div>
+=======
+<div class="line">      &quot;sha256&quot;: &quot;5542cec5666645d5562a0c345d75cb6a828b914c5e0f53d8d0deee703667c75f&quot;,</div>
+<div class="line">      &quot;url&quot;: &quot;https://github.com/fastfetch-cli/fastfetch&quot;,</div>
+<div class="line">      &quot;version&quot;: &quot;2.32.1&quot;,</div>
+>>>>>>> dev
 <div class="line">      &quot;build&quot; : [</div>
 <div class="line">         &quot;touch something&quot;,</div>
 <div class="line">         &quot;touch haaa&quot;</div>
@@ -178,6 +212,10 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <div class="line">}</div>
 </div><!-- fragment --><ul>
 <li><code>pakname</code> 是 Release 页面的软件包名称。</li>
+<<<<<<< HEAD
+=======
+<li><code>sha256</code> 是该软件包的 SHA256 哈希值，非必需参数。</li>
+>>>>>>> dev
 <li><code>build</code> 用于存储一些软件下载前的要执行操作。</li>
 <li><code>install</code> 用于存储一些软件安装后要执行的操作。</li>
 <li><code>clone</code> 表示是否直接 clone 这个仓库。</li>
@@ -186,8 +224,7 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <h1><a class="anchor" id="autotoc_md12"></a>
 支持的Linux发行版</h1>
 <ul>
-<li>Debian/Ubuntu/Deepin</li>
-<li>Fedora</li>
+<li>Debian/OpenSUSE</li>
 </ul>
 <hr  />
 <h1><a class="anchor" id="autotoc_md14"></a>
@@ -201,8 +238,22 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <div class="line">$ cmake --build build -j `nproc`</div>
 </div><!-- fragment --><p>如果是在其他平台下编译，原谅我懒了，自己去寻找 libcurl4-openssl-dev 这个包对应其他发型版的软件包名吧。😛</p>
 <p>我尝试在 OpenSUSE Tumbleweed 中编译这个项目，我是用了下边的语句安装了所需的软件</p>
+<<<<<<< HEAD
 <div class="fragment"><div class="line">$ sudo zypper install libcurl-devel clang18 llvm18-gold cmake</div>
 </div><!-- fragment --> </div></div><!-- PageDoc -->
+=======
+<div class="fragment"><div class="line">$ sudo zypper install libcurl-devel clang cmake</div>
+</div><!-- fragment --><p>该项目使用了：</p>
+<ul>
+<li><a href="https://curl.se/libcurl/">libcurl</a>：用于通过 URL 获取网页内容</li>
+<li><a href="https://github.com/openssl/openssl">openssl</a>：使用了 libcrypto 提供的 SHA256 哈希算法</li>
+<li><a href="https://github.com/p-ranav/argparse">p-ranav/argparse</a>：用于命令行参数的解析</li>
+<li><a href="https://github.com/google/googletest">google/googletest</a>：用于对特定函数的测试</li>
+<li><a href="https://github.com/nlohmann/json">nlohmann/json</a>：针对 JSON 文件格式的读取和写入</li>
+<li><a href="https://github.com/suoyuan666/tlog">suoyuan666/tlog</a>：日志格式的信息输出 </li>
+</ul>
+</div></div><!-- PageDoc -->
+>>>>>>> dev
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->
 </div><!-- doc-content -->

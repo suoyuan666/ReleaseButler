@@ -2,6 +2,7 @@
 #include <unistd.h>
 
 #include <iostream>
+#include <optional>
 #include <string>
 
 #include "argparse/argparse.hpp"
@@ -15,7 +16,7 @@ auto main(int argc, char *argv[]) -> int {
   program.add_description("package manager on GitHub.");
   program.set_usage_max_line_width(80);
 
-  argparse::ArgumentParser install_command("install", VERSION.data(),
+  argparse::ArgumentParser install_command("install", VERSION.begin(),
                                            argparse::default_arguments::help);
   install_command.add_description("install package form specified url");
   install_command.add_argument("--package")
@@ -28,7 +29,7 @@ auto main(int argc, char *argv[]) -> int {
       .help("set package homepage url")
       .metavar("url");
 
-  argparse::ArgumentParser update_command("update", VERSION.data(),
+  argparse::ArgumentParser update_command("update", VERSION.begin(),
                                           argparse::default_arguments::help);
   update_command.add_argument("--all").help("update all installed package");
   update_command.add_argument("--package")
@@ -36,7 +37,7 @@ auto main(int argc, char *argv[]) -> int {
       .metavar("package");
   update_command.add_description("update installed package");
 
-  argparse::ArgumentParser uninstall_command("uninstall", VERSION.data(),
+  argparse::ArgumentParser uninstall_command("uninstall", VERSION.begin(),
                                              argparse::default_arguments::help);
   uninstall_command.add_description("uninstall package");
   uninstall_command.add_argument("--package")
@@ -87,27 +88,31 @@ auto main(int argc, char *argv[]) -> int {
   std::string url;
   std::string pack_name;
   std::string package;
+  bool install_enable{false};
   if (install_command.is_used("--from")) {
+    install_enable = true;
     url = install_command.get<std::string>("--from");
   }
   if (install_command.is_used("--package")) {
+    install_enable = true;
     package = install_command.get<std::string>("--package");
   }
   if (install_command.is_used("--packname")) {
+    install_enable = true;
     pack_name = install_command.get<std::string>("--packname");
   }
 
-  if (!(url.empty() || pack_name.empty() || package.empty())) {
-    if (!install(url, package, pack_name, vmode, true)) {
-      return 1;
+  if (install_enable) {
+    if (!(url.empty() || pack_name.empty() || package.empty())) {
+      if (!install(url, package, pack_name, std::nullopt, vmode, true)) {
+        return 1;
+      }
+    } else {
+      tlog::tprint(
+          {"`--from`, `--package` and `--packname` must appear together"},
+          tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
     }
-  } else {
-    tlog::tprint(
-        {"`--from`, `--package` and `--packname` must appear together"},
-        tlog::tlog_status::ERROR, tlog::NO_LOG_FILE);
   }
-
-  std::cout << program << "\n";
 
   return 0;
 }

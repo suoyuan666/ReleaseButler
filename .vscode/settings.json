@@ -1,0 +1,5 @@
+{
+    "cmake.configureArgs": [
+        "-DOPENSUSE_TUM=ON"
+    ]
+}

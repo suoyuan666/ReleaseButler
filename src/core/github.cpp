@@ -12,9 +12,7 @@
 #include "curl_cpp/cppcurl.h"
 #include "json.hpp"
 #include "tlog.h"
-#include "utils/confile.h"
 #include "utils/env.h"
-#include "utils/os-detect.h"
 
 auto install_github(std::string url, const std::string_view name,
                     const std::string_view pack_name,

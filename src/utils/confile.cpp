@@ -6,7 +6,10 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <optional>
 #include <sstream>
+#include <string>
+#include <string_view>
 
 #include "core/pack_core.h"
 #include "json.hpp"
@@ -21,7 +24,7 @@ auto conf_modify(nlohmann::json &json, std::string_view filename,
       (!std::filesystem::is_empty(filename.data()))) {
     nlohmann::json rdata;
     {
-      std::ifstream istrm{filename.data(), std::ios::binary};
+      std::ifstream istrm{filename.begin(), std::ios::binary};
       if (istrm.is_open()) {
         rdata = nlohmann::json::parse(istrm);
       } else {
@@ -29,7 +32,7 @@ auto conf_modify(nlohmann::json &json, std::string_view filename,
         return false;
       }
     }
-    std::ofstream ostrm_conf{filename.data(), std::ios::binary};
+    std::ofstream ostrm_conf{filename.begin(), std::ios::binary};
     if (!rdata.empty()) {
       auto [key, val] = json.items().begin();
       rdata[key] = val;
@@ -44,7 +47,7 @@ auto conf_modify(nlohmann::json &json, std::string_view filename,
       ostrm_conf << str.str();
     }
   } else {
-    std::ofstream ostrm{filename.data(), std::ios::binary};
+    std::ofstream ostrm{filename.begin(), std::ios::binary};
     ostrm << str.str();
   }
   return true;
@@ -150,7 +153,7 @@ auto parse_confile(std::string_view filename, const bool vmode) -> bool {
 }
 
 auto parse_confile_core(std::string_view filename, const bool vmode) -> bool {
-  std::ifstream istrm{filename.data(), std::ios::binary};
+  std::ifstream istrm{filename.begin(), std::ios::binary};
   nlohmann::json rdata = nlohmann::json::parse(istrm);
 
   for (const auto &[key, val] : rdata.items()) {
@@ -186,17 +189,25 @@ auto parse_confile_core(std::string_view filename, const bool vmode) -> bool {
         path.append(key);
         command.append(url);
         command.append(path);
-
       } else {
         if (val.count("name") != 0U) {
           std::string pack_name = val.at("name");
+          std::optional<std::string_view> sha256 {};
+          if (val.count("sha256") != 0U) {
+            std::string tmp = val.at("sha256");
+            sha256 = tmp;
+          }
           if (vmode) {
             tlog::tprint(
                 {"url :", url, "\n name: ", key, "\n pack_name: ", pack_name},
                 tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
+            if (sha256.has_value()) {
+              tlog::tprint(
+                {"sha256 value:", sha256.value()},
+                tlog::tlog_status::DEBUG, tlog::NO_LOG_FILE);
+            }
           }
-
-          if (!install(url, key, pack_name, vmode, install_flag)) {
+          if (!install(url, key, pack_name, sha256, vmode, install_flag)) {
             return false;
           }
         }

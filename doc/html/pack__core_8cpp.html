@@ -105,8 +105,12 @@ $(function(){initNavTree('pack__core_8cpp.html',''); initResizable(true); });
 <div class="textblock"><code>#include &quot;<a class="el" href="pack__core_8h_source.html">core/pack_core.h</a>&quot;</code><br />
 <code>#include &lt;sys/wait.h&gt;</code><br />
 <code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;openssl/sha.h&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cstdio&gt;</code><br />
 <code>#include &lt;cstdlib&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
+<<<<<<< HEAD
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;string_view&gt;</code><br />
 <code>#include &quot;<a class="el" href="cppcurl_8h_source.html">curl_cpp/cppcurl.h</a>&quot;</code><br />
@@ -114,19 +118,30 @@ $(function(){initNavTree('pack__core_8cpp.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="confile_8h_source.html">utils/confile.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="env_8h_source.html">utils/env.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="os-detect_8h_source.html">utils/os-detect.h</a>&quot;</code><br />
+=======
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;ios&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &quot;tlog.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="confile_8h_source.html">utils/confile.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="misc_8h_source.html">utils/misc.h</a>&quot;</code><br />
+>>>>>>> dev
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa3e029f1197c1986222a741c1080bc29" id="r_aa3e029f1197c1986222a741c1080bc29"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3e029f1197c1986222a741c1080bc29">install</a> (std::string_view url, std::string_view name, std::string_view pack_name, const bool vmode, const bool install) -&gt; bool</td></tr>
-<tr class="memdesc:aa3e029f1197c1986222a741c1080bc29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Programs for download and installation.  <br /></td></tr>
-<tr class="separator:aa3e029f1197c1986222a741c1080bc29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae73076755f2fc8f1e31d0317d10c0b3f" id="r_ae73076755f2fc8f1e31d0317d10c0b3f"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae73076755f2fc8f1e31d0317d10c0b3f">install</a> (std::string_view url, std::string_view name, std::string_view pack_name, std::optional&lt; std::string_view &gt; sha256_val, const bool vmode, const bool install) -&gt; bool</td></tr>
+<tr class="memdesc:ae73076755f2fc8f1e31d0317d10c0b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Programs for download and installation.  <br /></td></tr>
+<tr class="separator:ae73076755f2fc8f1e31d0317d10c0b3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a869fd5280c1be22c28a681a62cf1a1e2" id="r_a869fd5280c1be22c28a681a62cf1a1e2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a869fd5280c1be22c28a681a62cf1a1e2">install_core</a> (std::string_view pack_name, const bool vmode) -&gt; bool</td></tr>
 <tr class="memdesc:a869fd5280c1be22c28a681a62cf1a1e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core functions that implement the installation functionality.  <br /></td></tr>
 <tr class="separator:a869fd5280c1be22c28a681a62cf1a1e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="aa3e029f1197c1986222a741c1080bc29" name="aa3e029f1197c1986222a741c1080bc29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3e029f1197c1986222a741c1080bc29">&#9670;&#160;</a></span>install()</h2>
+<a id="ae73076755f2fc8f1e31d0317d10c0b3f" name="ae73076755f2fc8f1e31d0317d10c0b3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae73076755f2fc8f1e31d0317d10c0b3f">&#9670;&#160;</a></span>install()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -142,12 +157,17 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string_view</td>          <td class="paramname"><span class="paramname"><em>pack_name</em></span>, </td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>pack_name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; std::string_view &gt;</td>          <td class="paramname"><span class="paramname"><em>sha256_val</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -168,12 +188,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Programs for download and installation. </p>
-<p>But in fact <code><a class="el" href="pack__core_8h.html#ad0c0b6a472bb94654a23c2c52f8ea024" title="Programs for download and installation.">install()</a></code> does not perform all of the functions involved in installation that are permitted by the software's operation. It's the parsing of the file that implements all of the features allowed for installation.</p>
+<p>But in fact <code><a class="el" href="pack__core_8h.html#ab2c16ebc8c38081a7ea25d9e45f263a8" title="Programs for download and installation.">install()</a></code> does not perform all of the functions involved in installation that are permitted by the software's operation. It's the parsing of the file that implements all of the features allowed for installation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">`url`</td><td>The home page of the website where the program is hosted </td></tr>
     <tr><td class="paramname">`name`</td><td>Name of the software </td></tr>
     <tr><td class="paramname">`pack_name`</td><td>Name of the package to download, e.g. <code>fastfetch-linux-amd64.deb</code> </td></tr>
+    <tr><td class="paramname">`sha256_val`</td><td>SHA256 of the file to download. </td></tr>
     <tr><td class="paramname">`vmode`</td><td>Whether to output more information (for debugging purposes) </td></tr>
     <tr><td class="paramname">`install`</td><td>Whether to call the corresponding package manager to install after download </td></tr>
   </table>

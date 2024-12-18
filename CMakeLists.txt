@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.13)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF) # use c++17 insead of gnuc++17
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE) # for generate full compile_commands.json
 
 project(ReleaseButler
@@ -10,6 +9,17 @@ project(ReleaseButler
     DESCRIPTION "package manager on GitHub"
     LANGUAGES CXX
 )
+
+option(DEBIAN "build for Debian distro" OFF)
+option(OPENSUSE_TUM "build for OpenSUSE Tumbleweed distro" OFF)
+
+if(DEBIAN)
+    message(STATUS "build for Debian distro")
+    add_compile_definitions(DEBIAN)
+elseif(OPENSUSE_TUM)
+    message(STATUS "build for OpenSUSE Tumbleweed distro")
+    add_compile_definitions(OPENSUSE_TUM)
+endif()
 
 add_subdirectory(third_party)
 add_subdirectory(src)
@@ -31,8 +41,8 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fcf-protection=full -fsanitize=integer -fsanitize-minimal-runtime")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -D_FORTIFY_SOURCE=3 -fstack-clash-protection -fstack-protector-all -fstack-protector-strong")
     if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -flto=thin")
-        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wl,-O2,-z,now,-z,noexecstack,--as-needed,--lto-O3,--icf=safe,--gc-sections,-z,relro")
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -flto=thin -fsanitize=cfi")
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wl,-O2,-z,now,-z,noexecstack,--as-needed,--lto-O2,--icf=safe,--gc-sections,-z,relro")
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -flto")
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wl,-O2,-z,now,-z,noexecstack,--as-needed,--gc-sections,-z,relro")

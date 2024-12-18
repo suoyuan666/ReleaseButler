@@ -23,4 +23,4 @@ add_library(
     ${CURL_CPP_SRC}
 )
 
-target_link_libraries(curl_cpp CURL::libcurl)
+target_link_libraries(curl_cpp PRIVATE CURL::libcurl)

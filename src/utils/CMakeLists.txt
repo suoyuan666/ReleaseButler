@@ -15,7 +15,6 @@ set (
     RB_UTILS_SRC
     env.cpp
     confile.cpp
-    os-detect.cpp
 )
 
 add_library(
