@@ -1,0 +1,129 @@
+.TH "src/utils/confile.cpp" 3 "Version 1.0" "ReleaseButler" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/utils/confile.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'utils/confile\&.h'\fP
+.br
+\fR#include <sys/wait\&.h>\fP
+.br
+\fR#include <unistd\&.h>\fP
+.br
+\fR#include <filesystem>\fP
+.br
+\fR#include <fstream>\fP
+.br
+\fR#include <iostream>\fP
+.br
+\fR#include <optional>\fP
+.br
+\fR#include <sstream>\fP
+.br
+\fR#include <string>\fP
+.br
+\fR#include <string_view>\fP
+.br
+\fR#include 'core/pack_core\&.h'\fP
+.br
+\fR#include 'json\&.hpp'\fP
+.br
+\fR#include 'tlog\&.h'\fP
+.br
+\fR#include 'utils/env\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "auto \fBconf_modify\fP (nlohmann::json &json, std::string_view filename, const bool vmode) \-> bool"
+.br
+.ti -1c
+.RI "auto \fBrecord2confile\fP (std::string_view url, std::string_view name, std::string_view pack_name, std::string_view version, const bool vmode) \-> bool"
+.br
+.RI "Save the passed parameters to the specified file for storage\&. "
+.ti -1c
+.RI "auto \fBparse_confile\fP (std::string_view filename, const bool vmode) \-> bool"
+.br
+.RI "Parse the passed file name and start downloading and installing, etc\&. "
+.ti -1c
+.RI "auto \fBparse_confile_core\fP (std::string_view filename, const bool vmode) \-> bool"
+.br
+.RI "The core part of \fR\fBparse_confile()\fP\fP "
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "auto conf_modify (nlohmann::json & json, std::string_view filename, const bool vmode) \-> bool "
+
+.SS "auto parse_confile (std::string_view filename, bool vmode) \->  bool\fR [nodiscard]\fP"
+
+.PP
+Parse the passed file name and start downloading and installing, etc\&. Because it is necessary to realize the function of traversing all files in the folder, the specific download and installation functions are implemented in \fR\fBparse_confile_core()\fP\fP
+
+.PP
+\fBParameters\fP
+.RS 4
+\fI`filename`\fP File name to parse\&. If the file name is empty, iterate through all json files in the \fR~/\&.config/ReleaseButler/\fP folder 
+.br
+\fI`vmode`\fP Whether to output more information (for debugging purposes) 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Returns a bool indicating whether the function was executed correctly\&. 
+.RE
+.PP
+
+.SS "auto parse_confile_core (std::string_view filename, bool vmode) \->  bool\fR [nodiscard]\fP"
+
+.PP
+The core part of \fR\fBparse_confile()\fP\fP 
+.PP
+\fBParameters\fP
+.RS 4
+\fI`filename`\fP File name to parse 
+.br
+\fI`vmode`\fP Whether to output more information (for debugging purposes) 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Returns a bool indicating whether the function was executed correctly\&. 
+.RE
+.PP
+
+.SS "auto record2confile (std::string_view url, std::string_view name, std::string_view pack_name, std::string_view version, bool vmode) \->  bool\fR [nodiscard]\fP"
+
+.PP
+Save the passed parameters to the specified file for storage\&. 
+.PP
+\fBNote\fP
+.RS 4
+File name cannot be specified
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fI`url`\fP URL to store 
+.br
+\fI`name`\fP Name to store 
+.br
+\fI`pack_name`\fP Package name to store 
+.br
+\fI`version`\fP Version to store 
+.br
+\fI`vmode`\fP Whether to output more information (for debugging purposes) 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Returns a bool indicating whether the function was executed correctly\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ReleaseButler from the source code\&.

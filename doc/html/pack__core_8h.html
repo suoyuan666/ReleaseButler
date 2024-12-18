@@ -102,16 +102,17 @@ $(function(){initNavTree('pack__core_8h.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">pack_core.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &lt;string_view&gt;</code><br />
 </div>
 <p><a href="pack__core_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad0c0b6a472bb94654a23c2c52f8ea024" id="r_ad0c0b6a472bb94654a23c2c52f8ea024"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad0c0b6a472bb94654a23c2c52f8ea024">install</a> (std::string_view url, const std::string_view name, const std::string_view pack_name, bool vmode, bool install) -&gt; bool</td></tr>
-<tr class="memdesc:ad0c0b6a472bb94654a23c2c52f8ea024"><td class="mdescLeft">&#160;</td><td class="mdescRight">Programs for download and installation.  <br /></td></tr>
-<tr class="separator:ad0c0b6a472bb94654a23c2c52f8ea024"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2c16ebc8c38081a7ea25d9e45f263a8" id="r_ab2c16ebc8c38081a7ea25d9e45f263a8"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2c16ebc8c38081a7ea25d9e45f263a8">install</a> (std::string_view url, std::string_view name, std::string_view pack_name, std::optional&lt; std::string_view &gt; sha256_val, bool vmode, bool install) -&gt; bool</td></tr>
+<tr class="memdesc:ab2c16ebc8c38081a7ea25d9e45f263a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Programs for download and installation.  <br /></td></tr>
+<tr class="separator:ab2c16ebc8c38081a7ea25d9e45f263a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2ceaec1022665e4f0c02b57c3f69b5b" id="r_af2ceaec1022665e4f0c02b57c3f69b5b"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2ceaec1022665e4f0c02b57c3f69b5b">install_core</a> (std::string_view pack_name, bool vmode) -&gt; bool</td></tr>
 <tr class="memdesc:af2ceaec1022665e4f0c02b57c3f69b5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core functions that implement the installation functionality.  <br /></td></tr>
 <tr class="separator:af2ceaec1022665e4f0c02b57c3f69b5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,8 +121,8 @@ Functions</h2></td></tr>
 <tr class="separator:a38452952c37c035933219ad025000dc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ad0c0b6a472bb94654a23c2c52f8ea024" name="ad0c0b6a472bb94654a23c2c52f8ea024"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0c0b6a472bb94654a23c2c52f8ea024">&#9670;&#160;</a></span>install()</h2>
+<a id="ab2c16ebc8c38081a7ea25d9e45f263a8" name="ab2c16ebc8c38081a7ea25d9e45f263a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2c16ebc8c38081a7ea25d9e45f263a8">&#9670;&#160;</a></span>install()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -137,12 +138,17 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string_view</td>          <td class="paramname"><span class="paramname"><em>pack_name</em></span>, </td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>pack_name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; std::string_view &gt;</td>          <td class="paramname"><span class="paramname"><em>sha256_val</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -163,12 +169,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Programs for download and installation. </p>
-<p>But in fact <code><a class="el" href="#ad0c0b6a472bb94654a23c2c52f8ea024" title="Programs for download and installation.">install()</a></code> does not perform all of the functions involved in installation that are permitted by the software's operation. It's the parsing of the file that implements all of the features allowed for installation.</p>
+<p>But in fact <code><a class="el" href="#ab2c16ebc8c38081a7ea25d9e45f263a8" title="Programs for download and installation.">install()</a></code> does not perform all of the functions involved in installation that are permitted by the software's operation. It's the parsing of the file that implements all of the features allowed for installation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">`url`</td><td>The home page of the website where the program is hosted </td></tr>
     <tr><td class="paramname">`name`</td><td>Name of the software </td></tr>
     <tr><td class="paramname">`pack_name`</td><td>Name of the package to download, e.g. <code>fastfetch-linux-amd64.deb</code> </td></tr>
+    <tr><td class="paramname">`sha256_val`</td><td>SHA256 of the file to download. </td></tr>
     <tr><td class="paramname">`vmode`</td><td>Whether to output more information (for debugging purposes) </td></tr>
     <tr><td class="paramname">`install`</td><td>Whether to call the corresponding package manager to install after download </td></tr>
   </table>

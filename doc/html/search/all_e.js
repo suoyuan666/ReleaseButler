@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['to_20compile_0',['How to compile',['../index.html#autotoc_md13',1,'']]]
+  ['安装软件_3a_0',['安装软件:',['../index.html#autotoc_md5',1,'']]]
 ];

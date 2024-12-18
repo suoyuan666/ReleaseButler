@@ -15,6 +15,7 @@
  * @param `name` Name of the software
  * @param `pack_name` Name of the package to download, e.g.
  * `fastfetch-linux-amd64.deb`
+ * @param `sha256_val` SHA256 of the file to download.
  * @param `vmode` Whether to output more information (for debugging purposes)
  * @param `install` Whether to call the corresponding package manager to install
  * after download

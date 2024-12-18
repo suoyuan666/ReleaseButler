@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['linux_20distributions_0',['Supported Linux distributions',['../index.html#autotoc_md11',1,'']]],
-  ['log_2ecpp_1',['log.cpp',['../log_8cpp.html',1,'']]],
-  ['log_2eh_2',['log.h',['../log_8h.html',1,'']]]
+  ['setopt_0',['setopt',['../classcppcurl_1_1CPPCURL.html#a82dc48e7e8953eadd1d692480ae7ddc3',1,'cppcurl::CPPCURL']]],
+  ['store_5fass2file_1',['store_ass2file',['../classcppcurl_1_1CPPCURL.html#a5ebf6bf64045025f58a3a9733809b391',1,'cppcurl::CPPCURL']]]
 ];

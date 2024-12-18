@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['使用方法_0',['使用方法',['../md_README__ZH__CN.html#autotoc_md18',1,'']]]
+  ['调试模式_0',['调试模式',['../index.html#autotoc_md9',1,'']]]
 ];
